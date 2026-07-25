@@ -1,6 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
+import { CartModal } from "./Cart";
+import { useCart } from "@/lib/cart-store";
 import "./site-chrome.css";
 
 const INSTAGRAM_URL = "https://www.instagram.com/zaav_g_bali/";
@@ -19,7 +21,7 @@ const YoutubeIcon = () => (
 );
 
 const CartIcon = () => (
-  <svg viewBox="0 0 24 24">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="9" cy="21" r="1" />
     <circle cx="20" cy="21" r="1" />
     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
@@ -29,36 +31,50 @@ const CartIcon = () => (
 const NAV_ITEMS = [
   { to: "/", labels: { en: "Home", ru: "Главная", id: "Beranda" } },
   { to: "/collections/all", labels: { en: "Collections", ru: "Коллекции", id: "Koleksi" } },
-  { to: "/pages/size", labels: { en: "Size Guide", ru: "Таблица размеров", id: "Panduan Ukuran" } },
-  { to: "/pages/delivery", labels: { en: "Delivery & Shipping", ru: "Доставка", id: "Pengiriman" } },
-  { to: "/pages/payment", labels: { en: "Payment", ru: "Оплата", id: "Pembayaran" } },
-  { to: "/pages/cooperation", labels: { en: "Cooperation", ru: "Сотрудничество", id: "Kerjasama" } },
-  { to: "/pages/contact", labels: { en: "Contact", ru: "Контакты", id: "Kontak" } },
-  { to: "/pages/videos", labels: { en: "Films", ru: "Фильмы", id: "Film" } },
+  { to: "/size", labels: { en: "Size Guide", ru: "Таблица размеров", id: "Panduan Ukuran" } },
+  { to: "/delivery", labels: { en: "Delivery & Shipping", ru: "Доставка", id: "Pengiriman" } },
+  { to: "/paymentinfo", labels: { en: "Payment", ru: "Оплата", id: "Pembayaran" } },
+  { to: "/cooperation", labels: { en: "Cooperation", ru: "Сотрудничество", id: "Kerjasama" } },
+  { to: "/contact", labels: { en: "Contact", ru: "Контакты", id: "Kontak" } },
+  { to: "/videos", labels: { en: "Films", ru: "Фильмы", id: "Film" } },
 ];
 
 const LANGS = ["en", "ru", "id"];
 
 export function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [cartCount] = useState(0);
+  const { items, isCartOpen, setIsOpen } = useCart();
   const { lang, setLang } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  // Animation trigger state when cart items change quantity/length
+  const [animateBadge, setAnimateBadge] = useState(false);
+  const totalCount = items.reduce((acc, item) => acc + item.quantity, 0);
+
   useEffect(() => {
-    document.body.style.overflow = sidebarOpen ? "hidden" : "";
+    if (totalCount === 0) return;
+    setAnimateBadge(true);
+    const timer = setTimeout(() => setAnimateBadge(false), 600);
+    return () => clearTimeout(timer);
+  }, [totalCount]);
+
+  useEffect(() => {
+    document.body.style.overflow = sidebarOpen || isCartOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [sidebarOpen]);
+  }, [sidebarOpen, isCartOpen]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSidebarOpen(false);
+      if (e.key === "Escape") {
+        setSidebarOpen(false);
+        setIsOpen(false);
+      }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, []);
+  }, [setIsOpen]);
 
   return (
     <>
@@ -109,12 +125,29 @@ export function Navbar() {
               <YoutubeIcon />
             </a>
           </div>
-          <a href="/cart" className="zav-navbar__cart cursor-pointer" aria-label="Cart">
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsOpen(true);
+            }}
+            className="zav-navbar__cart cursor-pointer relative"
+            aria-label="Cart"
+          >
             <CartIcon />
-            <span className="zav-navbar__cart-count">{cartCount}</span>
+            <span
+              className={`zav-navbar__cart-count transition-transform duration-300 ${
+                animateBadge ? "scale-125 text-emerald-600 font-bold" : ""
+              }`}
+            >
+              {totalCount}
+            </span>
           </a>
         </div>
       </nav>
+
+      {/* CART MODAL SEPARATE COMPONENT */}
+      <CartModal isOpen={isCartOpen} onClose={() => setIsOpen(false)} lang={lang} />
 
       {/* SIDEBAR */}
       <div

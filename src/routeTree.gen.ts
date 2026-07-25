@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as DeliveryRouteImport } from './routes/delivery'
 import { Route as PaymentinfoRouteImport } from './routes/paymentinfo'
+import { Route as SizeRouteImport } from './routes/size'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCatalogRouteImport } from './routes/admin.catalog'
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
@@ -31,9 +33,19 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DeliveryRoute = DeliveryRouteImport.update({
+  id: '/delivery',
+  path: '/delivery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PaymentinfoRoute = PaymentinfoRouteImport.update({
   id: '/paymentinfo',
   path: '/paymentinfo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SizeRoute = SizeRouteImport.update({
+  id: '/size',
+  path: '/size',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -80,7 +92,9 @@ const AdminItemsNewRoute = AdminItemsNewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
+  '/size': typeof SizeRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
@@ -92,7 +106,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
+  '/size': typeof SizeRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
@@ -106,7 +122,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
+  '/size': typeof SizeRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
@@ -121,7 +139,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/delivery'
     | '/paymentinfo'
+    | '/size'
     | '/admin/catalog'
     | '/admin/categories'
     | '/api/uploadthing'
@@ -133,7 +153,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/delivery'
     | '/paymentinfo'
+    | '/size'
     | '/admin/catalog'
     | '/admin/categories'
     | '/api/uploadthing'
@@ -146,7 +168,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/delivery'
     | '/paymentinfo'
+    | '/size'
     | '/admin/catalog'
     | '/admin/categories'
     | '/api/uploadthing'
@@ -160,7 +184,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  DeliveryRoute: typeof DeliveryRoute
   PaymentinfoRoute: typeof PaymentinfoRoute
+  SizeRoute: typeof SizeRoute
   ApiUploadthingRoute: typeof ApiUploadthingRoute
   CollectionsSlugRoute: typeof CollectionsSlugRoute
   CollectionsIndexRoute: typeof CollectionsIndexRoute
@@ -182,11 +208,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/delivery': {
+      id: '/delivery'
+      path: '/delivery'
+      fullPath: '/delivery'
+      preLoaderRoute: typeof DeliveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/paymentinfo': {
       id: '/paymentinfo'
       path: '/paymentinfo'
       fullPath: '/paymentinfo'
       preLoaderRoute: typeof PaymentinfoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/size': {
+      id: '/size'
+      path: '/size'
+      fullPath: '/size'
+      preLoaderRoute: typeof SizeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -269,7 +309,9 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  DeliveryRoute: DeliveryRoute,
   PaymentinfoRoute: PaymentinfoRoute,
+  SizeRoute: SizeRoute,
   ApiUploadthingRoute: ApiUploadthingRoute,
   CollectionsSlugRoute: CollectionsSlugRoute,
   CollectionsIndexRoute: CollectionsIndexRoute,

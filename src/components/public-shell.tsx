@@ -21,38 +21,7 @@ export function PublicShell({
 
   return (
     <div className={cn("min-h-screen", light ? "bg-white text-black" : "bg-background")}>
-      {/* <header
-        className={cn(
-          "sticky top-0 z-30 border-b backdrop-blur",
-          light ? "border-black/10 bg-white/85" : "bg-background/85",
-        )}
-      >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
-          <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
-            <Sparkles className={cn("h-5 w-5", light ? "text-black" : "text-accent")} />
-            {t("app.title")}
-          </Link>
-          <nav className="flex items-center gap-1">
-            <NavLink to="/" active={pathname === "/"} light={light}>
-              {lang === "ru" ? "Главная" : "Home"}
-            </NavLink>
-            <NavLink
-              to="/collections"
-              active={pathname.startsWith("/collections")}
-              light={light}
-            >
-              {t("nav.catalog")}
-            </NavLink>
-            <NavLink to="/admin" active={pathname.startsWith("/admin")} light={light}>
-              {t("nav.admin")}
-            </NavLink>
-            <Button variant="ghost" size="sm" onClick={() => setLang(lang === "ru" ? "en" : "ru")}>
-              <Languages className="mr-1.5 h-4 w-4" />
-              {t("lang.switch")}
-            </Button>
-          </nav>
-        </div>
-      </header> */}
+     
       <Navbar />
   
       <FloatingToolbar />
