@@ -36,11 +36,11 @@ export function Footer() {
   
   const links: { href: string; label: string }[] = [
     { href: "/", label: t.home },
-    { href: "/collections/all", label: t.catalog },
-    { href: "/pages/size", label: t.size },
-    { href: "/pages/terms-of-service", label: t.terms },
-    { href: "/pages/refund-policy", label: t.refund },
-    { href: "/pages/privacy-policy", label: t.privacy },
+    { href: "/collections", label: t.catalog },
+    { href: "/size", label: t.size },
+    { href: "/terms-of-service", label: t.terms },
+    { href: "/refund-policy", label: t.refund },
+    { href: "/privacy-policy", label: t.privacy },
   ];
   
   return (
