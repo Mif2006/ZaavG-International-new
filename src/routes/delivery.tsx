@@ -238,7 +238,7 @@ function DeliveryPage() {
     <PublicShell>
       <div className="relative font-sans text-neutral-900 antialiased bg-[#faf8f5] min-h-screen selection:bg-neutral-900 selection:text-white">
         {/* Immersive Editorial Hero */}
-        <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center bg-[url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1327.jpg?v=1776287860')] bg-cover bg-center bg-fixed overflow-hidden">
+        <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center bg-[url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1327.jpg?v=1776287860')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
           {/* Rich multi-stop gradient overlay for depth and elegance */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
           
@@ -444,19 +444,19 @@ function DeliveryPage() {
 
         {/* Original Action Buttons Block */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 py-12 px-6 sm:px-10 bg-white">
-  <Link
-    to="/collections"
-    className="inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[220px] px-8 py-3.5 sm:px-10 sm:py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
-  >
-    {t.deliveryBtnCatalog}
-  </Link>
-  <Link
-    to="/"
-    className="inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[220px] px-8 py-3.5 sm:px-10 sm:py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 bg-transparent text-[#1a1a1a] border-[1.5px] border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:-translate-y-0.5"
-  >
-    {t.deliveryBtnHome}
-  </Link>
-</div>
+          <Link
+            to="/collections"
+            className="inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[220px] px-8 py-3.5 sm:px-10 sm:py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
+          >
+            {t.deliveryBtnCatalog}
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[220px] px-8 py-3.5 sm:px-10 sm:py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 bg-transparent text-[#1a1a1a] border-[1.5px] border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:-translate-y-0.5"
+          >
+            {t.deliveryBtnHome}
+          </Link>
+        </div>
       </div>
     </PublicShell>
   );

@@ -8,6 +8,8 @@ import { Faq } from "@/components/Faq";
 import { ArtSpace } from "@/components/ArtSpace";
 import { Features } from "@/components/Features";
 import { FloatingToolbar } from "@/components/FloatingToolbar";
+import { Bestsellers } from "@/components/BestSellers";
+import { Activity } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,6 +51,13 @@ function LandingPage() {
       </section>
       <section className="bg-white">
       <VideoSection />
+      
+      </section>
+
+      <section className="bg-white">
+        <Activity mode="visible">
+      <Bestsellers />
+      </Activity>
       
       </section>
       <section className="bg-white">
