@@ -11,9 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CooperationRouteImport } from './routes/cooperation'
 import { Route as DeliveryRouteImport } from './routes/delivery'
 import { Route as PaymentinfoRouteImport } from './routes/paymentinfo'
 import { Route as SizeRouteImport } from './routes/size'
+import { Route as VideosRouteImport } from './routes/videos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCatalogRouteImport } from './routes/admin.catalog'
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
@@ -33,6 +36,16 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CooperationRoute = CooperationRouteImport.update({
+  id: '/cooperation',
+  path: '/cooperation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DeliveryRoute = DeliveryRouteImport.update({
   id: '/delivery',
   path: '/delivery',
@@ -46,6 +59,11 @@ const PaymentinfoRoute = PaymentinfoRouteImport.update({
 const SizeRoute = SizeRouteImport.update({
   id: '/size',
   path: '/size',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VideosRoute = VideosRouteImport.update({
+  id: '/videos',
+  path: '/videos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -92,9 +110,12 @@ const AdminItemsNewRoute = AdminItemsNewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
   '/size': typeof SizeRoute
+  '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
@@ -106,9 +127,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
   '/size': typeof SizeRoute
+  '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
@@ -122,9 +146,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
   '/size': typeof SizeRoute
+  '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
@@ -139,9 +166,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/contact'
+    | '/cooperation'
     | '/delivery'
     | '/paymentinfo'
     | '/size'
+    | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
     | '/api/uploadthing'
@@ -153,9 +183,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/contact'
+    | '/cooperation'
     | '/delivery'
     | '/paymentinfo'
     | '/size'
+    | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
     | '/api/uploadthing'
@@ -168,9 +201,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/contact'
+    | '/cooperation'
     | '/delivery'
     | '/paymentinfo'
     | '/size'
+    | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
     | '/api/uploadthing'
@@ -184,9 +220,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  CooperationRoute: typeof CooperationRoute
   DeliveryRoute: typeof DeliveryRoute
   PaymentinfoRoute: typeof PaymentinfoRoute
   SizeRoute: typeof SizeRoute
+  VideosRoute: typeof VideosRoute
   ApiUploadthingRoute: typeof ApiUploadthingRoute
   CollectionsSlugRoute: typeof CollectionsSlugRoute
   CollectionsIndexRoute: typeof CollectionsIndexRoute
@@ -208,6 +247,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cooperation': {
+      id: '/cooperation'
+      path: '/cooperation'
+      fullPath: '/cooperation'
+      preLoaderRoute: typeof CooperationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/delivery': {
       id: '/delivery'
       path: '/delivery'
@@ -227,6 +280,13 @@ declare module '@tanstack/react-router' {
       path: '/size'
       fullPath: '/size'
       preLoaderRoute: typeof SizeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/videos': {
+      id: '/videos'
+      path: '/videos'
+      fullPath: '/videos'
+      preLoaderRoute: typeof VideosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -309,9 +369,12 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  ContactRoute: ContactRoute,
+  CooperationRoute: CooperationRoute,
   DeliveryRoute: DeliveryRoute,
   PaymentinfoRoute: PaymentinfoRoute,
   SizeRoute: SizeRoute,
+  VideosRoute: VideosRoute,
   ApiUploadthingRoute: ApiUploadthingRoute,
   CollectionsSlugRoute: CollectionsSlugRoute,
   CollectionsIndexRoute: CollectionsIndexRoute,

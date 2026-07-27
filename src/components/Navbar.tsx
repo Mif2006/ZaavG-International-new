@@ -34,7 +34,7 @@ const NAV_ITEMS = [
   { to: "/size", labels: { en: "Size Guide", ru: "Таблица размеров", id: "Panduan Ukuran" } },
   { to: "/delivery", labels: { en: "Delivery & Shipping", ru: "Доставка", id: "Pengiriman" } },
   { to: "/paymentinfo", labels: { en: "Payment", ru: "Оплата", id: "Pembayaran" } },
-  { to: "/cooperation", labels: { en: "Cooperation", ru: "Сотрудничество", id: "Kerjasama" } },
+  // { to: "/cooperation", labels: { en: "Cooperation", ru: "Сотрудничество", id: "Kerjasama" } },
   { to: "/contact", labels: { en: "Contact", ru: "Контакты", id: "Kontak" } },
   { to: "/videos", labels: { en: "Films", ru: "Фильмы", id: "Film" } },
 ];
