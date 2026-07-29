@@ -15,7 +15,10 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CooperationRouteImport } from './routes/cooperation'
 import { Route as DeliveryRouteImport } from './routes/delivery'
 import { Route as PaymentinfoRouteImport } from './routes/paymentinfo'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as SizeRouteImport } from './routes/size'
+import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as VideosRouteImport } from './routes/videos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCatalogRouteImport } from './routes/admin.catalog'
@@ -56,9 +59,24 @@ const PaymentinfoRoute = PaymentinfoRouteImport.update({
   path: '/paymentinfo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundPolicyRoute = RefundPolicyRouteImport.update({
+  id: '/refund-policy',
+  path: '/refund-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SizeRoute = SizeRouteImport.update({
   id: '/size',
   path: '/size',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VideosRoute = VideosRouteImport.update({
@@ -114,7 +132,10 @@ export interface FileRoutesByFullPath {
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/size': typeof SizeRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -131,7 +152,10 @@ export interface FileRoutesByTo {
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/size': typeof SizeRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -150,7 +174,10 @@ export interface FileRoutesById {
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
   '/paymentinfo': typeof PaymentinfoRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/size': typeof SizeRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
@@ -170,7 +197,10 @@ export interface FileRouteTypes {
     | '/cooperation'
     | '/delivery'
     | '/paymentinfo'
+    | '/privacy-policy'
+    | '/refund-policy'
     | '/size'
+    | '/terms-of-service'
     | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
@@ -187,7 +217,10 @@ export interface FileRouteTypes {
     | '/cooperation'
     | '/delivery'
     | '/paymentinfo'
+    | '/privacy-policy'
+    | '/refund-policy'
     | '/size'
+    | '/terms-of-service'
     | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
@@ -205,7 +238,10 @@ export interface FileRouteTypes {
     | '/cooperation'
     | '/delivery'
     | '/paymentinfo'
+    | '/privacy-policy'
+    | '/refund-policy'
     | '/size'
+    | '/terms-of-service'
     | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
@@ -224,7 +260,10 @@ export interface RootRouteChildren {
   CooperationRoute: typeof CooperationRoute
   DeliveryRoute: typeof DeliveryRoute
   PaymentinfoRoute: typeof PaymentinfoRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  RefundPolicyRoute: typeof RefundPolicyRoute
   SizeRoute: typeof SizeRoute
+  TermsOfServiceRoute: typeof TermsOfServiceRoute
   VideosRoute: typeof VideosRoute
   ApiUploadthingRoute: typeof ApiUploadthingRoute
   CollectionsSlugRoute: typeof CollectionsSlugRoute
@@ -275,11 +314,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PaymentinfoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund-policy': {
+      id: '/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof RefundPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/size': {
       id: '/size'
       path: '/size'
       fullPath: '/size'
       preLoaderRoute: typeof SizeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-service': {
+      id: '/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/videos': {
@@ -373,7 +433,10 @@ const rootRouteChildren: RootRouteChildren = {
   CooperationRoute: CooperationRoute,
   DeliveryRoute: DeliveryRoute,
   PaymentinfoRoute: PaymentinfoRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  RefundPolicyRoute: RefundPolicyRoute,
   SizeRoute: SizeRoute,
+  TermsOfServiceRoute: TermsOfServiceRoute,
   VideosRoute: VideosRoute,
   ApiUploadthingRoute: ApiUploadthingRoute,
   CollectionsSlugRoute: CollectionsSlugRoute,

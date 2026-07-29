@@ -1,0 +1,837 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  /* ─── AGGRESSIVE FULL-BLEED OVERRIDES ─── */
+  .terms-fullbleed {
+    position: relative;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #1a1a1a;
+    line-height: 1.6;
+    overflow-x: hidden !important;
+    background: #ffffff;
+    min-height: 100vh;
+  }
+
+  /* Target common Shopify page containers */
+  .template-page .main-content,
+  .template-page .page-width,
+  .template-page .page-container,
+  .template-page .shopify-section,
+  .page-width,
+  .container,
+  .wrapper,
+  .content,
+  .main-content {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .terms-page *, .terms-page *::before, .terms-page *::after {
+    box-sizing: border-box !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ─── HERO SECTION ─── */
+  .terms-hero {
+    position: relative;
+    height: 60vh;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1010.jpg?v=1776287860');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+  }
+
+  .terms-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 20, 15, 0.75);
+    z-index: 1;
+  }
+
+  .terms-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+  }
+
+  .terms-hero__title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: 40px;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    transition: font-size 0.3s ease;
+  }
+
+  /* ✨ RUSSIAN TITLE SIZE ADJUSTMENT */
+  .terms-hero__title--ru {
+    font-size: clamp(2rem, 5vw, 3.6rem) !important;
+  }
+
+  .terms-hero__scroll {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: bounce 2s infinite;
+    margin: 30px auto 0;
+  }
+
+  .terms-hero__scroll:hover {
+    border-color: #ffffff;
+    transform: translateY(4px);
+  }
+
+  .terms-hero__scroll svg {
+    width: 20px;
+    height: 20px;
+    stroke: #ffffff;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(10px); }
+    60% { transform: translateY(5px); }
+  }
+
+  /* ─── CONTENT SECTIONS ─── */
+  .terms-content {
+    padding: 100px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .terms-section {
+    margin-bottom: 50px;
+  }
+
+  .terms-section__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .terms-section__text {
+    font-size: 1.05rem;
+    color: #555555;
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  .terms-section__text strong {
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .terms-section__list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+
+  .terms-section__list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 1rem;
+    color: #555555;
+    line-height: 1.7;
+  }
+
+  .terms-section__list li::before {
+    content: '•';
+    position: absolute;
+    left: 8px;
+    color: #1a1a1a;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .terms-section__highlight {
+    background: #f9f9f9;
+    padding: 24px;
+    border-radius: 12px;
+    margin: 24px 0;
+  }
+
+  .terms-section__highlight .terms-section__text:last-child {
+    margin-bottom: 0;
+  }
+
+  .terms-section__contact {
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .terms-section__contact a {
+    color: #008060;
+    text-decoration: none;
+  }
+
+  .terms-section__contact a:hover {
+    text-decoration: underline;
+  }
+
+  .terms-updated {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 30px;
+    font-style: italic;
+  }
+
+  /* ─── BUTTONS SECTION ─── */
+  .terms-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 60px 40px;
+    background: #ffffff;
+  }
+
+  .terms-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    min-width: 220px;
+  }
+
+  .terms-btn--primary {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .terms-btn--primary:hover {
+    background: #0f0f0f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .terms-btn--secondary {
+    background: transparent;
+    color: #1a1a1a;
+    border: 1.5px solid #1a1a1a;
+  }
+
+  .terms-btn--secondary:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1024px) {
+    .terms-content {
+      padding: 80px 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .terms-hero {
+      min-height: 350px;
+      background-attachment: scroll;
+    }
+
+    .terms-hero__title {
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin-bottom: 30px;
+    }
+
+    /* ✨ RUSSIAN MOBILE TITLE SIZE */
+    .terms-hero__title--ru {
+      font-size: clamp(1.6rem, 5vw, 2.4rem) !important;
+    }
+
+    .terms-content {
+      padding: 60px 24px;
+    }
+
+    .terms-section__title {
+      font-size: 1.3rem;
+    }
+
+    .terms-section__text {
+      font-size: 1rem;
+    }
+
+    .terms-section__list li {
+      font-size: 0.95rem;
+      padding-left: 20px;
+    }
+
+    .terms-buttons {
+      flex-direction: column;
+      gap: 16px;
+      padding: 40px 24px;
+    }
+
+    .terms-btn {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .terms-hero {
+      min-height: 300px;
+    }
+
+    .terms-content {
+      padding: 50px 20px;
+    }
+
+    .terms-section__title {
+      font-size: 1.2rem;
+    }
+
+    .terms-section__text {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<div class="terms-fullbleed">
+  <!-- Hero Section -->
+  <section class="terms-hero">
+    <div class="terms-hero__overlay"></div>
+    <div class="terms-hero__content">
+      <h1 class="terms-hero__title" data-translate="termsTitle">TERMS OF SERVICE</h1>
+      <div class="terms-hero__scroll" onclick="document.getElementById('termsContent').scrollIntoView({behavior: 'smooth'})">
+        <svg viewbox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <div class="terms-content" id="termsContent">
+    <p class="terms-updated" data-translate="termsUpdated">Last updated: May 2026</p>
+    
+    <div class="terms-section">
+      <p class="terms-section__text" data-translate="termsIntro">
+        Welcome to ZAAV G.<br>
+        These Terms of Service govern your use of our website and services. By accessing our website or placing an order, you agree to these terms.<br>
+        Please read them carefully before using the site.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="generalTitle">1. General Information</h2>
+      <p class="terms-section__text" data-translate="generalText1">
+        ZAAV G is an independent jewelry brand creating handcrafted jewelry inspired by Bali, art, and personal meaning.
+      </p>
+      <p class="terms-section__text" data-translate="generalText2">
+        By using this website, you confirm that you are at least 18 years old or have permission from a parent or legal guardian.
+      </p>
+      <p class="terms-section__text" data-translate="generalText3">
+        We reserve the right to update or modify these Terms at any time without prior notice.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="productsTitle">2. Products &amp; Handmade Nature</h2>
+      <p class="terms-section__text" data-translate="productsText1">
+        All ZAAV G jewelry is handcrafted.
+      </p>
+      <p class="terms-section__text" data-translate="productsText2">
+        Because of the artisanal nature of our work:
+      </p>
+      <ul class="terms-section__list">
+        <li data-translate="productVar1">Slight variations in texture, stone color, shape, or finish may occur</li>
+        <li data-translate="productVar2">Natural stones may contain unique inclusions and characteristics</li>
+        <li data-translate="productVar3">Handmade details are considered part of the design and individuality of each piece</li>
+      </ul>
+      <p class="terms-section__text" data-translate="productsText3">
+        These variations are not considered defects.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="pricingTitle">3. Pricing &amp; Currency</h2>
+      <ul class="terms-section__list">
+        <li data-translate="pricingText1">All prices displayed on the website are listed in the selected currency unless otherwise stated</li>
+        <li data-translate="pricingText2">Prices may change at any time without notice</li>
+        <li data-translate="pricingText3">Import duties, taxes, customs fees, or local charges are the responsibility of the customer</li>
+      </ul>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="ordersTitle">4. Orders</h2>
+      <p class="terms-section__text" data-translate="ordersText1">
+        After placing an order, you will receive an order confirmation by email.
+      </p>
+      <p class="terms-section__text" data-translate="ordersText2">
+        ZAAV G reserves the right to:
+      </p>
+      <ul class="terms-section__list">
+        <li data-translate="ordersRight1">Refuse or cancel orders</li>
+        <li data-translate="ordersRight2">Limit quantities</li>
+        <li data-translate="ordersRight3">Request additional verification if necessary</li>
+      </ul>
+      <p class="terms-section__text" data-translate="ordersText3">
+        If an order is canceled after payment, the amount paid will be refunded through the original payment method.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="paymentTitle">5. Payment</h2>
+      <ul class="terms-section__list">
+        <li data-translate="paymentText1">Payments are securely processed through trusted third-party payment providers</li>
+        <li data-translate="paymentText2">ZAAV G does not store complete payment card information</li>
+      </ul>
+      <p class="terms-section__text" data-translate="paymentText3">
+        By submitting payment information, you confirm that:
+      </p>
+      <ul class="terms-section__list">
+        <li data-translate="paymentConfirm1">You are authorized to use the payment method</li>
+        <li data-translate="paymentConfirm2">The provided information is accurate</li>
+      </ul>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="shippingTitle">6. Shipping</h2>
+      <p class="terms-section__text" data-translate="shippingText1">
+        We ship worldwide.
+      </p>
+      <p class="terms-section__text" data-translate="shippingText2">
+        Shipping times are estimated and may vary depending on:
+      </p>
+      <ul class="terms-section__list">
+        <li data-translate="shippingVar1">Destination country</li>
+        <li data-translate="shippingVar2">Customs processing</li>
+        <li data-translate="shippingVar3">Local delivery services</li>
+        <li data-translate="shippingVar4">Holidays or force majeure circumstances</li>
+      </ul>
+      <p class="terms-section__text" data-translate="shippingText3">
+        ZAAV G is not responsible for delays caused by customs, shipping carriers, or circumstances beyond our control.
+      </p>
+      <p class="terms-section__text" data-translate="shippingText4">
+        Customers are responsible for providing accurate shipping information.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="returnsTitle">7. Returns &amp; Exchanges</h2>
+      <p class="terms-section__text" data-translate="returnsText1">
+        Because many ZAAV G pieces are handmade, limited edition, or made to order, all return and exchange requests are reviewed individually.
+      </p>
+      <p class="terms-section__text" data-translate="returnsText2">
+        We do not accept returns or exchanges for:
+      </p>
+      <ul class="terms-section__list">
+        <li data-translate="returnsExclude1">Custom-made items</li>
+        <li data-translate="returnsExclude2">Personalized pieces</li>
+        <li data-translate="returnsExclude3">Items damaged through improper use or external impact</li>
+      </ul>
+      <p class="terms-section__text" data-translate="returnsText3">
+        If your item arrives damaged or defective, please contact us within 48 hours of delivery with photos and order details.
+      </p>
+      <p class="terms-section__text" data-translate="returnsText4">
+        Approved refunds will be issued through the original payment method.<br>
+        Shipping costs, customs fees, and taxes are non-refundable unless required by law.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="careTitle">8. Jewelry Care</h2>
+      <p class="terms-section__text" data-translate="careText1">
+        ZAAV G jewelry should be handled with care.
+      </p>
+      <p class="terms-section__text" data-translate="careText2">
+        To preserve the beauty of your jewelry:
+      </p>
+      <ul class="terms-section__list">
+        <li data-translate="careTip1">Avoid contact with water, perfumes, chemicals, and cosmetics</li>
+        <li data-translate="careTip2">Remove jewelry before sports, swimming, or sleeping</li>
+        <li data-translate="careTip3">Store pieces separately in a dry place</li>
+      </ul>
+      <p class="terms-section__text" data-translate="careText3">
+        Natural wear over time is not considered a manufacturing defect.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="ipTitle">9. Intellectual Property</h2>
+      <p class="terms-section__text" data-translate="ipText1">
+        All content on this website, including:
+      </p>
+      <ul class="terms-section__list">
+        <li data-translate="ipItem1">Photographs</li>
+        <li data-translate="ipItem2">Videos</li>
+        <li data-translate="ipItem3">Logos</li>
+        <li data-translate="ipItem4">Jewelry designs</li>
+        <li data-translate="ipItem5">Texts and branding</li>
+      </ul>
+      <p class="terms-section__text" data-translate="ipText2">
+        Belongs to ZAAV G and may not be copied, reproduced, distributed, or used without written permission.<br>
+        Unauthorized use of our content or designs is prohibited.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="liabilityTitle">10. Limitation of Liability</h2>
+      <p class="terms-section__text" data-translate="liabilityText1">
+        ZAAV G shall not be liable for:
+      </p>
+      <ul class="terms-section__list">
+        <li data-translate="liabilityExclude1">Indirect or incidental damages</li>
+        <li data-translate="liabilityExclude2">Delays beyond our control</li>
+        <li data-translate="liabilityExclude3">Allergic reactions caused by individual sensitivities</li>
+        <li data-translate="liabilityExclude4">Misuse or improper handling of products</li>
+      </ul>
+      <p class="terms-section__text" data-translate="liabilityText2">
+        Our maximum liability shall not exceed the amount paid for the purchased product.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="privacyTitle">11. Privacy</h2>
+      <p class="terms-section__text" data-translate="privacyText">
+        Your use of this website is also governed by our <a href="/pages/privacy-policy" style="color:#008060;text-decoration:none">Privacy Policy</a>.
+      </p>
+    </div>
+
+    <div class="terms-section">
+      <h2 class="terms-section__title" data-translate="lawTitle">12. Governing Law</h2>
+      <p class="terms-section__text" data-translate="lawText">
+        These Terms shall be governed and interpreted in accordance with applicable international commercial practices and local laws where required.
+      </p>
+    </div>
+
+    <div class="terms-section terms-section__highlight">
+      <h2 class="terms-section__title" data-translate="contactTitle">13. Contact Information</h2>
+      <p class="terms-section__text" data-translate="contactIntro">
+        For any questions regarding these Terms, please contact us:
+      </p>
+      <p class="terms-section__text terms-section__contact">
+        ZAAV G<br>
+        📩 <a href="mailto:zaavg.bali@gmail.com">zaavg.bali@gmail.com</a><br>
+        🌐 <a href="https://zaavgbali.com" target="_blank">zaavgbali.com</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="terms-buttons">
+    <a href="/collections/all" class="terms-btn terms-btn--primary" data-translate="termsBtnCatalog">View Collections</a>
+    <a href="/" class="terms-btn terms-btn--secondary" data-translate="termsBtnHome">Home</a>
+  </div>
+</div>
+
+<script>
+(function() {
+  const translations = {
+    ru: {
+      termsTitle: 'УСЛОВИЯ ОБСЛУЖИВАНИЯ',
+      termsUpdated: 'Последнее обновление: май 2026',
+      termsIntro: 'Добро пожаловать в ZAAV G.\nЭти Условия обслуживания регулируют использование нашего веб-сайта и услуг. Получая доступ к нашему веб-сайту или оформляя заказ, вы соглашаетесь с этими условиями.\nПожалуйста, внимательно прочитайте их перед использованием сайта.',
+      generalTitle: '1. Общая информация',
+      generalText1: 'ZAAV G — независимый ювелирный бренд, создающий украшения ручной работы, вдохновленные Бали, искусством и личным смыслом.',
+      generalText2: 'Используя этот веб-сайт, вы подтверждаете, что вам исполнилось 18 лет или у вас есть разрешение от родителя или законного опекуна.',
+      generalText3: 'Мы оставляем за собой право обновлять или изменять эти Условия в любое время без предварительного уведомления.',
+      productsTitle: '2. Продукция и ручная работа',
+      productsText1: 'Все украшения ZAAV G изготовлены вручную.',
+      productsText2: 'Из-за ремесленного характера нашей работы:',
+      productVar1: 'Возможны небольшие различия в текстуре, цвете камня, форме или отделке',
+      productVar2: 'Натуральные камни могут содержать уникальные включения и характеристики',
+      productVar3: 'Детали ручной работы считаются частью дизайна и индивидуальности каждого изделия',
+      productsText3: 'Эти вариации не считаются дефектами.',
+      pricingTitle: '3. Цены и валюта',
+      pricingText1: 'Все цены, указанные на веб-сайте, указаны в выбранной валюте, если не указано иное',
+      pricingText2: 'Цены могут измениться в любое время без уведомления',
+      pricingText3: 'Импортные пошлины, налоги, таможенные сборы или местные сборы являются ответственностью клиента',
+      ordersTitle: '4. Заказы',
+      ordersText1: 'После оформления заказа вы получите подтверждение заказа по электронной почте.',
+      ordersText2: 'ZAAV G оставляет за собой право:',
+      ordersRight1: 'Отказать или отменить заказы',
+      ordersRight2: 'Ограничить количество',
+      ordersRight3: 'Запросить дополнительную проверку при необходимости',
+      ordersText3: 'Если заказ отменен после оплаты, уплаченная сумма будет возвращена через исходный способ оплаты.',
+      paymentTitle: '5. Оплата',
+      paymentText1: 'Платежи безопасно обрабатываются через надежных сторонних провайдеров',
+      paymentText2: 'ZAAV G не хранит полную информацию о платежных картах',
+      paymentText3: 'Предоставляя платежную информацию, вы подтверждаете, что:',
+      paymentConfirm1: 'Вы уполномочены использовать способ оплаты',
+      paymentConfirm2: 'Предоставленная информация точна',
+      shippingTitle: '6. Доставка',
+      shippingText1: 'Мы осуществляем доставку по всему миру.',
+      shippingText2: 'Сроки доставки являются ориентировочными и могут варьироваться в зависимости от:',
+      shippingVar1: 'Страны назначения',
+      shippingVar2: 'Таможенной обработки',
+      shippingVar3: 'Местных служб доставки',
+      shippingVar4: 'Праздников или обстоятельств непреодолимой силы',
+      shippingText3: 'ZAAV G не несет ответственности за задержки, вызванные таможней, транспортными компаниями или обстоятельствами, не зависящими от нас.',
+      shippingText4: 'Клиенты несут ответственность за предоставление точной информации о доставке.',
+      returnsTitle: '7. Возврат и обмен',
+      returnsText1: 'Поскольку многие изделия ZAAV G изготовлены вручную, являются лимитированными или изготавливаются на заказ, все запросы на возврат и обмен рассматриваются индивидуально.',
+      returnsText2: 'Мы не принимаем возврат или обмен для:',
+      returnsExclude1: 'Изделий, изготовленных на заказ',
+      returnsExclude2: 'Персонализированных изделий',
+      returnsExclude3: 'Изделий, поврежденных в результате неправильного использования или внешнего воздействия',
+      returnsText3: 'Если ваш товар прибыл поврежденным или дефектным, пожалуйста, свяжитесь с нами в течение 48 часов после доставки, предоставив фотографии и детали заказа.',
+      returnsText4: 'Одобренные возвраты будут осуществлены через исходный способ оплаты.\nСтоимость доставки, таможенные сборы и налоги не подлежат возврату, если это не требуется по закону.',
+      careTitle: '8. Уход за украшениями',
+      careText1: 'К украшениям ZAAV G следует относиться бережно.',
+      careText2: 'Чтобы сохранить красоту ваших украшений:',
+      careTip1: 'Избегайте контакта с водой, духами, химическими веществами и косметикой',
+      careTip2: 'Снимайте украшения перед занятиями спортом, плаванием или сном',
+      careTip3: 'Храните изделия отдельно в сухом месте',
+      careText3: 'Естественный износ со временем не считается производственным дефектом.',
+      ipTitle: '9. Интеллектуальная собственность',
+      ipText1: 'Весь контент на этом веб-сайте, включая:',
+      ipItem1: 'Фотографии',
+      ipItem2: 'Видео',
+      ipItem3: 'Логотипы',
+      ipItem4: 'Дизайны украшений',
+      ipItem5: 'Тексты и брендинг',
+      ipText2: 'Принадлежит ZAAV G и не может быть скопирован, воспроизведен, распространен или использован без письменного разрешения.\nНесанкционированное использование нашего контента или дизайнов запрещено.',
+      liabilityTitle: '10. Ограничение ответственности',
+      liabilityText1: 'ZAAV G не несет ответственности за:',
+      liabilityExclude1: 'Косвенный или случайный ущерб',
+      liabilityExclude2: 'Задержки, не зависящие от нас',
+      liabilityExclude3: 'Аллергические реакции, вызванные индивидуальной чувствительностью',
+      liabilityExclude4: 'Неправильное использование или обращение с продуктами',
+      liabilityText2: 'Наша максимальная ответственность не превышает сумму, уплаченную за приобретенный продукт.',
+      privacyTitle: '11. Конфиденциальность',
+      privacyText: 'Использование вами этого веб-сайта также регулируется нашей <a href="/pages/privacy-policy" style="color:#008060;text-decoration:none">Политикой конфиденциальности</a>.',
+      lawTitle: '12. Применимое право',
+      lawText: 'Эти Условия регулируются и толкуются в соответствии с применимой международной коммерческой практикой и местными законами, где это требуется.',
+      contactTitle: '13. Контактная информация',
+      contactIntro: 'По любым вопросам относительно этих Условий, пожалуйста, свяжитесь с нами:',
+      termsBtnCatalog: 'Смотреть коллекции',
+      termsBtnHome: 'На главную'
+    },
+    en: {
+      termsTitle: 'TERMS OF SERVICE',
+      termsUpdated: 'Last updated: May 2026',
+      termsIntro: 'Welcome to ZAAV G.\nThese Terms of Service govern your use of our website and services. By accessing our website or placing an order, you agree to these terms.\nPlease read them carefully before using the site.',
+      generalTitle: '1. General Information',
+      generalText1: 'ZAAV G is an independent jewelry brand creating handcrafted jewelry inspired by Bali, art, and personal meaning.',
+      generalText2: 'By using this website, you confirm that you are at least 18 years old or have permission from a parent or legal guardian.',
+      generalText3: 'We reserve the right to update or modify these Terms at any time without prior notice.',
+      productsTitle: '2. Products & Handmade Nature',
+      productsText1: 'All ZAAV G jewelry is handcrafted.',
+      productsText2: 'Because of the artisanal nature of our work:',
+      productVar1: 'Slight variations in texture, stone color, shape, or finish may occur',
+      productVar2: 'Natural stones may contain unique inclusions and characteristics',
+      productVar3: 'Handmade details are considered part of the design and individuality of each piece',
+      productsText3: 'These variations are not considered defects.',
+      pricingTitle: '3. Pricing & Currency',
+      pricingText1: 'All prices displayed on the website are listed in the selected currency unless otherwise stated',
+      pricingText2: 'Prices may change at any time without notice',
+      pricingText3: 'Import duties, taxes, customs fees, or local charges are the responsibility of the customer',
+      ordersTitle: '4. Orders',
+      ordersText1: 'After placing an order, you will receive an order confirmation by email.',
+      ordersText2: 'ZAAV G reserves the right to:',
+      ordersRight1: 'Refuse or cancel orders',
+      ordersRight2: 'Limit quantities',
+      ordersRight3: 'Request additional verification if necessary',
+      ordersText3: 'If an order is canceled after payment, the amount paid will be refunded through the original payment method.',
+      paymentTitle: '5. Payment',
+      paymentText1: 'Payments are securely processed through trusted third-party payment providers',
+      paymentText2: 'ZAAV G does not store complete payment card information',
+      paymentText3: 'By submitting payment information, you confirm that:',
+      paymentConfirm1: 'You are authorized to use the payment method',
+      paymentConfirm2: 'The provided information is accurate',
+      shippingTitle: '6. Shipping',
+      shippingText1: 'We ship worldwide.',
+      shippingText2: 'Shipping times are estimated and may vary depending on:',
+      shippingVar1: 'Destination country',
+      shippingVar2: 'Customs processing',
+      shippingVar3: 'Local delivery services',
+      shippingVar4: 'Holidays or force majeure circumstances',
+      shippingText3: 'ZAAV G is not responsible for delays caused by customs, shipping carriers, or circumstances beyond our control.',
+      shippingText4: 'Customers are responsible for providing accurate shipping information.',
+      returnsTitle: '7. Returns & Exchanges',
+      returnsText1: 'Because many ZAAV G pieces are handmade, limited edition, or made to order, all return and exchange requests are reviewed individually.',
+      returnsText2: 'We do not accept returns or exchanges for:',
+      returnsExclude1: 'Custom-made items',
+      returnsExclude2: 'Personalized pieces',
+      returnsExclude3: 'Items damaged through improper use or external impact',
+      returnsText3: 'If your item arrives damaged or defective, please contact us within 48 hours of delivery with photos and order details.',
+      returnsText4: 'Approved refunds will be issued through the original payment method.\nShipping costs, customs fees, and taxes are non-refundable unless required by law.',
+      careTitle: '8. Jewelry Care',
+      careText1: 'ZAAV G jewelry should be handled with care.',
+      careText2: 'To preserve the beauty of your jewelry:',
+      careTip1: 'Avoid contact with water, perfumes, chemicals, and cosmetics',
+      careTip2: 'Remove jewelry before sports, swimming, or sleeping',
+      careTip3: 'Store pieces separately in a dry place',
+      careText3: 'Natural wear over time is not considered a manufacturing defect.',
+      ipTitle: '9. Intellectual Property',
+      ipText1: 'All content on this website, including:',
+      ipItem1: 'Photographs',
+      ipItem2: 'Videos',
+      ipItem3: 'Logos',
+      ipItem4: 'Jewelry designs',
+      ipItem5: 'Texts and branding',
+      ipText2: 'Belongs to ZAAV G and may not be copied, reproduced, distributed, or used without written permission.\nUnauthorized use of our content or designs is prohibited.',
+      liabilityTitle: '10. Limitation of Liability',
+      liabilityText1: 'ZAAV G shall not be liable for:',
+      liabilityExclude1: 'Indirect or incidental damages',
+      liabilityExclude2: 'Delays beyond our control',
+      liabilityExclude3: 'Allergic reactions caused by individual sensitivities',
+      liabilityExclude4: 'Misuse or improper handling of products',
+      liabilityText2: 'Our maximum liability shall not exceed the amount paid for the purchased product.',
+      privacyTitle: '11. Privacy',
+      privacyText: 'Your use of this website is also governed by our <a href="/pages/privacy-policy" style="color:#008060;text-decoration:none">Privacy Policy</a>.',
+      lawTitle: '12. Governing Law',
+      lawText: 'These Terms shall be governed and interpreted in accordance with applicable international commercial practices and local laws where required.',
+      contactTitle: '13. Contact Information',
+      contactIntro: 'For any questions regarding these Terms, please contact us:',
+      termsBtnCatalog: 'View Collections',
+      termsBtnHome: 'Home'
+    },
+    id: {
+      termsTitle: 'SYARAT LAYANAN',
+      termsUpdated: 'Terakhir diperbarui: Mei 2026',
+      termsIntro: 'Selamat datang di ZAAV G.\nSyarat Layanan ini mengatur penggunaan website dan layanan kami. Dengan mengakses website kami atau melakukan pemesanan, Anda menyetujui syarat-syarat ini.\nHarap baca dengan cermat sebelum menggunakan situs.',
+      generalTitle: '1. Informasi Umum',
+      generalText1: 'ZAAV G adalah merek perhiasan independen yang menciptakan perhiasan buatan tangan yang terinspirasi oleh Bali, seni, dan makna pribadi.',
+      generalText2: 'Dengan menggunakan website ini, Anda mengonfirmasi bahwa Anda berusia minimal 18 tahun atau memiliki izin dari orang tua atau wali sah.',
+      generalText3: 'Kami berhak untuk memperbarui atau mengubah Syarat ini kapan saja tanpa pemberitahuan sebelumnya.',
+      productsTitle: '2. Produk & Sifat Buatan Tangan',
+      productsText1: 'Semua perhiasan ZAAV G dibuat secara handmade.',
+      productsText2: 'Karena sifat artisanal dari pekerjaan kami:',
+      productVar1: 'Variasi kecil dalam tekstur, warna batu, bentuk, atau finishing dapat terjadi',
+      productVar2: 'Batu alami mungkin mengandung inklusi dan karakteristik unik',
+      productVar3: 'Detail handmade dianggap sebagai bagian dari desain dan individualitas setiap pieces',
+      productsText3: 'Variasi ini tidak dianggap sebagai cacat.',
+      pricingTitle: '3. Harga & Mata Uang',
+      pricingText1: 'Semua harga yang ditampilkan di website terdaftar dalam mata uang yang dipilih kecuali dinyatakan lain',
+      pricingText2: 'Harga dapat berubah kapan saja tanpa pemberitahuan',
+      pricingText3: 'Bea masuk, pajak, biaya bea cukai, atau biaya lokal menjadi tanggung jawab pelanggan',
+      ordersTitle: '4. Pesanan',
+      ordersText1: 'Setelah melakukan pemesanan, Anda akan menerima konfirmasi pesanan melalui email.',
+      ordersText2: 'ZAAV G berhak untuk:',
+      ordersRight1: 'Menolak atau membatalkan pesanan',
+      ordersRight2: 'Membatasi jumlah',
+      ordersRight3: 'Meminta verifikasi tambahan jika diperlukan',
+      ordersText3: 'Jika pesanan dibatalkan setelah pembayaran, jumlah yang dibayarkan akan dikembalikan melalui metode pembayaran asli.',
+      paymentTitle: '5. Pembayaran',
+      paymentText1: 'Pembayaran diproses dengan aman melalui penyedia pembayaran pihak ketiga tepercaya',
+      paymentText2: 'ZAAV G tidak menyimpan informasi kartu pembayaran lengkap',
+      paymentText3: 'Dengan mengirimkan informasi pembayaran, Anda mengonfirmasi bahwa:',
+      paymentConfirm1: 'Anda berwenang menggunakan metode pembayaran',
+      paymentConfirm2: 'Informasi yang diberikan akurat',
+      shippingTitle: '6. Pengiriman',
+      shippingText1: 'Kami mengirim ke seluruh dunia.',
+      shippingText2: 'Waktu pengiriman adalah perkiraan dan dapat bervariasi tergantung pada:',
+      shippingVar1: 'Negara tujuan',
+      shippingVar2: 'Proses bea cukai',
+      shippingVar3: 'Layanan pengiriman lokal',
+      shippingVar4: 'Hari libur atau keadaan force majeure',
+      shippingText3: 'ZAAV G tidak bertanggung jawab atas keterlambatan yang disebabkan oleh bea cukai, perusahaan pengiriman, atau keadaan di luar kendali kami.',
+      shippingText4: 'Pelanggan bertanggung jawab untuk memberikan informasi pengiriman yang akurat.',
+      returnsTitle: '7. Pengembalian & Penukaran',
+      returnsText1: 'Karena banyak pieces ZAAV G dibuat tangan, edisi terbatas, atau dibuat sesuai pesanan, semua permintaan pengembalian dan penukaran ditinjau secara individual.',
+      returnsText2: 'Kami tidak menerima pengembalian atau penukaran untuk:',
+      returnsExclude1: 'Item custom-made',
+      returnsExclude2: 'Pieces yang dipersonalisasi',
+      returnsExclude3: 'Item yang rusak karena penggunaan yang tidak tepat atau dampak eksternal',
+      returnsText3: 'Jika item Anda tiba dalam kondisi rusak atau cacat, silakan hubungi kami dalam waktu 48 jam setelah pengiriman dengan foto dan detail pesanan.',
+      returnsText4: 'Pengembalian dana yang disetujui akan diproses melalui metode pembayaran asli.\nBiaya pengiriman, bea cukai, dan pajak tidak dapat dikembalikan kecuali diwajibkan oleh hukum.',
+      careTitle: '8. Perawatan Perhiasan',
+      careText1: 'Perhiasan ZAAV G harus ditangani dengan hati-hati.',
+      careText2: 'Untuk menjaga keindahan perhiasan Anda:',
+      careTip1: 'Hindari kontak dengan air, parfum, bahan kimia, dan kosmetik',
+      careTip2: 'Lepas perhiasan sebelum olahraga, berenang, atau tidur',
+      careTip3: 'Simpan pieces secara terpisah di tempat kering',
+      careText3: 'Keausan alami seiring waktu tidak dianggap sebagai cacat produksi.',
+      ipTitle: '9. Kekayaan Intelektual',
+      ipText1: 'Semua konten di website ini, termasuk:',
+      ipItem1: 'Foto',
+      ipItem2: 'Video',
+      ipItem3: 'Logo',
+      ipItem4: 'Desain perhiasan',
+      ipItem5: 'Teks dan branding',
+      ipText2: 'Milik ZAAV G dan tidak boleh disalin, direproduksi, didistribusikan, atau digunakan tanpa izin tertulis.\nPenggunaan tidak sah atas konten atau desain kami dilarang.',
+      liabilityTitle: '10. Pembatasan Tanggung Jawab',
+      liabilityText1: 'ZAAV G tidak bertanggung jawab atas:',
+      liabilityExclude1: 'Kerusakan tidak langsung atau insidental',
+      liabilityExclude2: 'Keterlambatan di luar kendali kami',
+      liabilityExclude3: 'Reaksi alergi yang disebabkan oleh sensitivitas individu',
+      liabilityExclude4: 'Penyalahgunaan atau penanganan produk yang tidak tepat',
+      liabilityText2: 'Tanggung jawab maksimum kami tidak melebihi jumlah yang dibayarkan untuk produk yang dibeli.',
+      privacyTitle: '11. Privasi',
+      privacyText: 'Penggunaan website ini juga diatur oleh <a href="/pages/privacy-policy" style="color:#008060;text-decoration:none">Kebijakan Privasi</a> kami.',
+      lawTitle: '12. Hukum yang Berlaku',
+      lawText: 'Syarat ini diatur dan ditafsirkan sesuai dengan praktik komersial internasional yang berlaku dan hukum lokal jika diperlukan.',
+      contactTitle: '13. Informasi Kontak',
+      contactIntro: 'Untuk pertanyaan apa pun mengenai Syarat ini, silakan hubungi kami:',
+      termsBtnCatalog: 'Lihat Katalog',
+      termsBtnHome: 'Beranda'
+    }
+  };
+
+  function updateTermsLanguage(lang) {
+    document.querySelectorAll('[data-translate]').forEach(element => {
+      const key = element.getAttribute('data-translate');
+      if (translations[lang] && translations[lang][key]) {
+        const value = translations[lang][key];
+        if (value.includes('\\n')) {
+          element.innerHTML = value.replace(/\\n/g, '<br>');
+        } else if (value.includes('<a')) {
+          element.innerHTML = value;
+        } else {
+          element.textContent = value;
+        }
+      }
+    });
+
+    // ✨ Dynamically adjust title size for Russian
+    const titleEl = document.querySelector('.terms-hero__title');
+    if (titleEl) {
+      titleEl.classList.toggle('terms-hero__title--ru', lang === 'ru');
+    }
+  }
+
+  function syncWithNavbar() {
+    const savedLang = localStorage.getItem('zav-language') || 'en';
+    updateTermsLanguage(savedLang);
+  }
+
+  // Initial load
+  syncWithNavbar();
+  
+  // Listen for storage events (language changes in other tabs)
+  window.addEventListener('storage', syncWithNavbar);
+  
+  // Fallback polling for compatibility
+  setInterval(syncWithNavbar, 500);
+})();
+</script>
