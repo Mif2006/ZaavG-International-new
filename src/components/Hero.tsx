@@ -27,23 +27,24 @@ const T: Record<Lang, { title: string; subtitle: string; btn1: string; btn2: str
 
 export function Hero() {
   const { lang } = useI18n();
-  // We cast lang to Lang to ensure TypeScript knows it matches the keys in T.
-  // We also add a fallback to T.en just in case a non-standard language gets loaded.
   const t = T[lang as Lang] || T.en;
 
   useEffect(() => {
     const trigger = () => {
       document.querySelectorAll<HTMLElement>(".zav-hero__btn").forEach((btn) => {
         btn.classList.remove("glisten");
-        // reflow
+        // Trigger reflow to restart animation
         void btn.offsetWidth;
         btn.classList.add("glisten");
       });
     };
+
+    // Delay initial glisten until after entrance animations finish
     const initial = setTimeout(() => {
       trigger();
-    }, 2000);
-    const interval = setInterval(trigger, 5000);
+    }, 2400);
+    const interval = setInterval(trigger, 6000);
+
     return () => {
       clearTimeout(initial);
       clearInterval(interval);
@@ -54,8 +55,9 @@ export function Hero() {
     <section className="zav-hero">
       <div className="zav-hero__overlay" />
       <div className="zav-hero__content">
-        <h1 className="zav-hero__title">{t.title}</h1>
-        <p className="zav-hero__subtitle">
+        <h1 className="zav-hero__title hero-fade-in">{t.title}</h1>
+        
+        <p className="zav-hero__subtitle hero-fade-in hero-delay-1">
           {t.subtitle.split("\n").map((line, i, arr) => (
             <span key={i}>
               {line}
@@ -63,7 +65,8 @@ export function Hero() {
             </span>
           ))}
         </p>
-        <div className="zav-hero__buttons">
+        
+        <div className="zav-hero__buttons hero-fade-in hero-delay-2">
           <a href="/collections" className="zav-hero__btn zav-hero__btn--primary">
             {t.btn1}
           </a>

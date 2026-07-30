@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import "./sections.css";
 
@@ -37,10 +38,41 @@ export function About() {
   const { lang } = useI18n();
   const t = T[lang as Lang] || T.en;
   
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = sectionRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Only trigger when the section crosses into the viewport
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(element);
+        }
+      },
+      { 
+        // 0.2 means 20% of the element must be visible
+        threshold: 0.2,
+        // Negative bottom margin ensures it doesn't trigger until you actually scroll into it
+        rootMargin: "0px 0px -50px 0px" 
+      }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="zav-about">
+    <section 
+      ref={sectionRef} 
+      className={`zav-about ${isVisible ? "is-visible" : ""}`}
+    >
       <div className="zav-about__container">
-        <div className="zav-about__image-wrapper">
+        <div className="zav-about__image-wrapper about-reveal-left">
           <img
             src="https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1012.jpg?v=1776287860"
             alt="Zaav G"
@@ -48,10 +80,14 @@ export function About() {
           />
         </div>
         <div className="zav-about__content">
-          <h2 className="zav-about__title">{t.title}</h2>
-          <p className="zav-about__subtitle">{multiline(t.subtitle)}</p>
-          <div className="zav-about__divider" />
-          <p className="zav-about__story">{multiline(t.story)}</p>
+          <h2 className="zav-about__title about-reveal-right">{t.title}</h2>
+          <p className="zav-about__subtitle about-reveal-right about-delay-1">
+            {multiline(t.subtitle)}
+          </p>
+          <div className="zav-about__divider about-reveal-scale about-delay-2" />
+          <p className="zav-about__story about-reveal-up about-delay-3">
+            {multiline(t.story)}
+          </p>
         </div>
       </div>
     </section>
