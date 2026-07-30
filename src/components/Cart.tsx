@@ -107,23 +107,23 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [address, setAddress] = useState("");
 
-  // 5-second delayed deletion (Undo state)
+  // 5-second delayed deletion with smooth, immediate progress tracking
   const [pendingDeletions, setPendingDeletions] = useState<
-    Record<string, { timer: NodeJS.Timeout; interval: NodeJS.Timeout; timeLeft: number; item: CartItem }>
+    Record<
+      string,
+      {
+        timer: NodeJS.Timeout;
+        progressInterval: NodeJS.Timeout;
+        timeLeft: number;
+        progress: number;
+        item: CartItem;
+      }
+    >
   >({});
 
   const handleDeleteClick = (item: CartItem) => {
-    const timeLeft = 5;
-    const interval = setInterval(() => {
-      setPendingDeletions((prev) => {
-        const current = prev[item.id];
-        if (!current || current.timeLeft <= 1) {
-          clearInterval(interval);
-          return prev;
-        }
-        return { ...prev, [item.id]: { ...current, timeLeft: current.timeLeft - 1 } };
-      });
-    }, 1000);
+    const duration = 5000;
+    const startTime = Date.now();
 
     const timer = setTimeout(() => {
       removeItem(item.id);
@@ -132,11 +132,26 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
         delete copy[item.id];
         return copy;
       });
-    }, 5000);
+    }, duration);
+
+    // High-frequency interval (every 50ms) ensures the circle animation starts moving immediately with zero delay
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const timeLeft = Math.max(1, Math.ceil((duration - elapsed) / 1000));
+
+      setPendingDeletions((prev) => {
+        if (!prev[item.id]) return prev;
+        return {
+          ...prev,
+          [item.id]: { ...prev[item.id], progress, timeLeft },
+        };
+      });
+    }, 50);
 
     setPendingDeletions((prev) => ({
       ...prev,
-      [item.id]: { timer, interval, timeLeft, item },
+      [item.id]: { timer, progressInterval, timeLeft: 5, progress: 0, item },
     }));
   };
 
@@ -144,7 +159,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     const pending = pendingDeletions[id];
     if (pending) {
       clearTimeout(pending.timer);
-      clearInterval(pending.interval);
+      clearInterval(pending.progressInterval);
       setPendingDeletions((prev) => {
         const copy = { ...prev };
         delete copy[id];
@@ -246,21 +261,62 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
             </div>
           ) : (
             <>
-              {/* Cart Items List with Undo Notification Banner */}
+              {/* Cart Items List with instant smooth circular timer animation */}
               <div className="space-y-6">
                 {items.map((item) => {
                   const isPending = !!pendingDeletions[item.id];
                   if (isPending) {
                     const pending = pendingDeletions[item.id];
+                    const circumference = 2 * Math.PI * 10; // r=10
+                    const strokeDashoffset = circumference * pending.progress;
+
                     return (
-                      <div key={item.id} className="py-4 px-5 bg-neutral-50 border border-black/10 flex items-center justify-between text-xs text-black/70 animate-fade-in">
-                        <span>{t.undoText} "{item.title}"</span>
+                      <div
+                        key={item.id}
+                        className="t706__product-deleted__timer py-4 border-b border-t border-black/10 flex items-center justify-between text-sm text-[#7b7b7b] animate-fade-in"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="t706__product-deleted__timer__counter relative w-6 h-6 flex items-center justify-center text-[#ff5722] font-light text-xs shrink-0">
+                            <svg
+                              className="t706__product-deleted__timer__counter__circle absolute inset-0 w-full h-full pointer-events-none"
+                              style={{
+                                transform: "rotate(90deg) scaleX(-1)",
+                              }}
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                className="text-[#ffccbc] opacity-50"
+                              />
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeDasharray={circumference}
+                                strokeDashoffset={strokeDashoffset}
+                                strokeLinecap="round"
+                              />
+                            </svg>
+                            <span className="relative z-10 tabular-nums">{pending.timeLeft}</span>
+                          </div>
+                          <span>
+                            {t.undoText} &ldquo;{item.title}&rdquo;
+                          </span>
+                        </div>
                         <button
                           type="button"
                           onClick={() => handleUndo(item.id)}
-                          className="font-bold underline cursor-pointer hover:text-black tracking-wider uppercase"
+                          className="cursor-pointer hover:text-black transition-colors"
                         >
-                          {t.undoAction} ({pending.timeLeft})
+                          {t.undoAction}
                         </button>
                       </div>
                     );
@@ -397,7 +453,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                     )}
                   </div>
 
-                  {/* Delivery Method Toggle (No black background, using clean neutral/outline styling) */}
+                  {/* Delivery Method Toggle */}
                   <div className="space-y-3 pt-2">
                     <label className="text-xs font-semibold text-black/60 uppercase tracking-widest block">{t.method}</label>
                     <div className="grid grid-cols-2 gap-3">
@@ -426,7 +482,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                     </div>
                   </div>
 
-                  {/* Conditional Method Info: Pickup Location with Address & Map Link or Delivery Address */}
+                  {/* Conditional Method Info */}
                   {method === "pickup" ? (
                     <div className="p-5 bg-neutral-50 border border-black/10 text-xs text-black/70 space-y-2 leading-relaxed">
                       <p className="font-semibold text-black uppercase tracking-wider">{t.pickupLocationTitle}</p>
@@ -457,7 +513,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                   )}
                 </div>
 
-                {/* Pay Button & Privacy Policy inside scroll flow (not sticky/claustrophobic) */}
+                {/* Pay Button & Privacy Policy */}
                 <div className="pt-6 pb-4 space-y-5 border-t border-black/10">
                   <button
                     type="submit"
