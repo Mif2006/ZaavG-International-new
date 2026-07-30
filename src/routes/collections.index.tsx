@@ -210,7 +210,7 @@ function CollectionsPage() {
                 <div className="pt-3">
                   <div className="text-sm font-medium">{it.title}</div>
                   <div className="mt-0.5 text-sm text-black/70 tabular-nums">
-                    {Number(it.price).toLocaleString(dict.locale)} ₽
+                    {Number(it.price).toLocaleString(dict.locale)} $
                   </div>
                 </div>
               </Link>

@@ -357,7 +357,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                             </button>
                           </div>
                           <span className="text-base tabular-nums font-bold">
-                            {(item.price * item.quantity).toLocaleString(locale)} ₽
+                            {(item.price * item.quantity).toLocaleString(locale)} $
                           </span>
                         </div>
                       </div>
@@ -376,7 +376,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
               {/* Subtotal */}
               <div className="flex justify-between items-center pt-2">
                 <span className="text-base font-bold uppercase tracking-wider">{t.total}</span>
-                <span className="text-2xl font-semibold tabular-nums">{total.toLocaleString(locale)} ₽</span>
+                <span className="text-2xl font-semibold tabular-nums">{total.toLocaleString(locale)} $</span>
               </div>
 
               {/* Checkout Form */}
