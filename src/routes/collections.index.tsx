@@ -1,6 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { listCategories, listItems, listItemTags, type Category, type Item } from "@/lib/db";
+import {
+  listCategories,
+  listItems,
+  listItemTags,
+  type Category,
+  type Item,
+} from "@/lib/db";
 import { PublicShell } from "@/components/public-shell";
 import { useI18n, catName } from "@/lib/i18n";
 import { useMemo, useState } from "react";
@@ -16,6 +22,7 @@ const T: Record<
     all: string;
     empty: string;
     noImage: string;
+    newBadge: string;
     locale: string;
   }
 > = {
@@ -24,6 +31,7 @@ const T: Record<
     all: "All",
     empty: "No items found in this category.",
     noImage: "no image",
+    newBadge: "NEW",
     locale: "en-US",
   },
   ru: {
@@ -31,6 +39,7 @@ const T: Record<
     all: "Все",
     empty: "В этой категории нет товаров.",
     noImage: "нет фото",
+    newBadge: "NEW",
     locale: "ru-RU",
   },
   id: {
@@ -38,28 +47,29 @@ const T: Record<
     all: "Semua",
     empty: "Tidak ada produk di kategori ini.",
     noImage: "tidak ada gambar",
+    newBadge: "NEW",
     locale: "id-ID",
   },
 };
 
 // Stop-gap translation map for Indonesian categories
 const ID_CATEGORY_MAP: Record<string, string> = {
-  "кольца": "Cincin",
-  "rings": "Cincin",
+  кольца: "Cincin",
+  rings: "Cincin",
   "мужские украшения": "Perhiasan Pria",
   "men's jewelry": "Perhiasan Pria",
-  "серьги": "Anting",
-  "earrings": "Anting",
-  "браслеты": "Gelang",
-  "bracelets": "Gelang",
-  "подвески": "Liontin",
-  "pendants": "Liontin",
+  серьги: "Anting",
+  earrings: "Anting",
+  браслеты: "Gelang",
+  bracelets: "Gelang",
+  подвески: "Liontin",
+  pendants: "Liontin",
   "фаланговые кольца": "Cincin Ruas",
   "phalange rings": "Cincin Ruas",
-  "цепи": "Kalung",
-  "chains": "Kalung",
-  "новинка": "Terbaru",
-  "new": "Terbaru",
+  цепи: "Kalung",
+  chains: "Kalung",
+  новинка: "Terbaru",
+  new: "Terbaru",
 };
 
 function getCategoryDisplayName(c: Category, lang: string) {
@@ -79,7 +89,8 @@ export const Route = createFileRoute("/collections/")({
       { title: "Collections — Find Your Piece" },
       {
         name: "description",
-        content: "Browse all jewelry: rings, earrings, bracelets, pendants, chains.",
+        content:
+          "Browse all jewelry: rings, earrings, bracelets, pendants, chains.",
       },
       { property: "og:title", content: "Collections — Find Your Piece" },
       { property: "og:description", content: "Browse all jewelry pieces." },
@@ -91,7 +102,7 @@ export const Route = createFileRoute("/collections/")({
 function CollectionsPage() {
   const { lang } = useI18n();
   const dict = T[lang as Lang] || T.en;
-  
+
   const [activeCat, setActiveCat] = useState<string | null>(null);
 
   const cats = useQuery({ queryKey: ["categories"], queryFn: listCategories });
@@ -115,6 +126,15 @@ function CollectionsPage() {
     return m;
   }, [tags.data]);
 
+  const newCat = useMemo(() => {
+    if (!cats.data) return null;
+    return cats.data.find((c) => {
+      const name = (c.name || "").toLowerCase();
+      const slug = (c.slug || "").toLowerCase();
+      return name === "new" || slug === "new" || name === "новинка";
+    });
+  }, [cats.data]);
+
   const matchesCategory = (it: Item, c: Category) =>
     c.kind === "primary"
       ? it.primary_category_id === c.id
@@ -128,8 +148,22 @@ function CollectionsPage() {
 
   return (
     <div className="bg-white text-black">
-      {/* Footer-style underline animation adapted for white background */}
+      {/* Updated slower, smoother animation keyframes */}
       <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(24px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in-up {
+          animation: fadeInUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          opacity: 0;
+        }
         .collection-link {
           position: relative;
         }
@@ -149,7 +183,7 @@ function CollectionsPage() {
       `}</style>
 
       <PublicShell variant="light">
-        <section className="pt-4 pb-10 text-center pt-36 md:pt-32 md:pb-16">
+        <section className="pt-36 pb-10 text-center md:pt-32 md:pb-16">
           <h1 className="text-5xl font-bold tracking-tight md:text-6xl">
             {dict.title}
           </h1>
@@ -187,34 +221,51 @@ function CollectionsPage() {
           <div className="py-24 text-center text-black/50">{dict.empty}</div>
         ) : (
           <div className="grid mx-6 md:mx-8 pt-4 pb-16 grid-cols-2 gap-x-2 gap-y-10 sm:grid-cols-3 md:gap-x-4 lg:grid-cols-5">
-            {filtered.map((it) => (
-              <Link
-                to="/collections/$slug"
-                params={{ slug: it.slug }}
-                key={it.id}
-                className="group block cursor-pointer"
-              >
-                <div className="aspect-square overflow-hidden bg-neutral-100">
-                  {it.main_image_url ? (
-                    <img
-                      src={it.main_image_url}
-                      alt={it.title}
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-xs text-black/40">
-                      {dict.noImage}
-                    </div>
-                  )}
-                </div>
-                <div className="pt-3">
-                  <div className="text-sm font-medium">{it.title}</div>
-                  <div className="mt-0.5 text-sm text-black/70 tabular-nums">
-                    {Number(it.price).toLocaleString(dict.locale)} $
+            {filtered.map((it, idx) => {
+              const isNew = newCat ? matchesCategory(it, newCat) : false;
+
+              return (
+                <Link
+                  to="/collections/$slug"
+                  params={{ slug: it.slug }}
+                  key={it.id}
+                  style={{
+                    // Relaxed stagger delay: 70ms per item instead of 45ms
+                    animationDelay: `${Math.min(idx, 15) * 70}ms`,
+                  }}
+                  className="group block cursor-pointer animate-fade-in-up"
+                >
+                  <div className="relative aspect-square overflow-hidden bg-neutral-100">
+                    {it.main_image_url ? (
+                      <img
+                        src={it.main_image_url}
+                        alt={it.title}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-xs text-black/40">
+                        {dict.noImage}
+                      </div>
+                    )}
+
+                    {isNew && (
+                      <div className="absolute top-3 right-3 w-10 h-10 md:w-12 md:h-12 bg-[#222222] text-white rounded-full flex items-center justify-center text-[9px] md:text-[10px] font-bold tracking-wider z-10 pointer-events-none shadow-sm">
+                        {dict.newBadge}
+                      </div>
+                    )}
                   </div>
-                </div>
-              </Link>
-            ))}
+
+                  <div className="pt-3">
+                    <div className="text-sm font-medium transition-colors group-hover:text-black/70">
+                      {it.title}
+                    </div>
+                    <div className="mt-0.5 text-sm text-black/70 tabular-nums font-semibold">
+                      {Number(it.price).toLocaleString(dict.locale)} $
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
       </PublicShell>
