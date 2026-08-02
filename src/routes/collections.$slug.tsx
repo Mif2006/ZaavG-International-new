@@ -1,5 +1,4 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { getItemBySlug, listItems } from "@/lib/db";
 import { PublicShell } from "@/components/public-shell";
 import { useI18n } from "@/lib/i18n";
@@ -55,6 +54,62 @@ const T: Record<
 };
 
 export const Route = createFileRoute("/collections/$slug")({
+  // 1. Fetch data before the component renders
+  loader: async ({ params: { slug } }) => {
+    const full = await getItemBySlug(slug);
+    if (!full) throw notFound();
+    
+    // Fetch all items here as well for the recommendations
+    const allItems = await listItems();
+    return { full, allItems };
+  },
+
+  // 2. Generate English SEO & Google Shopping Schema
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+    const { item } = loaderData.full;
+
+    const cleanDescription = item.description
+      ? item.description.replace(/(<([^>]+)>)/gi, "").substring(0, 160)
+      : `Shop the ${item.title} at ZAAV G.`;
+
+    const jsonLd = {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      name: item.title,
+      image: item.main_image_url,
+      description: cleanDescription,
+      offers: {
+        "@type": "Offer",
+        url: `https://zaavg.com/collections/${item.slug}`, // Make sure to use your actual domain
+        priceCurrency: "RUB",
+        price: item.price,
+        availability: "https://schema.org/InStock",
+        seller: {
+          "@type": "Organization",
+          name: "ZAAV G",
+        },
+      },
+    };
+
+    return {
+      meta: [
+        { title: `${item.title} | ZAAV G` },
+        { name: "description", content: cleanDescription },
+        { property: "og:title", content: item.title },
+        { property: "og:description", content: cleanDescription },
+        { property: "og:image", content: item.main_image_url },
+        { property: "og:type", content: "product" },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(jsonLd),
+        },
+      ],
+    };
+  },
+
   component: ItemPage,
   notFoundComponent: () => (
     <div className="bg-white text-black">
@@ -66,7 +121,8 @@ export const Route = createFileRoute("/collections/$slug")({
 });
 
 function ItemPage() {
-  const { slug } = Route.useParams();
+  // 3. Consume the data fetched by the loader
+  const { full, allItems } = Route.useLoaderData();
 
   const { lang } = useI18n();
   const dict = T[lang as Lang] || T.en;
@@ -80,35 +136,17 @@ function ItemPage() {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
-  const full = useQuery({
-    queryKey: ["item-slug", slug],
-    queryFn: async () => {
-      const r = await getItemBySlug(slug);
-      if (!r) throw notFound();
-      return r;
-    },
-  });
-  const allItems = useQuery({ queryKey: ["items"], queryFn: listItems });
+  // We no longer need the isLoading check because the loader 
+  // guarantees the data is ready before the component even mounts.
 
-  if (full.isLoading || !full.data) {
-    return (
-      <div className="bg-white text-black">
-        <PublicShell variant="light">
-          <div className="py-24 text-center text-black/60 h-screen">
-            {dict.loading}
-          </div>
-        </PublicShell>
-      </div>
-    );
-  }
-
-  const { item, images, recommendedIds, sizes } = full.data;
+  const { item, images, recommendedIds, sizes } = full;
 
   const gallery = [
     item.main_image_url,
     ...(images || []).map((i) => i.url),
   ].filter((u): u is string => !!u);
-  const recs = (allItems.data ?? []).filter((i) =>
+  
+  const recs = (allItems ?? []).filter((i) =>
     (recommendedIds || []).includes(i.id),
   );
 
