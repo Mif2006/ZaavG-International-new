@@ -184,21 +184,21 @@ export function Navbar() {
         </div>
 
         <div className="zav-sidebar__nav">
-          {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.to;
-            const label = item.labels[lang as keyof typeof item.labels] || item.labels.en;
-            return (
-              <a
-                key={item.to}
-                href={item.to}
-                className={`zav-sidebar__link cursor-pointer${isActive ? " active" : ""}`}
-                onClick={() => setSidebarOpen(false)}
-              >
-                {label}
-              </a>
-            );
-          })}
-        </div>
+  {NAV_ITEMS.map((item) => {
+    const isActive = pathname === item.to;
+    const label = item.labels[lang as keyof typeof item.labels] || item.labels.en;
+    return (
+      <Link
+        key={item.to}
+        to={item.to}
+        className={`zav-sidebar__link cursor-pointer${isActive ? " active" : ""}`}
+        onClick={() => setSidebarOpen(false)}
+      >
+        {label}
+      </Link>
+    );
+  })}
+</div>
 
         <div className="zav-sidebar__socials">
           <a
