@@ -11,7 +11,7 @@
   min-height: 600px;
   display: flex;
   align-items: center;
-  background-image: url('/HeroImg.jpg');
+  background-image: url('/HeroImg.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -117,7 +117,7 @@
   .zav-hero {
     min-height: 500px;
     background-attachment: scroll;
-    background-image: url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_0859_1.jpg?v=1776898836');
+    background-image: url('/HeroImgMobile.webp');
     background-position: center top;
   }
   .zav-hero__content { padding: 0 24px; max-width: 100%; }
@@ -247,7 +247,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_0798_1_2e992494-05a1-4688-bc45-ac218a695ba9.jpg?v=1776346635');
+  background-image: url('/HeroImg.webp');
   background-size: cover;
   background-position: center;
   z-index: 0;
@@ -328,7 +328,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_0798_1.jpg?v=1776287860');
+  background-image: url('ArtMobile.webp');
   background-size: cover;
   background-position: center;
   z-index: 0;
@@ -575,7 +575,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1011_1.jpg?v=1776287860');
+  background-image: url('/Features.webp');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -724,7 +724,7 @@
   .zav-features {
     padding: 60px 20px;
     background-attachment: scroll;
-    background-image: url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/Facetune_22-09-2024.jpg?v=1776898936');
+    background-image: url('FeaturesMobile.webp');
   }
   .zav-features__grid { grid-template-columns: 1fr; gap: 40px; }
   .zav-benefits { padding: 60px 20px; }

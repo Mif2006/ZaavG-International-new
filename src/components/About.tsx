@@ -74,7 +74,7 @@ export function About() {
       <div className="zav-about__container">
         <div className="zav-about__image-wrapper about-reveal-left">
           <img
-            src="https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1012.jpg?v=1776287860"
+            src="AboutImg.webp"
             alt="Zaav G"
             className="zav-about__image"
           />

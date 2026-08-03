@@ -1,5 +1,7 @@
-import { useLanguage, type Lang } from "../context/LanguageContext";
+import { useI18n } from "@/lib/i18n";
 import "./sections.css";
+
+type Lang = "en" | "ru" | "id";
 
 const T: Record<Lang, { button: string; quote: string; author: string }> = {
   en: {
@@ -23,8 +25,9 @@ const T: Record<Lang, { button: string; quote: string; author: string }> = {
 };
 
 export function VideoSection() {
-  const { lang } = useLanguage();
-  const t = T[lang];
+  const { lang } = useI18n();
+  const t = T[lang as Lang] || T.en;
+
   return (
     <section className="zav-video-section">
       <div className="zav-video-section__container">
