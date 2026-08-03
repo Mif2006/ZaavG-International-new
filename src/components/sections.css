@@ -328,7 +328,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('ArtMobile.webp');
+  background-image: url('/ArtMobile.webp');
   background-size: cover;
   background-position: center;
   z-index: 0;
@@ -724,7 +724,7 @@
   .zav-features {
     padding: 60px 20px;
     background-attachment: scroll;
-    background-image: url('FeaturesMobile.webp');
+    background-image: url('/FeaturesMobile.webp');
   }
   .zav-features__grid { grid-template-columns: 1fr; gap: 40px; }
   .zav-benefits { padding: 60px 20px; }
