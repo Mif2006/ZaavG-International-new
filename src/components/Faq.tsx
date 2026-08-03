@@ -25,10 +25,10 @@ const T: Record<Lang, { title: string; subtitle: string; cards: [string, string,
 };
 
 const CARDS = [
-  { href: "/pages/size-guide", img: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1328.jpg?v=1776287860" },
-  { href: "/pages/delivery", img: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1327.jpg?v=1776287860" },
-  { href: "/pages/payment", img: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1324.jpg?v=1776287860" },
-  { href: "/pages/cooperation", img: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1330.jpg?v=1776287860" },
+  { href: "/size", img: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1328.jpg?v=1776287860" },
+  { href: "/delivery", img: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1327.jpg?v=1776287860" },
+  { href: "/payment", img: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1324.jpg?v=1776287860" },
+  { href: "/contact", img: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1330.jpg?v=1776287860" },
 ];
 
 export function Faq() {
