@@ -72,7 +72,7 @@ export function VideoSection() {
         </div>
 
         <div style={{ textAlign: "center" }}>
-          <a href="/pages/videos" className="zav-video-section__button">
+          <a href="/videos" className="zav-video-section__button">
             {t.button}
           </a>
         </div>
