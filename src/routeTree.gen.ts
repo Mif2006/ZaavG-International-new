@@ -23,7 +23,9 @@ import { Route as VideosRouteImport } from './routes/videos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCatalogRouteImport } from './routes/admin.catalog'
 import { Route as AdminCategoriesRouteImport } from './routes/admin.categories'
+import { Route as ApiMidtransRouteImport } from './routes/api/midtrans'
 import { Route as ApiUploadthingRouteImport } from './routes/api/uploadthing'
+import { Route as ApiWebhookRouteImport } from './routes/api/webhook'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
 import { Route as CollectionsSlugRouteImport } from './routes/collections.$slug'
 import { Route as AdminItemsIdRouteImport } from './routes/admin.items.$id'
@@ -99,9 +101,19 @@ const AdminCategoriesRoute = AdminCategoriesRouteImport.update({
   path: '/categories',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiMidtransRoute = ApiMidtransRouteImport.update({
+  id: '/api/midtrans',
+  path: '/api/midtrans',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiUploadthingRoute = ApiUploadthingRouteImport.update({
   id: '/api/uploadthing',
   path: '/api/uploadthing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiWebhookRoute = ApiWebhookRouteImport.update({
+  id: '/api/webhook',
+  path: '/api/webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
@@ -139,7 +151,9 @@ export interface FileRoutesByFullPath {
   '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/api/midtrans': typeof ApiMidtransRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
+  '/api/webhook': typeof ApiWebhookRoute
   '/collections/$slug': typeof CollectionsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/collections/': typeof CollectionsIndexRoute
@@ -159,7 +173,9 @@ export interface FileRoutesByTo {
   '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/api/midtrans': typeof ApiMidtransRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
+  '/api/webhook': typeof ApiWebhookRoute
   '/collections/$slug': typeof CollectionsSlugRoute
   '/admin': typeof AdminIndexRoute
   '/collections': typeof CollectionsIndexRoute
@@ -181,7 +197,9 @@ export interface FileRoutesById {
   '/videos': typeof VideosRoute
   '/admin/catalog': typeof AdminCatalogRoute
   '/admin/categories': typeof AdminCategoriesRoute
+  '/api/midtrans': typeof ApiMidtransRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
+  '/api/webhook': typeof ApiWebhookRoute
   '/collections/$slug': typeof CollectionsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/collections/': typeof CollectionsIndexRoute
@@ -204,7 +222,9 @@ export interface FileRouteTypes {
     | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
+    | '/api/midtrans'
     | '/api/uploadthing'
+    | '/api/webhook'
     | '/collections/$slug'
     | '/admin/'
     | '/collections/'
@@ -224,7 +244,9 @@ export interface FileRouteTypes {
     | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
+    | '/api/midtrans'
     | '/api/uploadthing'
+    | '/api/webhook'
     | '/collections/$slug'
     | '/admin'
     | '/collections'
@@ -245,7 +267,9 @@ export interface FileRouteTypes {
     | '/videos'
     | '/admin/catalog'
     | '/admin/categories'
+    | '/api/midtrans'
     | '/api/uploadthing'
+    | '/api/webhook'
     | '/collections/$slug'
     | '/admin/'
     | '/collections/'
@@ -265,7 +289,9 @@ export interface RootRouteChildren {
   SizeRoute: typeof SizeRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   VideosRoute: typeof VideosRoute
+  ApiMidtransRoute: typeof ApiMidtransRoute
   ApiUploadthingRoute: typeof ApiUploadthingRoute
+  ApiWebhookRoute: typeof ApiWebhookRoute
   CollectionsSlugRoute: typeof CollectionsSlugRoute
   CollectionsIndexRoute: typeof CollectionsIndexRoute
 }
@@ -370,11 +396,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCategoriesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/midtrans': {
+      id: '/api/midtrans'
+      path: '/api/midtrans'
+      fullPath: '/api/midtrans'
+      preLoaderRoute: typeof ApiMidtransRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/uploadthing': {
       id: '/api/uploadthing'
       path: '/api/uploadthing'
       fullPath: '/api/uploadthing'
       preLoaderRoute: typeof ApiUploadthingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/webhook': {
+      id: '/api/webhook'
+      path: '/api/webhook'
+      fullPath: '/api/webhook'
+      preLoaderRoute: typeof ApiWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/collections/': {
@@ -438,7 +478,9 @@ const rootRouteChildren: RootRouteChildren = {
   SizeRoute: SizeRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   VideosRoute: VideosRoute,
+  ApiMidtransRoute: ApiMidtransRoute,
   ApiUploadthingRoute: ApiUploadthingRoute,
+  ApiWebhookRoute: ApiWebhookRoute,
   CollectionsSlugRoute: CollectionsSlugRoute,
   CollectionsIndexRoute: CollectionsIndexRoute,
 }

@@ -29,6 +29,7 @@ const CART_T = {
     delivery: "International / Indonesia Delivery",
     address: "Full Delivery Address (Bali / Indonesia)",
     placeOrder: "Pay",
+    processing: "Processing...",
     total: "Subtotal",
     continue: "Continue Shopping",
     privacyTextBefore: "By clicking the \"Pay\" button you consent to the ",
@@ -52,6 +53,7 @@ const CART_T = {
     delivery: "Доставка по Индонезии / Другим странам",
     address: "Полный адрес доставки",
     placeOrder: "Оплатить",
+    processing: "Обработка...",
     total: "Итого",
     continue: "Продолжить покупки",
     privacyTextBefore: "Нажимая на кнопку \"Оплатить\" Вы соглашаетесь с ",
@@ -75,6 +77,7 @@ const CART_T = {
     delivery: "Pengiriman (Bali / Indonesia)",
     address: "Alamat Pengiriman Lengkap",
     placeOrder: "Bayar",
+    processing: "Memproses...",
     total: "Subtotal",
     continue: "Lanjut Belanja",
     privacyTextBefore: "Dengan mengklik tombol \"Bayar\" Anda menyetujui ",
@@ -106,6 +109,36 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [address, setAddress] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  // Load Midtrans Script dynamically when modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Change to 'https://app.midtrans.com/snap/snap.js' for Production
+    const scriptSrc = "https://app.sandbox.midtrans.com/snap/snap.js"; 
+    // Assumes Vite environment variables. Use process.env if on Next.js
+    const clientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY; 
+
+    const scriptId = "midtrans-script";
+
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src = scriptSrc;
+      script.setAttribute("data-client-key", clientKey);
+      script.async = true;
+      document.body.appendChild(script);
+    }
+
+    // Cleanup isn't strictly necessary for external scripts, but good practice
+    return () => {
+      const script = document.getElementById(scriptId);
+      if (script) {
+        document.body.removeChild(script);
+      }
+    };
+  }, [isOpen]);
 
   // 5-second delayed deletion with smooth, immediate progress tracking
   const [pendingDeletions, setPendingDeletions] = useState<
@@ -213,10 +246,69 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Order placed successfully for ${name}! Phone: ${selectedCountry.code} ${phoneNumber}`);
-    onClose();
+    setIsProcessing(true);
+
+    try {
+      // 1. Structure the payload for your TanStack backend API
+      const payload = {
+        orderId: `ORDER-${Date.now()}`,
+        grossAmount: total,
+        customerDetails: {
+          first_name: name,
+          email: email,
+          phone: `${selectedCountry.code}${phoneNumber}`,
+          // You can also pass billing/shipping addresses here based on the `method`
+          shipping_address: method === "delivery" ? { address: address } : undefined,
+        },
+        itemDetails: items.map((item) => ({
+          id: item.id,
+          price: item.price,
+          quantity: item.quantity,
+          name: item.title.substring(0, 50), // Midtrans limits name length
+        })),
+      };
+
+      // 2. Fetch the Snap Token from your route
+      const response = await fetch("/api/midtrans", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.token) {
+        throw new Error(data.error || "Failed to retrieve payment token");
+      }
+
+      // 3. Trigger the Snap Popup
+      // @ts-ignore - Ignore TS error for window.snap injected by script
+      window.snap.pay(data.token, {
+        onSuccess: function (result: any) {
+          console.log("Payment success:", result);
+          // Handle cart clearing, showing success message, or redirecting here
+          onClose();
+        },
+        onPending: function (result: any) {
+          console.log("Payment pending:", result);
+          onClose();
+        },
+        onError: function (result: any) {
+          console.error("Payment error:", result);
+          alert("Payment failed. Please try again.");
+        },
+        onClose: function () {
+          console.log("Customer closed the popup without paying");
+        },
+      });
+    } catch (error) {
+      console.error("Checkout error:", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -517,10 +609,11 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                 <div className="pt-6 pb-4 space-y-5 border-t border-black/10">
                   <button
                     type="submit"
-                    className="w-full text-white py-4 text-xs font-bold uppercase tracking-widest transition-opacity hover:opacity-90 cursor-pointer shadow-md rounded-none flex items-center justify-center"
+                    disabled={isProcessing}
+                    className="w-full text-white py-4 text-xs font-bold uppercase tracking-widest transition-opacity hover:opacity-90 cursor-pointer shadow-md rounded-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ backgroundColor: "#45cbad" }}
                   >
-                    {t.placeOrder}
+                    {isProcessing ? t.processing || "PROCESSING..." : t.placeOrder}
                   </button>
 
                   <div className="text-xs text-center text-black/50 leading-relaxed px-2">
