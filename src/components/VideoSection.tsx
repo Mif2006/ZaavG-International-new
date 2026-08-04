@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import "./sections.css";
 
@@ -24,27 +25,58 @@ const T: Record<Lang, { button: string; quote: string; author: string }> = {
   },
 };
 
+const VIDEO_ID = "BgRsNeRtTFY";
+
 export function VideoSection() {
   const { lang } = useI18n();
   const t = T[lang as Lang] || T.en;
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <section className="zav-video-section">
       <div className="zav-video-section__container">
-        <div className="zav-video-section__video-wrapper">
-          <iframe
-            src="https://www.youtube.com/embed/BgRsNeRtTFY"
-            title="Zaav G Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-          />
+        {/* Facade Video Wrapper */}
+        <div className="zav-video-section__video-wrapper relative w-full overflow-hidden bg-black group">
+          {isPlaying ? (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1`}
+              title="Zaav G Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full border-0"
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsPlaying(true)}
+              className="absolute inset-0 w-full h-full p-0 border-none bg-transparent cursor-pointer group"
+              aria-label="Play Zaav G Video"
+            >
+              {/* Crisp HD Thumbnail Image */}
+              <img
+                src={`https://i.ytimg.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
+                alt="Zaav G Video Preview"
+                loading="lazy"
+                className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+              />
+              {/* Custom Play Button Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-12 bg-neutral-900/80 rounded-xl flex items-center justify-center text-white transition-all duration-300 group-hover:bg-red-600 group-hover:scale-110 shadow-lg">
+                  <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current translate-x-0.5">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                </div>
+              </div>
+            </button>
+          )}
         </div>
+
         <div style={{ textAlign: "center" }}>
           <a href="/pages/videos" className="zav-video-section__button">
             {t.button}
           </a>
         </div>
+
         <div className="zav-video-section__quote">
           <span className="zav-video-section__quote-mark">&ldquo;</span>
           <p className="zav-video-section__quote-text">{t.quote}</p>
