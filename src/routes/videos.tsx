@@ -182,16 +182,16 @@ function VideosPage() {
         </div>
 
         {/* Action Buttons Block */}
-        <div className="flex justify-center items-center gap-4 sm:gap-6 py-[60px] px-6 sm:px-10 bg-white md:flex-col md:py-10">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 py-12 px-6 sm:px-10 bg-white">
           <Link
             to="/collections"
-            className="inline-flex items-center justify-center w-full md:w-auto px-6 sm:px-10 py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] max-w-[320px] md:max-w-none bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
+            className="inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[220px] px-8 py-3.5 sm:px-10 sm:py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
           >
             {t.videoBtnCatalog}
           </Link>
           <Link
             to="/"
-            className="inline-flex items-center justify-center w-full md:w-auto px-6 sm:px-10 py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] max-w-[320px] md:max-w-none bg-transparent text-[#1a1a1a] border-[1.5px] border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[220px] px-8 py-3.5 sm:px-10 sm:py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 bg-transparent text-[#1a1a1a] border-[1.5px] border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:-translate-y-0.5"
           >
             {t.videoBtnHome}
           </Link>
