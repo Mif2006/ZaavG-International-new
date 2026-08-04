@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { PublicShell } from "@/components/public-shell";
@@ -53,17 +54,69 @@ const T: Record<
 };
 
 const videoList = [
-  { url: "https://www.youtube.com/embed/-F9Ugz3hIaU", title: "ZAAV G Video 1" },
-  { url: "https://www.youtube.com/embed/ibqKONbQcEQ", title: "ZAAV G Video 2" },
-  { url: "https://www.youtube.com/embed/kkrNnLARF04", title: "ZAAV G Video 3" },
-  { url: "https://www.youtube.com/embed/Y24VEN9jp44", title: "ZAAV G Video 4" },
-  { url: "https://www.youtube.com/embed/qIxH3eVor18", title: "ZAAV G Video 5" },
-  { url: "https://www.youtube.com/embed/qLl4iBWB8FU", title: "ZAAV G Video 6" },
-  { url: "https://www.youtube.com/embed/JN-IYQnxIBI", title: "ZAAV G Video 7" },
-  { url: "https://www.youtube.com/embed/7u6rNAouio0", title: "ZAAV G Video 8" },
-  { url: "https://www.youtube.com/embed/dhhIZPmf4xY", title: "ZAAV G Video 9" },
-  { url: "https://www.youtube.com/embed/YIg4mKoQtBE", title: "ZAAV G Video 10" },
+  { id: "-F9Ugz3hIaU", title: "ZAAV G Video 1" },
+  { id: "ibqKONbQcEQ", title: "ZAAV G Video 2" },
+  { id: "kkrNnLARF04", title: "ZAAV G Video 3" },
+  { id: "Y24VEN9jp44", title: "ZAAV G Video 4" },
+  { id: "qIxH3eVor18", title: "ZAAV G Video 5" },
+  { id: "qLl4iBWB8FU", title: "ZAAV G Video 6" },
+  { id: "JN-IYQnxIBI", title: "ZAAV G Video 7" },
+  { id: "7u6rNAouio0", title: "ZAAV G Video 8" },
+  { id: "dhhIZPmf4xY", title: "ZAAV G Video 9" },
+  { id: "YIg4mKoQtBE", title: "ZAAV G Video 10" },
 ];
+
+function VideoCard({ id, title }: { id: string; title: string }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  // Fallback chain: hq720.jpg -> hqdefault.jpg (which never fails on YouTube)
+  const [thumbQuality, setThumbQuality] = useState<"hq720" | "hqdefault">("hq720");
+
+  return (
+    <div className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.03)] border border-neutral-200/80 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+      <div className="aspect-video w-full bg-black relative group">
+        {isPlaying ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full border-0"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setIsPlaying(true)}
+            className="absolute inset-0 w-full h-full p-0 border-none bg-transparent cursor-pointer group"
+            aria-label={`Play video: ${title}`}
+          >
+            <img
+              src={`https://i.ytimg.com/vi/${id}/${thumbQuality === "hq720" ? "hq720" : "hqdefault"}.jpg`}
+              alt={title}
+              loading="lazy"
+              onLoad={(e) => {
+                // YouTube's invisible 404 placeholder image is exactly 120x90 pixels.
+                // If it returns this stub, force fallback to standard hqdefault immediately.
+                const img = e.currentTarget;
+                if (thumbQuality === "hq720" && (img.naturalWidth === 120 || img.naturalHeight === 90)) {
+                  setThumbQuality("hqdefault");
+                }
+              }}
+              className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-90"
+            />
+            {/* Play Button Overlay */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-12 bg-neutral-900/80 rounded-xl flex items-center justify-center text-white transition-all duration-300 group-hover:bg-red-600 group-hover:scale-110 shadow-lg">
+                <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current translate-x-0.5">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </div>
+            </div>
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function VideosPage() {
   const { lang } = useI18n();
@@ -123,21 +176,7 @@ function VideosPage() {
           {/* Videos Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
             {videoList.map((video, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.03)] border border-neutral-200/80 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
-              >
-                <div className="aspect-video w-full bg-black">
-                  <iframe
-                    src={video.url}
-                    title={video.title}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full border-0"
-                  ></iframe>
-                </div>
-              </div>
+              <VideoCard key={idx} id={video.id} title={video.title} />
             ))}
           </div>
         </div>
