@@ -26,61 +26,98 @@ const T: Record<
     videoSubtitle: string;
     videoBtnCatalog: string;
     videoBtnHome: string;
+    visualsBadge: string;
   }
 > = {
   en: {
     videoTitle: "VIDEOS",
-    videoSubtitle: "Moments, atmosphere, and the world behind Zaav G.",
+    videoSubtitle: "Moments, atmosphere, and the world behind ZAAV G.",
     videoBtnCatalog: "View Collections",
     videoBtnHome: "Home",
+    visualsBadge: "ZAAV G Visuals",
   },
   ru: {
     videoTitle: "ВИДЕО",
-    videoSubtitle: "Моменты, атмосфера и мир, стоящий за Zaav G.",
+    videoSubtitle: "Моменты, атмосфера и мир, стоящий за ZAAV G.",
     videoBtnCatalog: "Смотреть коллекции",
     videoBtnHome: "На главную",
+    visualsBadge: "Видео ZAAV G",
   },
   id: {
     videoTitle: "VIDEO",
-    videoSubtitle: "Momen, suasana, dan dunia di balik Zaav G.",
+    videoSubtitle: "Momen, suasana, dan dunia di balik ZAAV G.",
     videoBtnCatalog: "Lihat Koleksi",
     videoBtnHome: "Beranda",
+    visualsBadge: "Visual ZAAV G",
   },
 };
 
 const videoList = [
-  { url: "https://www.youtube.com/embed/-F9Ugz3hIaU", title: "Zaav G Video 1" },
-  { url: "https://www.youtube.com/embed/ibqKONbQcEQ", title: "Zaav G Video 2" },
-  { url: "https://www.youtube.com/embed/kkrNnLARF04", title: "Zaav G Video 3" },
-  { url: "https://www.youtube.com/embed/Y24VEN9jp44", title: "Zaav G Video 4" },
-  { url: "https://www.youtube.com/embed/qIxH3eVor18", title: "Zaav G Video 5" },
-  { url: "https://www.youtube.com/embed/qLl4iBWB8FU", title: "Zaav G Video 6" },
-  { url: "https://www.youtube.com/embed/JN-IYQnxIBI", title: "Zaav G Video 7" },
-  { url: "https://www.youtube.com/embed/7u6rNAouio0", title: "Zaav G Video 8" },
-  { url: "https://www.youtube.com/embed/dhhIZPmf4xY", title: "Zaav G Video 9" },
-  { url: "https://www.youtube.com/embed/YIg4mKoQtBE", title: "Zaav G Video 10" },
+  { url: "https://www.youtube.com/embed/-F9Ugz3hIaU", title: "ZAAV G Video 1" },
+  { url: "https://www.youtube.com/embed/ibqKONbQcEQ", title: "ZAAV G Video 2" },
+  { url: "https://www.youtube.com/embed/kkrNnLARF04", title: "ZAAV G Video 3" },
+  { url: "https://www.youtube.com/embed/Y24VEN9jp44", title: "ZAAV G Video 4" },
+  { url: "https://www.youtube.com/embed/qIxH3eVor18", title: "ZAAV G Video 5" },
+  { url: "https://www.youtube.com/embed/qLl4iBWB8FU", title: "ZAAV G Video 6" },
+  { url: "https://www.youtube.com/embed/JN-IYQnxIBI", title: "ZAAV G Video 7" },
+  { url: "https://www.youtube.com/embed/7u6rNAouio0", title: "ZAAV G Video 8" },
+  { url: "https://www.youtube.com/embed/dhhIZPmf4xY", title: "ZAAV G Video 9" },
+  { url: "https://www.youtube.com/embed/YIg4mKoQtBE", title: "ZAAV G Video 10" },
 ];
 
 function VideosPage() {
   const { lang } = useI18n();
   const t = T[lang as Lang] || T.en;
 
+  const scrollToContent = () => {
+    const el = document.getElementById("videosContent");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <PublicShell>
       <div className="relative font-sans text-neutral-900 antialiased bg-[#faf8f5] min-h-screen selection:bg-neutral-900 selection:text-white">
-        <div className="pt-32 sm:pt-36 md:pt-40 pb-24 px-6 max-w-6xl mx-auto space-y-16">
-          {/* Header */}
-          <div className="text-center max-w-2xl mx-auto space-y-4">
-            <span className="inline-block text-xs uppercase tracking-[0.3em] text-neutral-500 font-medium backdrop-blur-md bg-neutral-200/50 px-4 py-1.5 rounded-full border border-neutral-300/40">
-              ZAAV G Visuals
+        {/* Immersive Editorial Hero */}
+        <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center bg-[url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1328.jpg?v=1776287860')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
+          
+          <div className="relative z-20 text-center px-6 max-w-5xl mx-auto mt-8">
+            <span className="inline-block text-xs uppercase tracking-[0.3em] text-white/70 mb-4 font-medium backdrop-blur-md bg-white/10 px-4 py-1.5 rounded-full border border-white/15">
+              {t.visualsBadge}
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[0.12em] uppercase text-neutral-900">
+            <h1
+              className={`font-extrabold text-white tracking-[0.18em] uppercase leading-[1.1] mb-8 drop-shadow-2xl transition-all duration-500 ${
+                lang === "ru"
+                  ? "text-[clamp(2.2rem,5vw,4rem)] tracking-[0.1em]"
+                  : "text-[clamp(2.8rem,7vw,5.2rem)]"
+              }`}
+            >
               {t.videoTitle}
             </h1>
-            <p className="text-lg md:text-xl text-neutral-600 font-light leading-relaxed">
+
+            <p className="text-base sm:text-lg md:text-xl text-white/80 font-light max-w-xl mx-auto mb-12 leading-relaxed drop-shadow-md">
               {t.videoSubtitle}
             </p>
-           
+
+            <div
+              onClick={scrollToContent}
+              className="group inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/40 bg-white/5 backdrop-blur-md cursor-pointer transition-all duration-300 hover:border-white hover:bg-white/20 hover:scale-105 shadow-lg mx-auto"
+              aria-label="Scroll to content"
+            >
+              <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-white fill-none stroke-[2] transition-transform duration-300 group-hover:translate-y-0.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        {/* Main Videos Content */}
+        <div id="videosContent" className="py-24 px-6 max-w-6xl mx-auto space-y-16">
+          {/* Intro divider */}
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="w-12 h-[1px] bg-neutral-300 mx-auto"></div>
           </div>
 
           {/* Videos Grid */}
@@ -103,22 +140,22 @@ function VideosPage() {
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Action Buttons Block */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 pt-10">
-            <Link
-              to="/collections"
-              className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-sans text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
-            >
-              {t.videoBtnCatalog}
-            </Link>
-            <Link
-              to="/"
-              className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-sans text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] bg-transparent text-[#1a1a1a] border-[1.5px] border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:-translate-y-0.5"
-            >
-              {t.videoBtnHome}
-            </Link>
-          </div>
+        {/* Action Buttons Block */}
+        <div className="flex justify-center items-center gap-4 sm:gap-6 py-[60px] px-6 sm:px-10 bg-white md:flex-col md:py-10">
+          <Link
+            to="/collections"
+            className="inline-flex items-center justify-center w-full md:w-auto px-6 sm:px-10 py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] max-w-[320px] md:max-w-none bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
+          >
+            {t.videoBtnCatalog}
+          </Link>
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center w-full md:w-auto px-6 sm:px-10 py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] max-w-[320px] md:max-w-none bg-transparent text-[#1a1a1a] border-[1.5px] border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:-translate-y-0.5"
+          >
+            {t.videoBtnHome}
+          </Link>
         </div>
       </div>
     </PublicShell>

@@ -63,6 +63,7 @@ const T: Record<
     contactIntro: string;
     deliveryBtnCatalog: string;
     deliveryBtnHome: string;
+    worldwideBadge: string;
   }
 > = {
   en: {
@@ -112,10 +113,11 @@ const T: Record<
     damagedStep1: "Take photos before opening the package",
     damagedStep2: "Contact us immediately after delivery",
     damagedNote: "This helps us resolve the issue with the shipping provider as quickly as possible.",
-    contactTitle: "Contact",
+    contactTitle: "Contact Us",
     contactIntro: "For any shipping or delivery questions, please contact us:",
     deliveryBtnCatalog: "View Collections",
     deliveryBtnHome: "Home",
+    worldwideBadge: "ZAAV G Worldwide",
   },
   ru: {
     deliveryTitle: "ДОСТАВКА",
@@ -164,10 +166,11 @@ const T: Record<
     damagedStep1: "Сделайте фотографии перед открытием упаковки",
     damagedStep2: "Свяжитесь с нами сразу после доставки",
     damagedNote: "Это поможет нам как можно быстрее решить вопрос с поставщиком услуг доставки.",
-    contactTitle: "Контакт",
+    contactTitle: "Связаться с нами",
     contactIntro: "По любым вопросам доставки, пожалуйста, свяжитесь с нами:",
     deliveryBtnCatalog: "Смотреть коллекции",
     deliveryBtnHome: "На главную",
+    worldwideBadge: "ZAAV G по всему миру",
   },
   id: {
     deliveryTitle: "PENGIRIMAN",
@@ -216,10 +219,11 @@ const T: Record<
     damagedStep1: "Ambil foto sebelum membuka paket",
     damagedStep2: "Hubungi kami segera setelah pengiriman",
     damagedNote: "Ini membantu kami menyelesaikan masalah dengan penyedia pengiriman secepat mungkin.",
-    contactTitle: "Kontak",
+    contactTitle: "Hubungi Kami",
     contactIntro: "Untuk pertanyaan pengiriman atau pengiriman, silakan hubungi kami:",
     deliveryBtnCatalog: "Lihat Katalog",
     deliveryBtnHome: "Beranda",
+    worldwideBadge: "ZAAV G Seluruh Dunia",
   },
 };
 
@@ -238,13 +242,13 @@ function DeliveryPage() {
     <PublicShell>
       <div className="relative font-sans text-neutral-900 antialiased bg-[#faf8f5] min-h-screen selection:bg-neutral-900 selection:text-white">
         {/* Immersive Editorial Hero */}
-        <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center bg-[url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1327.jpg?v=1776287860')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
+        <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center bg-[url('/FaqDelivery.webp')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
           {/* Rich multi-stop gradient overlay for depth and elegance */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
           
           <div className="relative z-20 text-center px-6 max-w-5xl mx-auto mt-8">
             <span className="inline-block text-xs uppercase tracking-[0.3em] text-white/70 mb-4 font-medium backdrop-blur-md bg-white/10 px-4 py-1.5 rounded-full border border-white/15">
-              ZAAV G Worldwide
+              {t.worldwideBadge}
             </span>
             <h1
               className={`font-extrabold text-white tracking-[0.18em] uppercase leading-[1.1] mb-12 drop-shadow-2xl transition-all duration-500 ${

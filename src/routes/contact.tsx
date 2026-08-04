@@ -33,6 +33,7 @@ const T: Record<
     legalEntity: string;
     contactBtnCatalog: string;
     contactBtnHome: string;
+    supportBadge: string;
   }
 > = {
   en: {
@@ -47,6 +48,7 @@ const T: Record<
     legalEntity: "Win Win Silver",
     contactBtnCatalog: "View Collections",
     contactBtnHome: "Home",
+    supportBadge: "ZAAV G Support",
   },
   ru: {
     contactTitle: "Контакты",
@@ -60,6 +62,7 @@ const T: Record<
     legalEntity: "Win Win Silver",
     contactBtnCatalog: "Смотреть коллекции",
     contactBtnHome: "На главную",
+    supportBadge: "Поддержка ZAAV G",
   },
   id: {
     contactTitle: "Hubungi Kami",
@@ -73,6 +76,7 @@ const T: Record<
     legalEntity: "Win Win Silver",
     contactBtnCatalog: "Lihat Katalog",
     contactBtnHome: "Beranda",
+    supportBadge: "Dukungan ZAAV G",
   },
 };
 
@@ -87,7 +91,7 @@ function ContactPage() {
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <span className="inline-block text-xs uppercase tracking-[0.3em] text-neutral-500 font-medium backdrop-blur-md bg-neutral-200/50 px-4 py-1.5 rounded-full border border-neutral-300/40">
-              ZAAV G Support
+              {t.supportBadge}
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[0.12em] uppercase text-neutral-900">
               {t.contactTitle}

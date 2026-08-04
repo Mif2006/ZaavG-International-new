@@ -64,6 +64,7 @@ const T: Record<
     helpClosing: string;
     sizeguideBtnCatalog: string;
     sizeguideBtnHome: string;
+    sizeReferenceBadge: string;
   }
 > = {
   en: {
@@ -109,6 +110,7 @@ const T: Record<
     helpClosing: "We want your ZAAV G piece to feel as beautiful and comfortable as it looks.",
     sizeguideBtnCatalog: "View Collections",
     sizeguideBtnHome: "Home",
+    sizeReferenceBadge: "ZAAV G Size Reference",
   },
   ru: {
     sizeguideTitle: "УЗНАТЬ РАЗМЕР",
@@ -153,6 +155,7 @@ const T: Record<
     helpClosing: "Мы хотим, чтобы ваше изделие ZAAV G было таким же красивым и удобным, как и выглядит.",
     sizeguideBtnCatalog: "Смотреть коллекции",
     sizeguideBtnHome: "На главную",
+    sizeReferenceBadge: "Гид по размерам ZAAV G",
   },
   id: {
     sizeguideTitle: "PANDUAN UKURAN",
@@ -197,6 +200,7 @@ const T: Record<
     helpClosing: "Kami ingin pieces ZAAV G Anda terasa seindah dan senyaman tampilannya.",
     sizeguideBtnCatalog: "Lihat Katalog",
     sizeguideBtnHome: "Beranda",
+    sizeReferenceBadge: "Referensi Ukuran ZAAV G",
   },
 };
 
@@ -247,12 +251,12 @@ function SizeGuidePage() {
     <PublicShell>
       <div className="relative font-sans text-neutral-900 antialiased bg-[#faf8f5] min-h-screen selection:bg-neutral-900 selection:text-white">
         {/* Immersive Editorial Hero */}
-        <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center bg-[url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1328.jpg?v=1776287860')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
+        <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center bg-[url('/FaqSize.webp')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
           
           <div className="relative z-20 text-center px-6 max-w-5xl mx-auto mt-8">
             <span className="inline-block text-xs uppercase tracking-[0.3em] text-white/70 mb-4 font-medium backdrop-blur-md bg-white/10 px-4 py-1.5 rounded-full border border-white/15">
-              ZAAV G Size Reference
+              {t.sizeReferenceBadge}
             </span>
             <h1
               className={`font-extrabold text-white tracking-[0.18em] uppercase leading-[1.1] mb-12 drop-shadow-2xl transition-all duration-500 ${

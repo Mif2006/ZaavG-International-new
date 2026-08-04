@@ -36,6 +36,10 @@ const T: Record<
     paymentHelp: string;
     paymentBtnCatalog: string;
     paymentBtnHome: string;
+    secureCheckoutBadge: string;
+    secureProcessorsTitle: string;
+    securityTitle: string;
+    needAssistanceTitle: string;
   }
 > = {
   en: {
@@ -57,6 +61,10 @@ const T: Record<
       "If you experience any difficulties during checkout or need assistance with payment, please contact us and our team will be happy to help.",
     paymentBtnCatalog: "View Collections",
     paymentBtnHome: "Home",
+    secureCheckoutBadge: "ZAAV G Secure Checkout",
+    secureProcessorsTitle: "Secure Processors",
+    securityTitle: "Data Protection & Security",
+    needAssistanceTitle: "Need Assistance?",
   },
   ru: {
     paymentTitle: "СПОСОБЫ ОПЛАТЫ",
@@ -77,6 +85,10 @@ const T: Record<
       "Если у вас возникли трудности при оформлении заказа или нужна помощь с оплатой, пожалуйста, свяжитесь с нами — наша команда будет рада помочь.",
     paymentBtnCatalog: "Смотреть коллекции",
     paymentBtnHome: "На главную",
+    secureCheckoutBadge: "Безопасная оплата ZAAV G",
+    secureProcessorsTitle: "Безопасные платежные системы",
+    securityTitle: "Защита данных и безопасность",
+    needAssistanceTitle: "Нужна помощь?",
   },
   id: {
     paymentTitle: "METODE PEMBAYARAN",
@@ -97,6 +109,10 @@ const T: Record<
       "Jika Anda mengalami kesulitan saat checkout atau membutuhkan bantuan dengan pembayaran, silakan hubungi kami dan tim kami akan dengan senang hati membantu.",
     paymentBtnCatalog: "Lihat Katalog",
     paymentBtnHome: "Beranda",
+    secureCheckoutBadge: "Pembayaran Aman ZAAV G",
+    secureProcessorsTitle: "Prosesor Pembayaran Aman",
+    securityTitle: "Perlindungan Data & Keamanan",
+    needAssistanceTitle: "Butuh Bantuan?",
   },
 };
 
@@ -121,7 +137,7 @@ function PaymentPage() {
           
           <div className="relative z-20 text-center px-6 max-w-5xl mx-auto mt-8">
             <span className="inline-block text-xs uppercase tracking-[0.3em] text-white/70 mb-4 font-medium backdrop-blur-md bg-white/10 px-4 py-1.5 rounded-full border border-white/15">
-              ZAAV G Secure Checkout
+              {t.secureCheckoutBadge}
             </span>
             <h1
               className={`font-extrabold text-white tracking-[0.18em] uppercase leading-[1.1] mb-12 drop-shadow-2xl transition-all duration-500 ${
@@ -196,7 +212,7 @@ function PaymentPage() {
             <div className="bg-white p-8 md:p-12 rounded-2xl border border-neutral-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
               <h2 className="text-2xl font-semibold text-neutral-900 mb-6 tracking-tight flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
-                Secure Processors
+                {t.secureProcessorsTitle}
               </h2>
               <p className="text-neutral-600 text-base md:text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: t.paymentProviders }} />
             </div>
@@ -206,14 +222,14 @@ function PaymentPage() {
               <div className="absolute -right-16 -top-16 w-64 h-64 bg-emerald-900/30 rounded-full blur-3xl pointer-events-none"></div>
               <h2 className="text-2xl font-semibold text-white mb-6 tracking-tight flex items-center gap-3 relative z-10">
                 <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                Data Protection & Security
+                {t.securityTitle}
               </h2>
               <p className="text-emerald-100/90 text-base md:text-lg leading-relaxed relative z-10" dangerouslySetInnerHTML={{ __html: t.paymentSecurity }} />
             </div>
 
             {/* Contact / Help Card */}
             <div className="bg-neutral-900 text-white p-8 md:p-12 rounded-2xl shadow-xl text-center relative overflow-hidden">
-              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">Need Assistance?</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">{t.needAssistanceTitle}</h2>
               <p className="text-neutral-400 text-base md:text-lg mb-8">{t.paymentHelp}</p>
               <div className="text-lg md:text-xl font-medium tracking-wide space-y-3">
                 <span className="block text-white font-semibold text-2xl tracking-widest mb-4">ZAAV G</span>
