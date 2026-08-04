@@ -67,11 +67,11 @@ export function ArtSpace() {
             loop
             muted
             playsInline
-            poster="https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1010.jpg?v=1776287860"
+            poster="/HeroImg.webp"
             aria-hidden="true"
           >
             <source
-              src="https://cdn.shopify.com/videos/c/o/v/093cf9d136094da2bde00d95e2d88391.mp4"
+              src="/ArtVideo.mp4"
               type="video/mp4"
             />
             Your browser does not support the video tag.

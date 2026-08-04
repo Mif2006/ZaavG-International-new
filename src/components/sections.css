@@ -250,7 +250,7 @@
   background-image: url('/HeroImg.webp');
   background-size: cover;
   background-position: center;
-  z-index: 0;
+  z-index: -1; /* Changed from 0 to -1 so the video sits above it */
 }
 .zav-art-space__video-content {
   position: relative;
