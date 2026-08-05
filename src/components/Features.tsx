@@ -66,14 +66,14 @@ const T: Record<Lang, Dict> = {
 };
 
 const FEATURE_IMAGES = [
-  "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/3.png?v=1776457384",
-  "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/5.png?v=1776457384",
-  "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/4.png?v=1776457384",
+  "/FeatureIconOne.webp",
+  "/FeatureIconTwo.webp",
+  "/FeatureIconThree.webp",
 ];
 const BENEFIT_IMAGES = [
-  "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_2533.PNG_1.webp?v=1777991407",
-  "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_2532.PNG_1.webp?v=1777991407",
-  "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_2531.PNG_1.webp?v=1777991407",
+  "/FeatureIconFour.webp",
+  "/FeatureIcon5.webp",
+  "/FeatureIconSix.webp",
 ];
 
 function lines(arr: string[]) {
