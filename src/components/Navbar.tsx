@@ -31,10 +31,10 @@ const CartIcon = () => (
 const NAV_ITEMS = [
   { to: "/", labels: { en: "Home", ru: "Главная", id: "Beranda" } },
   { to: "/collections", labels: { en: "Collections", ru: "Коллекции", id: "Koleksi" } },
-  { to: "/size", labels: { en: "Size Guide", ru: "Таблица размеров", id: "Panduan Ukuran" } },
+  { to: "/size", labels: { en: "Size Guide", ru: "Узнать Размер", id: "Panduan Ukuran" } },
   { to: "/delivery", labels: { en: "Delivery & Shipping", ru: "Доставка", id: "Pengiriman" } },
-  { to: "/paymentinfo", labels: { en: "Payment", ru: "Оплата", id: "Pembayaran" } },
-  // { to: "/cooperation", labels: { en: "Cooperation", ru: "Сотрудничество", id: "Kerjasama" } },
+  { to: "/paymentinfo", labels: { en: "Payment Methods", ru: "Оплата", id: "Pembayaran" } },
+  { to: "/cooperation", labels: { en: "Cooperation", ru: "Сотрудничество", id: "Kerjasama" } },
   { to: "/contact", labels: { en: "Contact", ru: "Контакты", id: "Kontak" } },
   { to: "/videos", labels: { en: "Films", ru: "Фильмы", id: "Film" } },
 ];

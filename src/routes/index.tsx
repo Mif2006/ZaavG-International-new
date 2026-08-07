@@ -50,16 +50,16 @@ function LandingPage() {
       
       </section>
       <section className="bg-white">
-      <VideoSection />
-      
-      </section>
-
-      <section className="bg-white">
         <Activity mode="visible">
       <Bestsellers />
       </Activity>
       
       </section>
+      <section className="bg-white">
+      <VideoSection />
+      
+      </section>
+
       <section className="bg-white">
       <Features />
       

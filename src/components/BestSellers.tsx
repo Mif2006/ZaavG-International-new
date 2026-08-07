@@ -22,17 +22,17 @@ const BESTSELLERS_T = {
     loading: "Loading bestsellers...",
     empty: "No items found in the 'main page' category.",
     noImage: "No photo",
-    locale: "en-US",
+    locale: "id-ID",
   },
   ru: {
-    title: "Bestsellers",
+    title: "Бестселлеры",
     addToCart: "В корзину",
     learnMore: "Подробнее",
     newBadge: "NEW",
     loading: "Загрузка хитов продаж...",
     empty: "Товары в категории 'main page' не найдены.",
     noImage: "Нет фото",
-    locale: "ru-RU",
+    locale: "id-ID",
   },
   id: {
     title: "Terlaris",
@@ -103,9 +103,9 @@ export function Bestsellers() {
   }
 
   return (
-    <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-      <div className="flex flex-col items-center mb-10">
-        <h2 className="text-4xl font-bold text-black mb-2">
+    <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+      <div className="flex flex-col items-center mb-8 sm:mb-12">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-black tracking-tight">
           {dict.title}
         </h2>
       </div>
@@ -115,16 +115,17 @@ export function Bestsellers() {
           <p className="text-sm text-black/60 uppercase tracking-widest">{dict.empty}</p>
         </div>
       ) : (
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 lg:grid lg:grid-cols-4 lg:gap-6 pb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 pb-8">
           {bestsellers.map((it) => {
             const isNew = newCat ? matchesCategory(it, newCat) : false;
 
             return (
               <div 
                 key={it.id} 
-                className="w-[75vw] sm:w-[45vw] lg:w-auto snap-center flex-shrink-0 group flex flex-col items-center"
+                className="w-full group flex flex-col items-start"
               >
-                <div className="relative w-full aspect-[4/5] mb-4 overflow-hidden bg-neutral-100">
+                {/* Rectangular Image Container (3:4 ratio) */}
+                <div className="relative w-full aspect-[3/4] mb-3 overflow-hidden bg-neutral-100">
                   <Link to="/collections/$slug" params={{ slug: it.slug }} className="block w-full h-full">
                     {it.main_image_url ? (
                       <img 
@@ -140,27 +141,29 @@ export function Bestsellers() {
                   </Link>
 
                   {isNew && (
-                    <div className="absolute top-4 right-4 w-12 h-12 bg-[#222222] text-white rounded-full flex items-center justify-center text-[10px] font-bold tracking-wider z-10 pointer-events-none">
+                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 w-9 h-9 sm:w-11 sm:h-11 bg-[#222222] text-white rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold tracking-wider z-10 pointer-events-none">
                       {dict.newBadge}
                     </div>
                   )}
                 </div>
 
-                <div className="flex flex-col items-center w-full px-2 text-center">
-                  <Link to="/collections/$slug" params={{ slug: it.slug }} className="block w-full mb-4 text-black hover:text-black/70 transition-colors">
-                    <h3 className="text-sm sm:text-base font-bold mb-1 truncate w-full">
+                {/* Left-aligned details matching reference layout */}
+                <div className="flex flex-col items-start w-full text-left">
+                  <Link to="/collections/$slug" params={{ slug: it.slug }} className="block w-full text-black hover:text-black/70 transition-colors">
+                    <h3 className="text-sm font-medium text-neutral-900 truncate w-full">
                       {it.title}
                     </h3>
-                    <p className="text-sm sm:text-base tabular-nums font-medium">
-                      {Number(it.price).toLocaleString(dict.locale)} ₽
+                    <p className="text-sm text-neutral-500 font-normal mt-0.5 tabular-nums">
+                      Rp {Number(it.price).toLocaleString("id-ID")}
                     </p>
                   </Link>
                   
-                  <div className="flex flex-col w-full gap-2">
+                  {/* Temporarily commented out button actions
+                  <div className="flex flex-col w-full gap-2 mt-3">
                     <Link 
                       to="/collections/$slug" 
                       params={{ slug: it.slug }}
-                      className="w-full py-3 text-sm font-bold text-white bg-[#222222] hover:bg-black transition-colors rounded-md text-center"
+                      className="w-full py-2.5 text-xs font-bold text-white bg-[#222222] hover:bg-black transition-colors rounded-md text-center"
                     >
                       {dict.learnMore}
                     </Link>
@@ -178,11 +181,12 @@ export function Bestsellers() {
                           size: "Default" 
                         });
                       }}
-                      className="w-full py-3 text-sm font-bold text-black bg-white border border-black hover:bg-neutral-50 transition-colors rounded-md text-center cursor-pointer"
+                      className="w-full py-2.5 text-xs font-bold text-black bg-white border border-black hover:bg-neutral-50 transition-colors rounded-md text-center cursor-pointer"
                     >
                       {dict.addToCart}
                     </button>
                   </div>
+                  */}
                 </div>
               </div>
             );

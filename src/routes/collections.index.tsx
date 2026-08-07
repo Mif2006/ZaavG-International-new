@@ -32,7 +32,7 @@ const T: Record<
     empty: "No items found in this category.",
     noImage: "no image",
     newBadge: "NEW",
-    locale: "en-US",
+    locale: "id-ID",
   },
   ru: {
     title: "Авторские украшения из серебра",
@@ -40,7 +40,7 @@ const T: Record<
     empty: "В этой категории нет товаров.",
     noImage: "нет фото",
     newBadge: "NEW",
-    locale: "ru-RU",
+    locale: "id-ID",
   },
   id: {
     title: "Temukan Perhiasan Anda",
@@ -220,7 +220,7 @@ function CollectionsPage() {
         {filtered.length === 0 ? (
           <div className="py-24 text-center text-black/50">{dict.empty}</div>
         ) : (
-          <div className="grid mx-6 md:mx-8 pt-4 pb-16 grid-cols-2 gap-x-2 gap-y-10 sm:grid-cols-3 md:gap-x-4 lg:grid-cols-5">
+          <div className="grid mx-6 md:mx-8 pt-4 pb-16 grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 md:gap-x-6 lg:grid-cols-4">
             {filtered.map((it, idx) => {
               const isNew = newCat ? matchesCategory(it, newCat) : false;
 
@@ -230,12 +230,12 @@ function CollectionsPage() {
                   params={{ slug: it.slug }}
                   key={it.id}
                   style={{
-                    // Relaxed stagger delay: 70ms per item instead of 45ms
                     animationDelay: `${Math.min(idx, 15) * 70}ms`,
                   }}
-                  className="group block cursor-pointer animate-fade-in-up"
+                  className="group flex flex-col items-start cursor-pointer animate-fade-in-up"
                 >
-                  <div className="relative aspect-square overflow-hidden bg-neutral-100">
+                  {/* Rectangular Image Container (3:4 ratio) */}
+                  <div className="relative w-full aspect-[3/4] mb-3 overflow-hidden bg-neutral-100">
                     {it.main_image_url ? (
                       <img
                         src={it.main_image_url}
@@ -249,19 +249,20 @@ function CollectionsPage() {
                     )}
 
                     {isNew && (
-                      <div className="absolute top-3 right-3 w-10 h-10 md:w-12 md:h-12 bg-[#222222] text-white rounded-full flex items-center justify-center text-[9px] md:text-[10px] font-bold tracking-wider z-10 pointer-events-none shadow-sm">
+                      <div className="absolute top-2 right-2 sm:top-3 sm:right-3 w-9 h-9 sm:w-11 sm:h-11 bg-[#222222] text-white rounded-full flex items-center justify-center text-[9px] sm:text-[10px] font-bold tracking-wider z-10 pointer-events-none shadow-sm">
                         {dict.newBadge}
                       </div>
                     )}
                   </div>
 
-                  <div className="pt-3">
-                    <div className="text-sm font-medium transition-colors group-hover:text-black/70">
+                  {/* Left-aligned details matching reference layout */}
+                  <div className="flex flex-col items-start w-full text-left">
+                    <h3 className="text-sm font-medium text-neutral-900 truncate w-full transition-colors group-hover:text-black/70">
                       {it.title}
-                    </div>
-                    <div className="mt-0.5 text-sm text-black/70 tabular-nums font-semibold">
-                      {Number(it.price).toLocaleString(dict.locale)} $
-                    </div>
+                    </h3>
+                    <p className="text-sm text-neutral-500 font-normal mt-0.5 tabular-nums">
+                      Rp {Number(it.price).toLocaleString("id-ID")}
+                    </p>
                   </div>
                 </Link>
               );

@@ -2,11 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import midtransClient from "midtrans-client";
 
 // Initialize the Snap client once outside the handler
-// Initialize the Snap client once outside the handler
 const snap = new midtransClient.Snap({
   isProduction: false, 
   serverKey: process.env.MIDTRANS_SERVER_KEY || "",
-  clientKey: process.env.MIDTRANS_CLIENT_KEY || "", // <-- Add this line to satisfy TypeScript
+  clientKey: process.env.MIDTRANS_CLIENT_KEY || "", 
 });
 
 async function handler(request: Request) {
@@ -15,14 +14,21 @@ async function handler(request: Request) {
     const body = await request.json();
     const { orderId, grossAmount, customerDetails, itemDetails } = body;
 
+    // Pack the item names and quantities for the webhook notification
+    const itemsSummary = (itemDetails || [])
+      .map((i: any) => `${i.name} (x${i.quantity})`)
+      .join(", ")
+      .substring(0, 255); // Safety cap for Midtrans limit
+
     // Construct the payload exactly how Midtrans requires it
     const parameter = {
       transaction_details: {
         order_id: orderId,
-        gross_amount: grossAmount,
+        gross_amount: grossAmount, // Assuming this is now passed as IDR integer
       },
-      item_details: itemDetails,
-      customer_details: customerDetails,
+      item_details: itemDetails, // Passed as-is, assuming prices are IDR
+      customer_details: customerDetails, // Sent to dashboard
+      custom_field1: itemsSummary,       // Echoed back to webhook
     };
 
     // Request the unique Snap Token for this specific transaction
