@@ -8,13 +8,18 @@ export const Route = createFileRoute("/paymentinfo")({
       { title: "Payment Methods — ZAAV G" },
       {
         name: "description",
-        content: "Secure and convenient payment options for customers worldwide.",
+        content:
+          "Secure and convenient payment methods for ZAAV G jewelry, including Visa, Mastercard, Apple Pay, Google Pay, and more.",
       },
       { property: "og:title", content: "Payment Methods — ZAAV G" },
-      { property: "og:description", content: "Secure and convenient payment options for customers worldwide." },
+      {
+        property: "og:description",
+        content:
+          "Secure and convenient payment methods for ZAAV G jewelry, including Visa, Mastercard, Apple Pay, Google Pay, and more.",
+      },
     ],
   }),
-  component: PaymentPage,
+  component: PaymentMethodsPage,
 });
 
 type Lang = "en" | "ru" | "id";
@@ -23,6 +28,7 @@ const T: Record<
   Lang,
   {
     paymentTitle: string;
+    paymentUpdated: string;
     paymentIntro: string;
     paymentMethodsIntro: string;
     methodVisa: string;
@@ -36,17 +42,15 @@ const T: Record<
     paymentHelp: string;
     paymentBtnCatalog: string;
     paymentBtnHome: string;
-    secureCheckoutBadge: string;
-    secureProcessorsTitle: string;
-    securityTitle: string;
-    needAssistanceTitle: string;
   }
 > = {
   en: {
     paymentTitle: "PAYMENT METHODS",
+    paymentUpdated: "Last updated: May 2026",
     paymentIntro:
-      "At ZAAV G, we offer secure and convenient payment options for customers worldwide.<br>All payments are processed through trusted and encrypted payment systems to ensure your information remains protected.",
-    paymentMethodsIntro: "Depending on your country, available payment methods may include:",
+      "At ZAAV G, we offer secure and convenient payment options for customers worldwide.\nAll payments are processed through trusted and encrypted payment systems to ensure your information remains protected.",
+    paymentMethodsIntro:
+      "Depending on your country, available payment methods may include:",
     methodVisa: "Visa",
     methodMastercard: "Mastercard",
     methodApplePay: "Apple Pay",
@@ -56,21 +60,19 @@ const T: Record<
     paymentProviders:
       "Payments are securely processed through trusted providers, including <strong>Shopify Payments</strong>, <strong>Xendit</strong>, and other certified payment partners.",
     paymentSecurity:
-      "<strong>ZAAV G does not store full payment card information.</strong><br>Your financial data is encrypted and handled exclusively by PCI-DSS compliant payment processors.",
+      "<strong>ZAAV G does not store full payment card information.</strong>\nYour financial data is encrypted and handled exclusively by PCI-DSS compliant payment processors.",
     paymentHelp:
       "If you experience any difficulties during checkout or need assistance with payment, please contact us and our team will be happy to help.",
     paymentBtnCatalog: "View Collections",
     paymentBtnHome: "Home",
-    secureCheckoutBadge: "ZAAV G Secure Checkout",
-    secureProcessorsTitle: "Secure Processors",
-    securityTitle: "Data Protection & Security",
-    needAssistanceTitle: "Need Assistance?",
   },
   ru: {
     paymentTitle: "СПОСОБЫ ОПЛАТЫ",
+    paymentUpdated: "Последнее обновление: май 2026",
     paymentIntro:
-      "В ZAAV G мы предлагаем безопасные и удобные варианты оплаты для клиентов по всему миру.<br>Все платежи обрабатываются через надежные и зашифрованные платежные системы для защиты вашей информации.",
-    paymentMethodsIntro: "В зависимости от вашей страны, доступные способы оплаты могут включать:",
+      "В ZAAV G мы предлагаем безопасные и удобные варианты оплаты для клиентов по всему миру.\nВсе платежи обрабатываются через надежные и зашифрованные платежные системы для защиты вашей информации.",
+    paymentMethodsIntro:
+      "В зависимости от вашей страны, доступные способы оплаты могут включать:",
     methodVisa: "Visa",
     methodMastercard: "Mastercard",
     methodApplePay: "Apple Pay",
@@ -80,21 +82,19 @@ const T: Record<
     paymentProviders:
       "Платежи безопасно обрабатываются через надежных провайдеров, включая <strong>Shopify Payments</strong>, <strong>Xendit</strong> и других сертифицированных платежных партнеров.",
     paymentSecurity:
-      "<strong>ZAAV G не хранит полную информацию о платежных картах.</strong><br>Ваши финансовые данные шифруются и обрабатываются исключительно платежными процессорами, соответствующими стандарту PCI-DSS.",
+      "<strong>ZAAV G не хранит полную информацию о платежных картах.</strong>\nВаши финансовые данные шифруются и обрабатываются исключительно платежными процессорами, соответствующими стандарту PCI-DSS.",
     paymentHelp:
       "Если у вас возникли трудности при оформлении заказа или нужна помощь с оплатой, пожалуйста, свяжитесь с нами — наша команда будет рада помочь.",
     paymentBtnCatalog: "Смотреть коллекции",
     paymentBtnHome: "На главную",
-    secureCheckoutBadge: "Безопасная оплата ZAAV G",
-    secureProcessorsTitle: "Безопасные платежные системы",
-    securityTitle: "Защита данных и безопасность",
-    needAssistanceTitle: "Нужна помощь?",
   },
   id: {
     paymentTitle: "METODE PEMBAYARAN",
+    paymentUpdated: "Terakhir diperbarui: Mei 2026",
     paymentIntro:
-      "Di ZAAV G, kami menawarkan opsi pembayaran yang aman dan nyaman untuk pelanggan di seluruh dunia.<br>Semua pembayaran diproses melalui sistem pembayaran tepercaya dan terenkripsi untuk memastikan informasi Anda tetap terlindungi.",
-    paymentMethodsIntro: "Tergantung pada negara Anda, metode pembayaran yang tersedia dapat mencakup:",
+      "Di ZAAV G, kami menawarkan opsi pembayaran yang aman dan nyaman untuk pelanggan di seluruh dunia.\nSemua pembayaran diproses melalui sistem pembayaran tepercaya dan terenkripsi untuk memastikan informasi Anda tetap terlindungi.",
+    paymentMethodsIntro:
+      "Tergantung pada negara Anda, metode pembayaran yang tersedia dapat mencakup:",
     methodVisa: "Visa",
     methodMastercard: "Mastercard",
     methodApplePay: "Apple Pay",
@@ -104,156 +104,176 @@ const T: Record<
     paymentProviders:
       "Pembayaran diproses dengan aman melalui penyedia tepercaya, termasuk <strong>Shopify Payments</strong>, <strong>Xendit</strong>, dan mitra pembayaran bersertifikat lainnya.",
     paymentSecurity:
-      "<strong>ZAAV G tidak menyimpan informasi lengkap kartu pembayaran.</strong><br>Data keuangan Anda dienkripsi dan ditangani secara eksklusif oleh prosesor pembayaran yang compliant dengan PCI-DSS.",
+      "<strong>ZAAV G tidak menyimpan informasi lengkap kartu pembayaran.</strong>\nData keuangan Anda dienkripsi dan ditangani secara eksklusif oleh prosesor pembayaran yang compliant dengan PCI-DSS.",
     paymentHelp:
       "Jika Anda mengalami kesulitan saat checkout atau membutuhkan bantuan dengan pembayaran, silakan hubungi kami dan tim kami akan dengan senang hati membantu.",
     paymentBtnCatalog: "Lihat Katalog",
     paymentBtnHome: "Beranda",
-    secureCheckoutBadge: "Pembayaran Aman ZAAV G",
-    secureProcessorsTitle: "Prosesor Pembayaran Aman",
-    securityTitle: "Perlindungan Data & Keamanan",
-    needAssistanceTitle: "Butuh Bantuan?",
   },
 };
 
-function PaymentPage() {
+function PaymentMethodsPage() {
   const { lang } = useI18n();
   const t = T[lang as Lang] || T.en;
 
+  const renderFormattedText = (text: string) => {
+    return (
+      <span
+        dangerouslySetInnerHTML={{
+          __html: text.replace(/\n/g, "<br />"),
+        }}
+      />
+    );
+  };
+
   const scrollToContent = () => {
-    const el = document.getElementById("paymentContent");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById("paymentContent");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
     <PublicShell>
-      <div className="relative font-sans text-neutral-900 antialiased bg-[#faf8f5] min-h-screen selection:bg-neutral-900 selection:text-white">
-        {/* Immersive Editorial Hero */}
-        <section className="relative h-[70vh] min-h-[500px] flex items-center justify-center bg-[url('/FaqPayment.webp')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
-          {/* Rich multi-stop gradient overlay for depth and elegance */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10"></div>
-          
-          <div className="relative z-20 text-center px-6 max-w-5xl mx-auto mt-8">
-            <span className="inline-block text-xs uppercase tracking-[0.3em] text-white/70 mb-4 font-medium backdrop-blur-md bg-white/10 px-4 py-1.5 rounded-full border border-white/15">
-              {t.secureCheckoutBadge}
-            </span>
+      <div className="min-h-screen bg-white font-sans text-[#1a1a1a]">
+        {/* Hero Section */}
+        <section
+          className="relative flex h-[60vh] min-h-[350px] md:min-h-[480px] w-full items-center justify-center overflow-hidden bg-cover bg-center md:bg-fixed"
+          style={{
+            backgroundImage:
+              "url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1324.jpg?v=1776287860')",
+          }}
+        >
+          <div className="absolute inset-0 bg-[#0a140f]/75 z-10" />
+          <div className="relative z-20 px-5 text-center">
             <h1
-              className={`font-extrabold text-white tracking-[0.18em] uppercase leading-[1.1] mb-12 drop-shadow-2xl transition-all duration-500 ${
+              className={`mb-10 font-bold uppercase tracking-[0.15em] text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-300 ${
                 lang === "ru"
-                  ? "text-[clamp(2.2rem,5vw,4rem)]"
-                  : "text-[clamp(2.8rem,7vw,5.2rem)]"
+                  ? "text-[clamp(1.5rem,5vw,3.5rem)]"
+                  : "text-[clamp(2rem,6vw,4.5rem)]"
               }`}
             >
               {t.paymentTitle}
             </h1>
-
-            <div
+            <button
+              type="button"
               onClick={scrollToContent}
-              className="group inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/40 bg-white/5 backdrop-blur-md cursor-pointer transition-all duration-300 hover:border-white hover:bg-white/20 hover:scale-105 shadow-lg mx-auto"
               aria-label="Scroll to content"
+              className="mx-auto mt-7 flex h-10 w-10 animate-bounce items-center justify-center rounded-full border-2 border-white/60 transition-all duration-300 hover:border-white hover:translate-y-1"
             >
-              <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-white fill-none stroke-[2] transition-transform duration-300 group-hover:translate-y-0.5">
-                <polyline points="6 9 12 15 18 9"></polyline>
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5 fill-none stroke-white stroke-2"
+              >
+                <polyline points="6 9 12 15 18 9" />
               </svg>
-            </div>
+            </button>
           </div>
         </section>
 
-        {/* Main Editorial Body */}
-        <div id="paymentContent" className="py-24 px-6 max-w-4xl mx-auto">
-          
-          {/* Intro Section */}
-          <div className="mb-20 text-center max-w-2xl mx-auto">
-            <p className="text-xl md:text-2xl text-neutral-700 font-light leading-relaxed tracking-wide" dangerouslySetInnerHTML={{ __html: t.paymentIntro }} />
-            <div className="w-12 h-[1px] bg-neutral-300 mx-auto mt-10"></div>
+        {/* Content Section */}
+        <div
+          id="paymentContent"
+          className="mx-auto max-w-[900px] px-6 py-16 md:px-15 md:py-25"
+        >
+          <div className="mb-12 text-center">
+            <p className="text-base md:text-lg leading-[1.9] text-[#555555]">
+              {renderFormattedText(t.paymentIntro)}
+            </p>
           </div>
 
-          {/* Content Flow Cards Grid */}
-          <div className="space-y-12">
-            
-            {/* Payment Methods */}
-            <div className="bg-white p-8 md:p-12 rounded-2xl border border-neutral-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-              <h2 className="text-2xl font-semibold text-neutral-900 mb-6 tracking-tight flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
-                {t.paymentMethodsIntro}
-              </h2>
-              
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-8">
-                <div className="p-6 bg-neutral-50/80 rounded-xl border border-neutral-100 flex flex-col items-center gap-3 transition-all hover:bg-neutral-50 hover:border-emerald-500/30">
-                  <div className="w-12 h-8 flex items-center justify-center font-semibold text-xs text-neutral-900 bg-white shadow-sm rounded border border-neutral-200">VISA</div>
-                  <span className="text-sm font-medium text-neutral-700 text-center">{t.methodVisa}</span>
+          <div className="my-10 rounded-xl bg-[#f9f9f9] p-6 md:p-10 text-center">
+            <p className="mb-4 text-base md:text-lg leading-[1.9] text-[#555555]">
+              {t.paymentMethodsIntro}
+            </p>
+            <div className="my-7 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 justify-items-center">
+              <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4">
+                <div className="flex h-8 w-12 items-center justify-center rounded bg-[#f5f5f5] text-sm font-semibold text-[#1a1a1a]">
+                  VISA
                 </div>
-                <div className="p-6 bg-neutral-50/80 rounded-xl border border-neutral-100 flex flex-col items-center gap-3 transition-all hover:bg-neutral-50 hover:border-emerald-500/30">
-                  <div className="w-12 h-8 flex items-center justify-center font-semibold text-xs text-neutral-900 bg-white shadow-sm rounded border border-neutral-200">MC</div>
-                  <span className="text-sm font-medium text-neutral-700 text-center">{t.methodMastercard}</span>
+                <span className="text-center text-sm text-[#555555]">
+                  {t.methodVisa}
+                </span>
+              </div>
+              <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4">
+                <div className="flex h-8 w-12 items-center justify-center rounded bg-[#f5f5f5] text-sm font-semibold text-[#1a1a1a]">
+                  MC
                 </div>
-                <div className="p-6 bg-neutral-50/80 rounded-xl border border-neutral-100 flex flex-col items-center gap-3 transition-all hover:bg-neutral-50 hover:border-emerald-500/30">
-                  <div className="w-12 h-8 flex items-center justify-center font-semibold text-xs text-neutral-900 bg-white shadow-sm rounded border border-neutral-200">Pay</div>
-                  <span className="text-sm font-medium text-neutral-700 text-center">{t.methodApplePay}</span>
+                <span className="text-center text-sm text-[#555555]">
+                  {t.methodMastercard}
+                </span>
+              </div>
+              <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4">
+                <div className="flex h-8 w-12 items-center justify-center rounded bg-[#f5f5f5] text-sm font-semibold text-[#1a1a1a]">
+                  Pay
                 </div>
-                <div className="p-6 bg-neutral-50/80 rounded-xl border border-neutral-100 flex flex-col items-center gap-3 transition-all hover:bg-neutral-50 hover:border-emerald-500/30">
-                  <div className="w-12 h-8 flex items-center justify-center font-semibold text-xs text-neutral-900 bg-white shadow-sm rounded border border-neutral-200">GPay</div>
-                  <span className="text-sm font-medium text-neutral-700 text-center">{t.methodGooglePay}</span>
+                <span className="text-center text-sm text-[#555555]">
+                  {t.methodApplePay}
+                </span>
+              </div>
+              <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4">
+                <div className="flex h-8 w-12 items-center justify-center rounded bg-[#f5f5f5] text-sm font-semibold text-[#1a1a1a]">
+                  GPay
                 </div>
-                <div className="p-6 bg-neutral-50/80 rounded-xl border border-neutral-100 flex flex-col items-center gap-3 transition-all hover:bg-neutral-50 hover:border-emerald-500/30">
-                  <div className="w-12 h-8 flex items-center justify-center text-lg bg-white shadow-sm rounded border border-neutral-200">🏦</div>
-                  <span className="text-sm font-medium text-neutral-700 text-center">{t.methodBankTransfer}</span>
+                <span className="text-center text-sm text-[#555555]">
+                  {t.methodGooglePay}
+                </span>
+              </div>
+              <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4">
+                <div className="flex h-8 w-12 items-center justify-center rounded bg-[#f5f5f5] text-sm font-semibold text-[#1a1a1a]">
+                  🏦
                 </div>
-                <div className="p-6 bg-neutral-50/80 rounded-xl border border-neutral-100 flex flex-col items-center gap-3 transition-all hover:bg-neutral-50 hover:border-emerald-500/30">
-                  <div className="w-12 h-8 flex items-center justify-center text-lg bg-white shadow-sm rounded border border-neutral-200">🌍</div>
-                  <span className="text-sm font-medium text-neutral-700 text-center">{t.methodLocal}</span>
+                <span className="text-center text-sm text-[#555555]">
+                  {t.methodBankTransfer}
+                </span>
+              </div>
+              <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4">
+                <div className="flex h-8 w-12 items-center justify-center rounded bg-[#f5f5f5] text-sm font-semibold text-[#1a1a1a]">
+                  🌍
                 </div>
+                <span className="text-center text-sm text-[#555555]">
+                  {t.methodLocal}
+                </span>
               </div>
             </div>
+          </div>
 
-            {/* Payment Providers */}
-            <div className="bg-white p-8 md:p-12 rounded-2xl border border-neutral-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.02)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-              <h2 className="text-2xl font-semibold text-neutral-900 mb-6 tracking-tight flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
-                {t.secureProcessorsTitle}
-              </h2>
-              <p className="text-neutral-600 text-base md:text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: t.paymentProviders }} />
-            </div>
+          <div className="mb-12 text-center">
+            <p className="mb-6 text-base md:text-lg leading-[1.9] text-[#555555]">
+              {renderFormattedText(t.paymentProviders)}
+            </p>
+            <p className="text-base md:text-lg leading-[1.9] text-[#555555]">
+              {renderFormattedText(t.paymentSecurity)}
+            </p>
+          </div>
 
-            {/* Payment Security (Highlighted Card) */}
-            <div className="bg-emerald-950 text-white p-8 md:p-12 rounded-2xl shadow-xl relative overflow-hidden">
-              <div className="absolute -right-16 -top-16 w-64 h-64 bg-emerald-900/30 rounded-full blur-3xl pointer-events-none"></div>
-              <h2 className="text-2xl font-semibold text-white mb-6 tracking-tight flex items-center gap-3 relative z-10">
-                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                {t.securityTitle}
-              </h2>
-              <p className="text-emerald-100/90 text-base md:text-lg leading-relaxed relative z-10" dangerouslySetInnerHTML={{ __html: t.paymentSecurity }} />
-            </div>
-
-            {/* Contact / Help Card */}
-            <div className="bg-neutral-900 text-white p-8 md:p-12 rounded-2xl shadow-xl text-center relative overflow-hidden">
-              <h2 className="text-2xl font-semibold text-white mb-4 tracking-tight">{t.needAssistanceTitle}</h2>
-              <p className="text-neutral-400 text-base md:text-lg mb-8">{t.paymentHelp}</p>
-              <div className="text-lg md:text-xl font-medium tracking-wide space-y-3">
-                <span className="block text-white font-semibold text-2xl tracking-widest mb-4">ZAAV G</span>
-                <div className="flex items-center justify-center gap-2">
-                  <span>📩</span>
-                  <a href="mailto:zaavg.bali@gmail.com" className="text-emerald-400 hover:underline transition-colors">zaavg.bali@gmail.com</a>
-                </div>
-              </div>
-            </div>
-
+          <div className="my-10 rounded-xl bg-[#f9f9f9] p-6 md:p-10 text-center">
+            <p className="mb-4 text-base md:text-lg leading-[1.9] text-[#555555]">
+              {t.paymentHelp}
+            </p>
+            <p className="text-base md:text-lg font-semibold text-[#1a1a1a]">
+              📩{" "}
+              <a
+                href="mailto:zaavg.bali@gmail.com"
+                className="text-[#008060] no-underline hover:underline"
+              >
+                zaavg.bali@gmail.com
+              </a>
+            </p>
           </div>
         </div>
 
-        {/* Action Buttons Block (Mobile Optimized) */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 py-12 px-6 sm:px-10 bg-white">
+        {/* Navigation Buttons */}
+        <div className="py-16 px-6 bg-white flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 border-t border-neutral-100">
           <Link
             to="/collections"
-            className="inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[220px] px-8 py-3.5 sm:px-10 sm:py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
+            className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-sans text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
           >
             {t.paymentBtnCatalog}
           </Link>
           <Link
             to="/"
-            className="inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[220px] px-8 py-3.5 sm:px-10 sm:py-4 font-sans text-sm sm:text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 bg-transparent text-[#1a1a1a] border-[1.5px] border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-sans text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] bg-transparent text-[#1a1a1a] border-[1.5px] border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white hover:-translate-y-0.5"
           >
             {t.paymentBtnHome}
           </Link>
