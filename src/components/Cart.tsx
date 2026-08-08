@@ -263,6 +263,7 @@ const CART_T = {
     province: "Province / State / Region",
     postalCode: "Postal Code / ZIP",
     country: "Country",
+    orderNotesPlaceholder: "Order Notes (Optional)",
     placeOrder: "Pay",
     processing: "Processing...",
     total: "Subtotal",
@@ -304,6 +305,7 @@ const CART_T = {
     province: "Область / Регион / Штат",
     postalCode: "Почтовый индекс",
     country: "Страна",
+    orderNotesPlaceholder: "Комментарий к заказу (необязательно)",
     placeOrder: "Оплатить",
     processing: "Обработка...",
     total: "Итого",
@@ -345,6 +347,7 @@ const CART_T = {
     province: "Provinsi / Negara Bagian",
     postalCode: "Kode Pos",
     country: "Negara",
+    orderNotesPlaceholder: "Catatan Pesanan (Opsional)",
     placeOrder: "Bayar",
     processing: "Memproses...",
     total: "Subtotal",
@@ -398,6 +401,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
   const [postalCode, setPostalCode] = useState("");
   // Default delivery country code to 3-letter ISO alpha-3 ("IDN" for Indonesia)
   const [deliveryCountryCode, setDeliveryCountryCode] = useState("IDN");
+  const [orderNotes, setOrderNotes] = useState("");
 
   // Form Validation & API Error States
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -606,6 +610,8 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
       const payload = {
         orderId: `ORDER-${Date.now()}`,
         grossAmount: total,
+        orderNotes: orderNotes,
+        custom_field1: orderNotes ? orderNotes.substring(0, 255) : undefined,
         customerDetails: {
           first_name: name,
           email: email,
@@ -1129,28 +1135,37 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                       </div>
                     </div>
                   )}
-                </div>
 
-              
+                  {/* Order Notes */}
+                  <div>
+                    <textarea
+                      placeholder={t.orderNotesPlaceholder}
+                      value={orderNotes}
+                      onChange={(e) => setOrderNotes(e.target.value)}
+                      rows={2}
+                      className="w-full border-b pb-3 text-sm focus:outline-none transition-colors bg-transparent placeholder:text-black/40 border-black/20 focus:border-black resize-none"
+                    />
+                  </div>
+                </div>
 
                 {/* Action Button */}
                 <div className="pt-6 pb-4 space-y-5 border-t border-black/10">
-<button
-  type="submit"
-  disabled={isProcessing}
-  className="w-full text-white py-4 text-xs font-bold uppercase tracking-widest transition-opacity hover:opacity-90 cursor-pointer shadow-md rounded-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-  style={{ backgroundColor: "#45cbad" }}
->
-  {isProcessing ? t.processing || "PROCESSING..." : t.placeOrder}
-</button>
+                  <button
+                    type="submit"
+                    disabled={isProcessing}
+                    className="w-full text-white py-4 text-xs font-bold uppercase tracking-widest transition-opacity hover:opacity-90 cursor-pointer shadow-md rounded-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ backgroundColor: "#45cbad" }}
+                  >
+                    {isProcessing ? t.processing || "PROCESSING..." : t.placeOrder}
+                  </button>
 
-<div className="text-xs text-center text-black/50 leading-relaxed px-2">
-  {t.privacyTextBefore}
-  <a href="/pages/privacy" className="underline hover:text-black transition-colors" style={{ color: "#45cbad" }}>
-    {t.privacyLink}
-  </a>
-</div>
-</div>
+                  <div className="text-xs text-center text-black/50 leading-relaxed px-2">
+                    {t.privacyTextBefore}
+                    <a href="/pages/privacy" className="underline hover:text-black transition-colors" style={{ color: "#45cbad" }}>
+                      {t.privacyLink}
+                    </a>
+                  </div>
+                </div>
               </form>
             </>
           )}
@@ -1159,4 +1174,3 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     </div>
   );
 }
-

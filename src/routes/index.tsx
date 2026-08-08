@@ -10,6 +10,7 @@ import { Features } from "@/components/Features";
 import { FloatingToolbar } from "@/components/FloatingToolbar";
 import { Bestsellers } from "@/components/BestSellers";
 import { Activity } from "react";
+import Devider from "@/components/Devider";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,8 +44,10 @@ function LandingPage() {
       </section>
       <section className="bg-white">
       <About />
+      <Devider />
       
       </section>
+
       <section className="bg-white">
       <ArtSpace />
       
