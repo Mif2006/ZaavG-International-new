@@ -54,17 +54,14 @@ const T: Record<
 };
 
 export const Route = createFileRoute("/collections/$slug")({
-  // 1. Fetch data before the component renders
   loader: async ({ params: { slug } }) => {
     const full = await getItemBySlug(slug);
     if (!full) throw notFound();
     
-    // Fetch all items here as well for the recommendations
     const allItems = await listItems();
     return { full, allItems };
   },
 
-  // 2. Generate English SEO & Google Shopping Schema
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const { item } = loaderData.full;
@@ -81,7 +78,7 @@ export const Route = createFileRoute("/collections/$slug")({
       description: cleanDescription,
       offers: {
         "@type": "Offer",
-        url: `https://zaavgbali.com/collections/${item.slug}`, // Make sure to use your actual domain
+        url: `https://zaavgbali.com/collections/${item.slug}`,
         priceCurrency: "Iz",
         price: item.price,
         availability: "https://schema.org/InStock",
@@ -121,7 +118,6 @@ export const Route = createFileRoute("/collections/$slug")({
 });
 
 function ItemPage() {
-  // 3. Consume the data fetched by the loader
   const { full, allItems } = Route.useLoaderData();
 
   const { lang } = useI18n();
@@ -135,9 +131,6 @@ function ItemPage() {
 
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-
-  // We no longer need the isLoading check because the loader 
-  // guarantees the data is ready before the component even mounts.
 
   const { item, images, recommendedIds, sizes } = full;
 
@@ -202,11 +195,12 @@ function ItemPage() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white overflow-x-hidden w-full max-w-full">
       <PublicShell variant="light">
-        <div className="grid gap-8 pt-28 px-4 md:px-8 lg:px-12 pb-12 md:grid-cols-[minmax(0,1fr)_340px] lg:grid-cols-[minmax(0,1.2fr)_420px] lg:gap-16 items-start">
+        <div className="grid gap-8 pt-28 px-4 md:px-8 lg:px-12 pb-12 md:grid-cols-[minmax(0,1fr)_340px] lg:grid-cols-[minmax(0,1.2fr)_420px] lg:gap-16 items-start w-full max-w-full">
+          
           {/* Gallery Area */}
-          <div className="relative w-full flex flex-col">
+          <div className="relative w-full min-w-0 max-w-full flex flex-col overflow-hidden">
             <div className="relative w-full overflow-hidden">
               <div
                 className="flex w-full transition-transform duration-500 ease-in-out"
@@ -220,10 +214,10 @@ function ItemPage() {
                   return (
                     <div
                       key={u + i}
-                      className="w-full shrink-0 flex items-center justify-center px-12 md:px-20 lg:px-28"
+                      className="w-full min-w-full shrink-0 flex items-center justify-center px-4 md:px-12 lg:px-16"
                     >
                       <div
-                        className={`relative aspect-[4/5] w-full lg:w-[80%] max-w-[600px] overflow-hidden bg-neutral-100 transition-opacity duration-500 ${
+                        className={`relative aspect-[4/5] w-full max-w-[600px] overflow-hidden bg-neutral-100 transition-opacity duration-500 ${
                           isActive ? "opacity-100" : "opacity-0"
                         }`}
                       >
@@ -248,21 +242,21 @@ function ItemPage() {
                   <button
                     onClick={prev}
                     aria-label="prev"
-                    className="absolute inset-y-0 left-0 flex w-12 items-center justify-center text-black transition hover:opacity-50 md:w-20 z-10 cursor-pointer"
+                    className="absolute inset-y-0 left-0 flex w-10 items-center justify-center text-black transition hover:opacity-50 md:w-16 z-10 cursor-pointer"
                   >
                     <ChevronLeft
                       strokeWidth={1}
-                      className="h-10 w-10 md:h-12 md:w-12"
+                      className="h-8 w-8 md:h-12 md:w-12"
                     />
                   </button>
                   <button
                     onClick={next}
                     aria-label="next"
-                    className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-black transition hover:opacity-50 md:w-20 z-10 cursor-pointer"
+                    className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-black transition hover:opacity-50 md:w-16 z-10 cursor-pointer"
                   >
                     <ChevronRight
                       strokeWidth={1}
-                      className="h-10 w-10 md:h-12 md:w-12"
+                      className="h-8 w-8 md:h-12 md:w-12"
                     />
                   </button>
                 </>
@@ -271,8 +265,8 @@ function ItemPage() {
 
             {/* Thumbnails */}
             {gallery.length > 1 && (
-              <div className="mt-6 px-12 md:px-20 lg:px-28 w-full overflow-x-auto py-2">
-                <div className="flex w-max mx-auto lg:mx-0 gap-2">
+              <div className="mt-6 w-full min-w-0 max-w-full overflow-x-auto py-2 px-2 text-center">
+                <div className="inline-flex max-w-full gap-2 justify-center lg:justify-start">
                   {gallery.map((u, i) => (
                     <button
                       key={u + i}
@@ -296,7 +290,7 @@ function ItemPage() {
           </div>
 
           {/* Details */}
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0 max-w-full">
             <div>
               <h1 className="text-3xl font-bold md:text-4xl">{item.title}</h1>
               <div className="mt-2 text-lg text-black/80 tabular-nums">
@@ -349,7 +343,7 @@ function ItemPage() {
             {/* Actions: Quantity & Cart */}
             <div className="space-y-3">
               <div className="flex gap-3">
-                <div className="flex items-center rounded-xl border border-black/20 px-2 py-1">
+                <div className="flex items-center rounded-xl border border-black/20 px-2 py-1 shrink-0">
                   <button
                     onClick={decreaseQty}
                     className="flex h-8 w-8 items-center justify-center text-lg text-black/60 hover:text-black cursor-pointer"
@@ -370,8 +364,8 @@ function ItemPage() {
                   onClick={handleAddToCart}
                   className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-black/80 cursor-pointer"
                 >
-                  <ShoppingBag className="h-4 w-4" />
-                  {dict.cart}
+                  <ShoppingBag className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{dict.cart}</span>
                 </button>
               </div>
               <button
@@ -382,7 +376,7 @@ function ItemPage() {
               </button>
             </div>
 
-            {/* Metadata (Material, Stock, etc) */}
+            {/* Metadata */}
             <div className="pt-2 space-y-1.5 text-sm">
               {item.material && (
                 <div>
@@ -401,7 +395,7 @@ function ItemPage() {
             {/* Description */}
             {item.description && (
               <div
-                className="prose prose-sm max-w-none text-black/80"
+                className="prose prose-sm max-w-none text-black/80 break-words"
                 dangerouslySetInnerHTML={{ __html: item.description }}
               />
             )}
@@ -410,7 +404,7 @@ function ItemPage() {
 
         {/* Recommendations */}
         {recs.length > 0 && (
-          <section className="mt-12 px-7 md:px-24 pb-8">
+          <section className="mt-12 px-4 md:px-12 lg:px-24 pb-8 w-full max-w-full">
             <h2 className="mb-6 text-2xl font-bold">{dict.recs}</h2>
             <div className="grid grid-cols-2 gap-x-2 gap-y-8 sm:grid-cols-4 md:gap-x-4">
               {recs.map((r) => (
@@ -430,7 +424,7 @@ function ItemPage() {
                     )}
                   </div>
                   <div className="pt-3">
-                    <div className="text-sm font-medium">{r.title}</div>
+                    <div className="text-sm font-medium truncate">{r.title}</div>
                     <div className="mt-0.5 text-sm text-black/70 tabular-nums">
                      Rp {Number(r.price).toLocaleString(dict.locale)} 
                     </div>
