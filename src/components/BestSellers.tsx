@@ -10,6 +10,16 @@ import {
   type Category, 
   type Item 
 } from "@/lib/db";
+import { Image } from "@unpic/react";
+
+// ImageKit Proxy Helper
+const IMAGEKIT_ENDPOINT = "https://ik.imagekit.io/ZaavGImages";
+
+function getProxyUrl(url: string | null | undefined): string {
+  if (!url) return "";
+  if (url.startsWith(IMAGEKIT_ENDPOINT)) return url;
+  return `${IMAGEKIT_ENDPOINT}/${url}`;
+}
 
 type Lang = "en" | "ru" | "id";
 
@@ -116,7 +126,7 @@ export function Bestsellers() {
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 pb-8">
-          {bestsellers.map((it) => {
+          {bestsellers.map((it, idx) => {
             const isNew = newCat ? matchesCategory(it, newCat) : false;
 
             return (
@@ -128,10 +138,15 @@ export function Bestsellers() {
                 <div className="relative w-full aspect-[3/4] mb-3 overflow-hidden bg-neutral-100">
                   <Link to="/collections/$slug" params={{ slug: it.slug }} className="block w-full h-full">
                     {it.main_image_url ? (
-                      <img 
-                        src={it.main_image_url} 
+                      <Image 
+                        src={getProxyUrl(it.main_image_url)} 
                         alt={it.title} 
-                        className="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                        width={600}
+                        height={800}
+                        layout="constrained"
+                        aspectRatio={3 / 4}
+                        priority={idx < 4}
+                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                       />
                     ) : (
                       <div className="absolute inset-0 w-full h-full flex items-center justify-center text-xs text-black/40">
