@@ -45,7 +45,7 @@ export function Footer() {
   
   return (
     <footer className="zav-footer w-screen">
-      <div className="zav-footer__container">
+      <div className="zav-footer__container w-full">
         <nav className="zav-footer__nav">
           {links.map((link) => (
             <a key={link.href} href={link.href} className="zav-footer__link">
