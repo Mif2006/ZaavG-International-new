@@ -81,8 +81,8 @@ export const Route = createFileRoute("/collections/$slug")({
       description: cleanDescription,
       offers: {
         "@type": "Offer",
-        url: `https://zaavg.com/collections/${item.slug}`, // Make sure to use your actual domain
-        priceCurrency: "RUB",
+        url: `https://zaavgbali.com/collections/${item.slug}`, // Make sure to use your actual domain
+        priceCurrency: "Iz",
         price: item.price,
         availability: "https://schema.org/InStock",
         seller: {
@@ -271,24 +271,26 @@ function ItemPage() {
 
             {/* Thumbnails */}
             {gallery.length > 1 && (
-              <div className="mt-6 px-12 md:px-20 lg:px-28 flex gap-2 overflow-x-auto justify-center lg:justify-start">
-                {gallery.map((u, i) => (
-                  <button
-                    key={u + i}
-                    onClick={() => setHeroIdx(i)}
-                    className={`h-16 w-16 shrink-0 overflow-hidden border transition-opacity cursor-pointer ${
-                      heroIdx === i
-                        ? "border-black opacity-100"
-                        : "border-transparent opacity-50 hover:opacity-80"
-                    }`}
-                  >
-                    <img
-                      src={u}
-                      alt=""
-                      className="h-full w-full object-cover"
-                    />
-                  </button>
-                ))}
+              <div className="mt-6 px-12 md:px-20 lg:px-28 w-full overflow-x-auto py-2">
+                <div className="flex w-max mx-auto lg:mx-0 gap-2">
+                  {gallery.map((u, i) => (
+                    <button
+                      key={u + i}
+                      onClick={() => setHeroIdx(i)}
+                      className={`h-16 w-16 shrink-0 overflow-hidden border transition-opacity cursor-pointer ${
+                        heroIdx === i
+                          ? "border-black opacity-100"
+                          : "border-transparent opacity-50 hover:opacity-80"
+                      }`}
+                    >
+                      <img
+                        src={u}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
           </div>
