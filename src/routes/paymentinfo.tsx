@@ -58,7 +58,7 @@ const T: Record<
     methodBankTransfer: "Bank Transfer",
     methodLocal: "Local Options",
     paymentProviders:
-      "Payments are securely processed through trusted providers, including <strong>Shopify Payments</strong>, <strong>Xendit</strong>, and other certified payment partners.",
+      "Payments are securely processed through trusted providers, including <strong>Midtrans</strong>, and other certified payment partners.",
     paymentSecurity:
       "<strong>ZAAV G does not store full payment card information.</strong>\nYour financial data is encrypted and handled exclusively by PCI-DSS compliant payment processors.",
     paymentHelp:
@@ -80,7 +80,7 @@ const T: Record<
     methodBankTransfer: "Банковский перевод",
     methodLocal: "Локальные способы",
     paymentProviders:
-      "Платежи безопасно обрабатываются через надежных провайдеров, включая <strong>Shopify Payments</strong>, <strong>Xendit</strong> и других сертифицированных платежных партнеров.",
+      "Платежи безопасно обрабатываются через надежных провайдеров, включая <strong>Midtrans</strong> и других сертифицированных платежных партнеров.",
     paymentSecurity:
       "<strong>ZAAV G не хранит полную информацию о платежных картах.</strong>\nВаши финансовые данные шифруются и обрабатываются исключительно платежными процессорами, соответствующими стандарту PCI-DSS.",
     paymentHelp:
@@ -102,7 +102,7 @@ const T: Record<
     methodBankTransfer: "Transfer Bank",
     methodLocal: "Opsi Lokal",
     paymentProviders:
-      "Pembayaran diproses dengan aman melalui penyedia tepercaya, termasuk <strong>Shopify Payments</strong>, <strong>Xendit</strong>, dan mitra pembayaran bersertifikat lainnya.",
+      "Pembayaran diproses dengan aman melalui penyedia tepercaya, termasuk <strong>Midtrans</strong>, dan mitra pembayaran bersertifikat lainnya.",
     paymentSecurity:
       "<strong>ZAAV G tidak menyimpan informasi lengkap kartu pembayaran.</strong>\nData keuangan Anda dienkripsi dan ditangani secara eksklusif oleh prosesor pembayaran yang compliant dengan PCI-DSS.",
     paymentHelp:
@@ -141,7 +141,7 @@ function PaymentMethodsPage() {
           className="relative flex h-[60vh] min-h-[350px] md:min-h-[480px] w-full items-center justify-center overflow-hidden bg-cover bg-center md:bg-fixed"
           style={{
             backgroundImage:
-              "url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1324.jpg?v=1776287860')",
+              "url('/FaqPayment.webp')",
           }}
         >
           <div className="absolute inset-0 bg-[#0a140f]/75 z-10" />
