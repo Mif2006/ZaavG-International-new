@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CooperationRouteImport } from './routes/cooperation'
@@ -21,6 +20,7 @@ import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as SizeRouteImport } from './routes/size'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as VideosRouteImport } from './routes/videos'
+import { Route as ApiCooperationRouteImport } from './routes/api/cooperation'
 import { Route as ApiMidtransRouteImport } from './routes/api/midtrans'
 import { Route as ApiUploadthingRouteImport } from './routes/api/uploadthing'
 import { Route as ApiWebhookRouteImport } from './routes/api/webhook'
@@ -82,6 +82,11 @@ const VideosRoute = VideosRouteImport.update({
   path: '/videos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiCooperationRoute = ApiCooperationRouteImport.update({
+  id: '/api/cooperation',
+  path: '/api/cooperation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiMidtransRoute = ApiMidtransRouteImport.update({
   id: '/api/midtrans',
   path: '/api/midtrans',
@@ -120,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
+  '/api/cooperation': typeof ApiCooperationRoute
   '/api/midtrans': typeof ApiMidtransRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
   '/api/webhook': typeof ApiWebhookRoute
@@ -138,6 +144,7 @@ export interface FileRoutesByTo {
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
+  '/api/cooperation': typeof ApiCooperationRoute
   '/api/midtrans': typeof ApiMidtransRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
   '/api/webhook': typeof ApiWebhookRoute
@@ -157,6 +164,7 @@ export interface FileRoutesById {
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
+  '/api/cooperation': typeof ApiCooperationRoute
   '/api/midtrans': typeof ApiMidtransRoute
   '/api/uploadthing': typeof ApiUploadthingRoute
   '/api/webhook': typeof ApiWebhookRoute
@@ -177,6 +185,7 @@ export interface FileRouteTypes {
     | '/size'
     | '/terms-of-service'
     | '/videos'
+    | '/api/cooperation'
     | '/api/midtrans'
     | '/api/uploadthing'
     | '/api/webhook'
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/size'
     | '/terms-of-service'
     | '/videos'
+    | '/api/cooperation'
     | '/api/midtrans'
     | '/api/uploadthing'
     | '/api/webhook'
@@ -213,6 +223,7 @@ export interface FileRouteTypes {
     | '/size'
     | '/terms-of-service'
     | '/videos'
+    | '/api/cooperation'
     | '/api/midtrans'
     | '/api/uploadthing'
     | '/api/webhook'
@@ -232,6 +243,7 @@ export interface RootRouteChildren {
   SizeRoute: typeof SizeRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   VideosRoute: typeof VideosRoute
+  ApiCooperationRoute: typeof ApiCooperationRoute
   ApiMidtransRoute: typeof ApiMidtransRoute
   ApiUploadthingRoute: typeof ApiUploadthingRoute
   ApiWebhookRoute: typeof ApiWebhookRoute
@@ -318,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VideosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cooperation': {
+      id: '/api/cooperation'
+      path: '/api/cooperation'
+      fullPath: '/api/cooperation'
+      preLoaderRoute: typeof ApiCooperationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/midtrans': {
       id: '/api/midtrans'
       path: '/api/midtrans'
@@ -353,10 +372,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-   
   }
 }
-
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -370,6 +387,7 @@ const rootRouteChildren: RootRouteChildren = {
   SizeRoute: SizeRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   VideosRoute: VideosRoute,
+  ApiCooperationRoute: ApiCooperationRoute,
   ApiMidtransRoute: ApiMidtransRoute,
   ApiUploadthingRoute: ApiUploadthingRoute,
   ApiWebhookRoute: ApiWebhookRoute,

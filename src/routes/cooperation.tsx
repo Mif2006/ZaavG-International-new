@@ -138,10 +138,6 @@ function CooperationPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const escapeMD = (text: string) => {
-    return String(text || "").replace(/([_*\[\]()~`>#+\-=|{}.!])/g, "\\$1");
-  };
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const currentLang = (lang as Lang) || "en";
@@ -154,23 +150,11 @@ function CooperationPage() {
     setIsSubmitting(true);
     setStatus({ type: "loading", message: T[currentLang].sending });
 
-    const tgMsg =
-      `🤝 *NEW PARTNERSHIP INQUIRY - ZAAV G*\n` +
-      `📅 ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Makassar" })}\n\n` +
-      `👤 *Contact Details*\n` +
-      `Name: ${escapeMD(formData.name)}\n` +
-      `Email: ${escapeMD(formData.email)}\n` +
-      (formData.social ? `Instagram/Website: ${escapeMD(formData.social)}\n` : "") +
-      `Country: ${escapeMD(formData.country)}\n\n` +
-      `💬 *Message*\n` +
-      `${escapeMD(formData.message)}\n\n` +
-      `🔗 [ZAAV G Website](https://zaavgbali.com)`;
-
     try {
-      const res = await fetch("https://zaavg-bali-bot.vercel.app/api/telegram", {
+      const res = await fetch("/api/cooperation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: tgMsg, parse_mode: "Markdown" }),
+        body: JSON.stringify(formData),
       });
 
       const result = await res.json();
