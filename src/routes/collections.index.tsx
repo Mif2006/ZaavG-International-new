@@ -11,18 +11,8 @@ import { PublicShell } from "@/components/public-shell";
 import { useI18n, catName } from "@/lib/i18n";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Image } from "@unpic/react";
 
 type Lang = "en" | "ru" | "id";
-
-// ImageKit Proxy Helper
-const IMAGEKIT_ENDPOINT = "https://ik.imagekit.io/ZaavGImages";
-
-function getProxyUrl(url: string | null | undefined): string {
-  if (!url) return "";
-  if (url.startsWith(IMAGEKIT_ENDPOINT)) return url;
-  return `${IMAGEKIT_ENDPOINT}/${url}`;
-}
 
 // Local dictionary for UI text
 const T: Record<
@@ -247,14 +237,9 @@ function CollectionsPage() {
                   {/* Rectangular Image Container (3:4 ratio) */}
                   <div className="relative w-full aspect-[3/4] mb-3 overflow-hidden bg-neutral-100">
                     {it.main_image_url ? (
-                      <Image
-                        src={getProxyUrl(it.main_image_url)}
+                      <img
+                        src={it.main_image_url}
                         alt={it.title}
-                        width={600}
-                        height={800}
-                        layout="constrained"
-                        aspectRatio={3 / 4}
-                        priority={idx < 4}
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                       />
                     ) : (
