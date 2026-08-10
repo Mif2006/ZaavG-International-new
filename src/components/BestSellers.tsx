@@ -10,16 +10,6 @@ import {
   type Category, 
   type Item 
 } from "@/lib/db";
-import { Image } from "@unpic/react";
-
-// ImageKit Proxy Helper
-const IMAGEKIT_ENDPOINT = "https://ik.imagekit.io/ZaavGImages";
-
-function getProxyUrl(url: string | null | undefined): string {
-  if (!url) return "";
-  if (url.startsWith(IMAGEKIT_ENDPOINT)) return url;
-  return `${IMAGEKIT_ENDPOINT}/${url}`;
-}
 
 type Lang = "en" | "ru" | "id";
 
@@ -138,14 +128,10 @@ export function Bestsellers() {
                 <div className="relative w-full aspect-[3/4] mb-3 overflow-hidden bg-neutral-100">
                   <Link to="/collections/$slug" params={{ slug: it.slug }} className="block w-full h-full">
                     {it.main_image_url ? (
-                      <Image 
-                        src={getProxyUrl(it.main_image_url)} 
+                      <img 
+                        src={it.main_image_url} 
                         alt={it.title} 
-                        width={600}
-                        height={800}
-                        layout="constrained"
-                        aspectRatio={3 / 4}
-                        priority={idx < 4}
+                        loading={idx < 4 ? "eager" : "lazy"}
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                       />
                     ) : (
@@ -172,36 +158,6 @@ export function Bestsellers() {
                       Rp {Number(it.price).toLocaleString("id-ID")}
                     </p>
                   </Link>
-                  
-                  {/* Temporarily commented out button actions
-                  <div className="flex flex-col w-full gap-2 mt-3">
-                    <Link 
-                      to="/collections/$slug" 
-                      params={{ slug: it.slug }}
-                      className="w-full py-2.5 text-xs font-bold text-white bg-[#222222] hover:bg-black transition-colors rounded-md text-center"
-                    >
-                      {dict.learnMore}
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        addItem({ 
-                          id: it.id,
-                          title: it.title,
-                          price: Number(it.price),
-                          image: it.main_image_url,
-                          quantity: 1, 
-                          size: "Default" 
-                        });
-                      }}
-                      className="w-full py-2.5 text-xs font-bold text-black bg-white border border-black hover:bg-neutral-50 transition-colors rounded-md text-center cursor-pointer"
-                    >
-                      {dict.addToCart}
-                    </button>
-                  </div>
-                  */}
                 </div>
               </div>
             );
