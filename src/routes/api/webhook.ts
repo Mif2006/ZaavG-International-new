@@ -38,7 +38,10 @@ async function handler(request: Request) {
       signature_key,
       transaction_status,
       fraud_status,
-      payment_type
+      payment_type,
+      bank,
+      customer_details,
+      custom_field1, // Contains item list (e.g., "Kopara (x1), Coral (x1)")
     } = body;
 
     const serverKey = process.env.MIDTRANS_SERVER_KEY || "";
@@ -57,20 +60,37 @@ async function handler(request: Request) {
       });
     }
 
-    // Format the gross_amount for nicer reading
-    const formattedAmount = Number(gross_amount).toLocaleString("id-ID");
+    // 3. Format customer info & amount
+    const formattedAmount = Math.round(Number(gross_amount)).toLocaleString("id-ID");
+    const customerName = customer_details?.full_name || customer_details?.first_name || "N/A";
+    const customerEmail = customer_details?.email || "N/A";
+    const customerPhone = customer_details?.phone || "N/A";
+    const itemsList = custom_field1 || "N/A";
+    const paymentMethodText = bank ? `${payment_type} (${bank.toUpperCase()})` : payment_type || "N/A";
 
-    // 3. Handle the Transaction Status and Send Telegram Alerts
+    const customerDetailsBlock = `
+<b>Customer Info:</b>
+• <b>Name:</b> ${customerName.trim()}
+• <b>Email:</b> ${customerEmail}
+• <b>Phone:</b> ${customerPhone}
+
+<b>Items:</b>
+${itemsList}
+`.trim();
+
+    // 4. Handle Transaction Status and Send Telegram Alerts
     if (transaction_status === "capture" || transaction_status === "settlement") {
       if (fraud_status === "accept" || !fraud_status) {
         
         // TODO: Update your database -> Order status = PAID
-        
+
         await sendTelegramNotification(`
 ✅ <b>PAYMENT SUCCESS</b>
 <b>Order ID:</b> <code>${order_id}</code>
 <b>Amount:</b> IDR ${formattedAmount}
-<b>Method:</b> ${payment_type || "N/A"}
+<b>Payment Method:</b> ${paymentMethodText}
+
+${customerDetailsBlock}
 `.trim());
       }
     } else if (
@@ -80,26 +100,29 @@ async function handler(request: Request) {
     ) {
       
       // TODO: Update your database -> Order status = FAILED / CANCELLED
-      
+
       await sendTelegramNotification(`
 ❌ <b>PAYMENT FAILED / EXPIRED</b>
 <b>Order ID:</b> <code>${order_id}</code>
 <b>Amount:</b> IDR ${formattedAmount}
 <b>Status:</b> ${transaction_status}
+
+${customerDetailsBlock}
 `.trim());
     } else if (transaction_status === "pending") {
       
       // TODO: Update your database -> Order status = PENDING
-      
+
       await sendTelegramNotification(`
 ⏳ <b>PAYMENT PENDING</b>
 <b>Order ID:</b> <code>${order_id}</code>
 <b>Amount:</b> IDR ${formattedAmount}
-<b>Status:</b> Awaiting customer action
+
+${customerDetailsBlock}
 `.trim());
     }
 
-    // 4. Return 200 OK so Midtrans stops retrying
+    // 5. Return 200 OK
     return new Response(JSON.stringify({ status: "OK" }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
