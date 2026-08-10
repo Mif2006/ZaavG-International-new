@@ -42,7 +42,7 @@ export const Route = createFileRoute("/api/cooperation")({
             `Country: ${escapeMD(country)}\n\n` +
             `💬 *Message*\n` +
             `${escapeMD(message)}\n\n` +
-            `🔗 [ZAAV G Website](https://zaavgbali.com)`;
+            ``;
 
           // Send message directly to Telegram Bot API
           const telegramRes = await fetch(

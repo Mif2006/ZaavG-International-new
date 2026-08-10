@@ -43,6 +43,9 @@ const T: Record<
     sending: string;
     success: string;
     error: string;
+    fieldRequired: string;
+    invalidEmail: string;
+    validationSummary: string;
   }
 > = {
   en: {
@@ -66,6 +69,9 @@ const T: Record<
     sending: "Sending...",
     success: "Message sent successfully! We'll contact you soon.",
     error: "Failed to send. Please try again.",
+    fieldRequired: "This field is required",
+    invalidEmail: "Please enter a valid email address",
+    validationSummary: "Please fill in all mandatory fields highlighted above.",
   },
   ru: {
     cooperationTitle: "СОТРУДНИЧЕСТВО",
@@ -88,6 +94,9 @@ const T: Record<
     sending: "Отправка...",
     success: "Сообщение успешно отправлено! Мы свяжемся с вами скоро.",
     error: "Ошибка отправки. Попробуйте ещё раз.",
+    fieldRequired: "Обязательное поле",
+    invalidEmail: "Укажите корректный email",
+    validationSummary: "Пожалуйста, заполните все выделенные обязательные поля.",
   },
   id: {
     cooperationTitle: "KEMITRAAN",
@@ -110,6 +119,9 @@ const T: Record<
     sending: "Mengirim...",
     success: "Pesan berhasil dikirim! Kami akan menghubungi Anda segera.",
     error: "Gagal mengirim. Silakan coba lagi.",
+    fieldRequired: "Wajib diisi",
+    invalidEmail: "Masukkan alamat email yang valid",
+    validationSummary: "Silakan lengkapi semua kolom wajib yang ditandai di atas.",
   },
 };
 
@@ -131,6 +143,13 @@ function CooperationPage() {
     message: "",
   });
 
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    country?: string;
+    message?: string;
+  }>({});
+
   const [status, setStatus] = useState<{
     type: "success" | "error" | "loading" | null;
     message: string;
@@ -138,12 +157,56 @@ function CooperationPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleInputChange = (field: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field as keyof typeof errors]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: typeof errors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!formData.name.trim()) {
+      newErrors.name = t.fieldRequired;
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = t.fieldRequired;
+    } else if (!emailRegex.test(formData.email.trim())) {
+      newErrors.email = t.invalidEmail;
+    }
+    if (!formData.country.trim()) {
+      newErrors.country = t.fieldRequired;
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = t.fieldRequired;
+    }
+
+    setErrors(newErrors);
+    return newErrors;
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const currentLang = (lang as Lang) || "en";
 
-    if (!formData.name.trim() || !formData.email.trim() || !formData.country.trim() || !formData.message.trim()) {
-      setStatus({ type: "error", message: T[currentLang].error });
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setStatus({ type: "error", message: T[currentLang].validationSummary });
+
+      // Auto-focus first field with error
+      const firstErrorKey = Object.keys(validationErrors)[0];
+      const idMap: Record<string, string> = {
+        name: nameId,
+        email: emailId,
+        country: countryId,
+        message: messageId,
+      };
+      const element = document.getElementById(idMap[firstErrorKey]);
+      if (element) {
+        element.focus();
+      }
       return;
     }
 
@@ -162,6 +225,7 @@ function CooperationPage() {
       if (res.ok) {
         setStatus({ type: "success", message: T[currentLang].success });
         setFormData({ name: "", email: "", social: "", country: "", message: "" });
+        setErrors({});
         setTimeout(() => {
           setStatus({ type: null, message: "" });
         }, 5000);
@@ -182,6 +246,16 @@ function CooperationPage() {
       el.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const getInputClass = (hasError?: boolean) => `
+    w-full px-4 py-3.5 font-sans text-base text-neutral-900 bg-white border-2 
+    rounded-lg outline-none transition-all duration-200
+    ${
+      hasError
+        ? "border-rose-500/80 focus:border-rose-600 focus:ring-4 focus:ring-rose-500/10 bg-rose-50/20"
+        : "border-neutral-200 focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5"
+    }
+  `;
 
   return (
     <PublicShell>
@@ -234,33 +308,43 @@ function CooperationPage() {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label htmlFor={nameId} className="block text-sm font-medium text-neutral-900 after:content-['_*'] after:text-red-500">
+                  <label htmlFor={nameId} className="block text-sm font-medium text-neutral-900 after:content-['_*'] after:text-rose-500">
                     {t.formName}
                   </label>
                   <input
                     id={nameId}
                     type="text"
-                    required
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) => handleInputChange("name", e.target.value)}
                     placeholder={t.formNamePlaceholder}
-                    className="w-full px-4 py-3.5 font-sans text-base text-neutral-900 bg-white border-2 border-neutral-200 rounded-lg outline-none transition-all focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5"
+                    className={getInputClass(!!errors.name)}
                   />
+                  {errors.name && (
+                    <p className="text-xs font-medium text-rose-500 mt-1 flex items-center gap-1.5">
+                      <span className="inline-block w-1 h-1 rounded-full bg-rose-500" />
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor={emailId} className="block text-sm font-medium text-neutral-900 after:content-['_*'] after:text-red-500">
+                  <label htmlFor={emailId} className="block text-sm font-medium text-neutral-900 after:content-['_*'] after:text-rose-500">
                     {t.formEmail}
                   </label>
                   <input
                     id={emailId}
                     type="email"
-                    required
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     placeholder={t.formEmailPlaceholder}
-                    className="w-full px-4 py-3.5 font-sans text-base text-neutral-900 bg-white border-2 border-neutral-200 rounded-lg outline-none transition-all focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5"
+                    className={getInputClass(!!errors.email)}
                   />
+                  {errors.email && (
+                    <p className="text-xs font-medium text-rose-500 mt-1 flex items-center gap-1.5">
+                      <span className="inline-block w-1 h-1 rounded-full bg-rose-500" />
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -273,58 +357,68 @@ function CooperationPage() {
                     id={socialId}
                     type="text"
                     value={formData.social}
-                    onChange={(e) => setFormData({ ...formData, social: e.target.value })}
+                    onChange={(e) => handleInputChange("social", e.target.value)}
                     placeholder={t.formSocialPlaceholder}
-                    className="w-full px-4 py-3.5 font-sans text-base text-neutral-900 bg-white border-2 border-neutral-200 rounded-lg outline-none transition-all focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5"
+                    className={getInputClass()}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor={countryId} className="block text-sm font-medium text-neutral-900 after:content-['_*'] after:text-red-500">
+                  <label htmlFor={countryId} className="block text-sm font-medium text-neutral-900 after:content-['_*'] after:text-rose-500">
                     {t.formCountry}
                   </label>
                   <input
                     id={countryId}
                     type="text"
-                    required
                     value={formData.country}
-                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                    onChange={(e) => handleInputChange("country", e.target.value)}
                     placeholder={t.formCountryPlaceholder}
-                    className="w-full px-4 py-3.5 font-sans text-base text-neutral-900 bg-white border-2 border-neutral-200 rounded-lg outline-none transition-all focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5"
+                    className={getInputClass(!!errors.country)}
                   />
+                  {errors.country && (
+                    <p className="text-xs font-medium text-rose-500 mt-1 flex items-center gap-1.5">
+                      <span className="inline-block w-1 h-1 rounded-full bg-rose-500" />
+                      {errors.country}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor={messageId} className="block text-sm font-medium text-neutral-900 after:content-['_*'] after:text-red-500">
+                <label htmlFor={messageId} className="block text-sm font-medium text-neutral-900 after:content-['_*'] after:text-rose-500">
                   {t.formMessage}
                 </label>
                 <textarea
                   id={messageId}
-                  required
                   rows={5}
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) => handleInputChange("message", e.target.value)}
                   placeholder={t.formMessagePlaceholder}
-                  className="w-full px-4 py-3.5 font-sans text-base text-neutral-900 bg-white border-2 border-neutral-200 rounded-lg outline-none transition-all resize-y focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/5 leading-relaxed"
+                  className={`${getInputClass(!!errors.message)} resize-y leading-relaxed`}
                 />
+                {errors.message && (
+                  <p className="text-xs font-medium text-rose-500 mt-1 flex items-center gap-1.5">
+                    <span className="inline-block w-1 h-1 rounded-full bg-rose-500" />
+                    {errors.message}
+                  </p>
+                )}
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 px-8 bg-neutral-900 text-white font-sans text-base font-medium rounded-lg shadow-lg hover:bg-neutral-800 transition-all duration-350 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                className="w-full py-4 px-8 bg-neutral-900 text-white font-sans text-base font-medium rounded-lg shadow-lg hover:bg-neutral-800 transition-all duration-350 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer active:scale-[0.99]"
               >
                 {t.formSubmit}
               </button>
 
               {status.type && (
                 <div
-                  className={`p-4 rounded-lg text-sm text-center leading-relaxed ${
+                  className={`p-4 rounded-lg text-sm text-center leading-relaxed transition-all duration-300 ${
                     status.type === "success"
-                      ? "bg-[#dcffe4] text-[#22863a] border border-[#22863a]"
+                      ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
                       : status.type === "error"
-                      ? "bg-[#ffeef0] text-[#d73a49] border border-[#d73a49]"
+                      ? "bg-rose-50 text-rose-700 border border-rose-200/80"
                       : "bg-neutral-100 text-neutral-600 border border-neutral-300"
                   }`}
                 >
