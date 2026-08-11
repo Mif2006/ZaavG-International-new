@@ -17,6 +17,7 @@ import { Route as DeliveryRouteImport } from './routes/delivery'
 import { Route as PaymentinfoRouteImport } from './routes/paymentinfo'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SizeRouteImport } from './routes/size'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as VideosRouteImport } from './routes/videos'
@@ -65,6 +66,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const RefundPolicyRoute = RefundPolicyRouteImport.update({
   id: '/refund-policy',
   path: '/refund-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SizeRoute = SizeRouteImport.update({
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/paymentinfo': typeof PaymentinfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/paymentinfo': typeof PaymentinfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/paymentinfo': typeof PaymentinfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/videos': typeof VideosRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
     | '/paymentinfo'
     | '/privacy-policy'
     | '/refund-policy'
+    | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
     | '/videos'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/paymentinfo'
     | '/privacy-policy'
     | '/refund-policy'
+    | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
     | '/videos'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/paymentinfo'
     | '/privacy-policy'
     | '/refund-policy'
+    | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
     | '/videos'
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   PaymentinfoRoute: typeof PaymentinfoRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SizeRoute: typeof SizeRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   VideosRoute: typeof VideosRoute
@@ -307,6 +320,13 @@ declare module '@tanstack/react-router' {
       path: '/refund-policy'
       fullPath: '/refund-policy'
       preLoaderRoute: typeof RefundPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/size': {
@@ -384,6 +404,7 @@ const rootRouteChildren: RootRouteChildren = {
   PaymentinfoRoute: PaymentinfoRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   RefundPolicyRoute: RefundPolicyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SizeRoute: SizeRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   VideosRoute: VideosRoute,
