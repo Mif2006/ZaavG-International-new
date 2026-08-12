@@ -307,7 +307,7 @@ function SizeGuidePage() {
       <div className="min-h-screen bg-white font-sans text-[#1a1a1a] leading-relaxed">
         {/* Hero Section */}
         <section className="relative flex h-[50vh] min-h-[300px] md:min-h-[480px] items-center justify-center bg-[url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1328.jpg?v=1776287860')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
-          <div className="absolute inset-0 bg-[#0a140f]/75 z-10" />
+          <div className="absolute inset-0 bg-[#0a140f]/62 z-10" />
           <div className="relative z-20 text-center px-5">
             <h1
               className={`font-bold text-white uppercase leading-tight mb-8 md:mb-10 drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] transition-all duration-200 ${

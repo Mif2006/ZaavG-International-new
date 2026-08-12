@@ -1294,7 +1294,7 @@
   
   .zav-video-section__quote-mark,
   .zav-video-section__quote-author {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(10px);
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
