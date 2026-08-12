@@ -174,7 +174,7 @@ function ContactPage() {
             </div>
           </div>
 
-          <div className="py-16 px-6 bg-[#f5f5f5] flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 border-t border-neutral-100">
+          <div className="py-16 px-6 bg-[#f5f5f5] flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 ">
           <Link
             to="/collections"
             className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 font-sans text-base font-medium rounded-lg no-underline cursor-pointer transition-all duration-350 min-w-[220px] bg-[#1a1a1a] text-white border border-white/20 shadow-[0_4px_16px_rgba(0,0,0,0.3)] hover:bg-[#0f0f0f] hover:-translate-y-0.5 hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
