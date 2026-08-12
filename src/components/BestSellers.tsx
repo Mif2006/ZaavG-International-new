@@ -96,7 +96,7 @@ export function Bestsellers() {
 
   if (isLoading) {
     return (
-      <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 flex items-center justify-center min-h-[300px]">
+      <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-16 flex items-center justify-center min-h-[300px]">
         <span className="text-sm text-black/50 uppercase tracking-widest">{dict.loading}</span>
       </section>
     );
