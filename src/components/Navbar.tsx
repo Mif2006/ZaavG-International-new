@@ -30,7 +30,7 @@ const CartIcon = () => (
 
 const NAV_ITEMS = [
   { to: "/", labels: { en: "Home", ru: "Главная", id: "Beranda" } },
-  { to: "/collections", labels: { en: "Collections", ru: "Коллекции", id: "Koleksi" } },
+  { to: "/collections", labels: { en: "Collections", ru: "Коллекции", id: "Katalog" } },
   { to: "/size", labels: { en: "Size Guide", ru: "Узнать Размер", id: "Panduan Ukuran" } },
   { to: "/delivery", labels: { en: "Delivery & Shipping", ru: "Доставка", id: "Pengiriman" } },
   { to: "/paymentinfo", labels: { en: "Payment Methods", ru: "Оплата", id: "Pembayaran" } },
