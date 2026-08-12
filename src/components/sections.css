@@ -19,17 +19,26 @@
   overflow: hidden;
   font-family: 'Inter', sans-serif;
 }
+
 .zav-hero__overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(10, 20, 15, 0.55) 0%, rgba(10, 20, 15, 0.3) 50%, rgba(10, 20, 15, 0.45) 100%);
   z-index: 1;
 }
+
 .zav-hero__content {
   position: relative;
   z-index: 2;
   padding: 0 80px 0 100px;
   max-width: 875px;
+}
+
+/* Fix hyper-zooming on tablets and mobile touch screens ONLY */
+@media (pointer: coarse) {
+  .zav-hero {
+    background-attachment: scroll;
+  }
 }
 .zav-hero__title {
   font-size: clamp(2.2rem, 4.5vw, 3.5rem);
