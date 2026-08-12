@@ -147,7 +147,7 @@ function CollectionsPage() {
   });
 
   return (
-    <div className="bg-white text-black">
+    <div className="bg-white text-black ">
       {/* Updated slower, smoother animation keyframes */}
       <style>{`
         @keyframes fadeInUp {
@@ -189,7 +189,7 @@ function CollectionsPage() {
           </h1>
         </section>
 
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-b border-black/10 pb-4 text-sm uppercase tracking-[0.15em]">
+        <div className="mb-10 flex flex-wrap items-center justify-center gap-x-4 px-2 gap-y-3 border-b border-black/10 pb-4 text-sm uppercase tracking-[0.15em]">
           <button
             onClick={() => setActiveCat(null)}
             className={cn(
