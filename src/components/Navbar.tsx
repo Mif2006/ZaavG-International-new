@@ -222,7 +222,7 @@ export function Navbar() {
         </div>
 
         <div className="zav-sidebar__footer">
-          <p className="zav-sidebar__copyright">© 2018 - 2026 Zaav G</p>
+          <p className="zav-sidebar__copyright">© 2026 Zaav G</p>
         </div>
       </nav>
     </>
