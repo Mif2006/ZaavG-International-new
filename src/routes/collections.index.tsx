@@ -24,6 +24,7 @@ const T: Record<
     noImage: string;
     newBadge: string;
     locale: string;
+    necklacesAndChains: string;
   }
 > = {
   en: {
@@ -33,6 +34,7 @@ const T: Record<
     noImage: "no image",
     newBadge: "NEW",
     locale: "id-ID",
+    necklacesAndChains: "Necklaces & Chains",
   },
   ru: {
     title: "Авторские украшения из серебра",
@@ -41,6 +43,7 @@ const T: Record<
     noImage: "нет фото",
     newBadge: "NEW",
     locale: "id-ID",
+    necklacesAndChains: "Колье и цепи",
   },
   id: {
     title: "Temukan Perhiasan Anda",
@@ -49,6 +52,7 @@ const T: Record<
     noImage: "tidak ada gambar",
     newBadge: "NEW",
     locale: "id-ID",
+    necklacesAndChains: "Kalung & Liontin",
   },
 };
 
@@ -72,7 +76,35 @@ const ID_CATEGORY_MAP: Record<string, string> = {
   new: "Terbaru",
 };
 
-function getCategoryDisplayName(c: Category, lang: string) {
+// Extended Category type to support combined categories
+type DisplayCategory = Category & {
+  isCombined?: boolean;
+  combinedIds?: string[];
+  customName?: string;
+};
+
+function isChainOrPendant(c: Category): boolean {
+  const name = (c.name || "").toLowerCase();
+  const slug = (c.slug || "").toLowerCase();
+  return (
+    name.includes("chain") ||
+    slug.includes("chain") ||
+    name.includes("цепи") ||
+    slug.includes("цепи") ||
+    name.includes("pendant") ||
+    slug.includes("pendant") ||
+    name.includes("подвески") ||
+    slug.includes("подвески") ||
+    name.includes("liontin") ||
+    slug.includes("liontin") ||
+    name.includes("kalung") ||
+    slug.includes("kalung")
+  );
+}
+
+function getCategoryDisplayName(c: DisplayCategory, lang: string, dict: (typeof T)["en"]) {
+  if (c.customName) return c.customName;
+
   const originalName = catName(c, lang as any);
   if (lang === "id") {
     const lower = originalName.trim().toLowerCase();
@@ -90,7 +122,7 @@ export const Route = createFileRoute("/collections/")({
       {
         name: "description",
         content:
-          "Browse all jewelry: rings, earrings, bracelets, pendants, chains.",
+          "Browse all jewelry: rings, earrings, bracelets, necklaces and chains.",
       },
       { property: "og:title", content: "Collections — Find Your Piece" },
       { property: "og:description", content: "Browse all jewelry pieces." },
@@ -109,13 +141,38 @@ function CollectionsPage() {
   const items = useQuery({ queryKey: ["items"], queryFn: listItems });
   const tags = useQuery({ queryKey: ["item_tags"], queryFn: listItemTags });
 
-  const tabCats = useMemo(
-    () =>
-      (cats.data ?? [])
-        .filter((c) => c.show_in_catalog)
-        .sort((a, b) => a.catalog_order - b.catalog_order),
-    [cats.data],
-  );
+  // Process categories: Filter out chain/pendant categories and combine them into one tab
+  const tabCats = useMemo<DisplayCategory[]>(() => {
+    const rawCats = (cats.data ?? [])
+      .filter((c) => c.show_in_catalog)
+      .sort((a, b) => a.catalog_order - b.catalog_order);
+
+    const chainAndPendantCats = rawCats.filter(isChainOrPendant);
+    const otherCats = rawCats.filter((c) => !isChainOrPendant(c));
+
+    if (chainAndPendantCats.length === 0) return otherCats;
+
+    // Use the lowest catalog_order among the combined items to place the new combined tab
+    const minOrder = Math.min(...chainAndPendantCats.map((c) => c.catalog_order));
+    const combinedIds = chainAndPendantCats.map((c) => c.id);
+
+    const combinedCat: DisplayCategory = {
+      id: "combined-necklaces-chains",
+      name: dict.necklacesAndChains,
+      slug: "necklaces-chains",
+      kind: "primary",
+      catalog_order: minOrder,
+      show_in_catalog: true,
+      created_at: new Date().toISOString(),
+      isCombined: true,
+      combinedIds,
+      customName: dict.necklacesAndChains,
+    };
+
+    return [...otherCats, combinedCat].sort(
+      (a, b) => a.catalog_order - b.catalog_order
+    );
+  }, [cats.data, dict.necklacesAndChains]);
 
   const tagIdsByItem = useMemo(() => {
     const m = new Map<string, Set<string>>();
@@ -135,10 +192,23 @@ function CollectionsPage() {
     });
   }, [cats.data]);
 
-  const matchesCategory = (it: Item, c: Category) =>
-    c.kind === "primary"
+  const matchesCategory = (it: Item, c: DisplayCategory) => {
+    // Check combined category
+    if (c.isCombined && c.combinedIds) {
+      return c.combinedIds.some((catId) => {
+        const rawCat = cats.data?.find((rc) => rc.id === catId);
+        if (!rawCat) return false;
+        return rawCat.kind === "primary"
+          ? it.primary_category_id === rawCat.id
+          : tagIdsByItem.get(it.id)?.has(rawCat.id) ?? false;
+      });
+    }
+
+    // Standard category check
+    return c.kind === "primary"
       ? it.primary_category_id === c.id
       : tagIdsByItem.get(it.id)?.has(c.id) ?? false;
+  };
 
   const filtered = (items.data ?? []).filter((i) => {
     if (!activeCat) return true;
@@ -212,7 +282,7 @@ function CollectionsPage() {
                   : "text-black/60 hover:text-black collection-link",
               )}
             >
-              {getCategoryDisplayName(c, lang)}
+              {getCategoryDisplayName(c, lang, dict)}
             </button>
           ))}
         </div>
