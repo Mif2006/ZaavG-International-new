@@ -39,12 +39,23 @@ const NAV_ITEMS = [
   { to: "/videos", labels: { en: "Films", ru: "Фильмы", id: "Film" } },
 ];
 
+
+
 const LANGS = ["en", "ru", "id"];
+
+type Lang = "en" | "ru" | "id";
+
+const T: Record<Lang, {trademark: string}> = {
+  en: {trademark: "© 2026 Zaav G | Brand operated by Win Win Silver | All Rights Reserved."},
+  ru: {trademark: "© 2026 Zaav G | Бренд под управлением Win Win Silver | Все права защищены."},
+  id: {trademark: "© 2026 Zaav G | Merek dioperasikan oleh Win Win Silver | Semua Hak Dilindungi Undang-Undang."},
+}
 
 export function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { items, isCartOpen, setIsOpen } = useCart();
   const { lang, setLang } = useI18n();
+  const t = T[lang as Lang] || T.en;
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   // Animation trigger state when cart items change quantity/length
@@ -222,7 +233,7 @@ export function Navbar() {
         </div>
 
         <div className="zav-sidebar__footer">
-          <p className="zav-sidebar__copyright">© 2026 Zaav G is a brand operated by Win Win Silver</p>
+          <p className="zav-sidebar__copyright">{t.trademark}</p>
         </div>
       </nav>
     </>
