@@ -45,7 +45,7 @@ const T: Record<
     contactInfoTitle: "Контакты",
     storeAddressTitle: "Адрес нашего магазина",
     storeAddress:
-      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar",
+      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali, Indonesia",
     storeHours: "ежедневно с 09.00 до 17.00",
     companyDetailsTitle: "Реквизиты",
     tradenameLabel: "Торговый знак:",
@@ -59,7 +59,7 @@ const T: Record<
     contactInfoTitle: "Contact",
     storeAddressTitle: "Our Store Address",
     storeAddress:
-      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar",
+      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali, Indonesia",
     storeHours: "Daily from 09:00 AM to 17:00 PM",
     companyDetailsTitle: "Company Details",
     tradenameLabel: "Trademark:",
@@ -73,7 +73,7 @@ const T: Record<
     contactInfoTitle: "Kontak",
     storeAddressTitle: "Alamat Toko Kami",
     storeAddress:
-      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar",
+      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali, Indonesia",
     storeHours: "Setiap hari pukul 09.00 - 17.00",
     companyDetailsTitle: "Detail Perusahaan",
     tradenameLabel: "Nama Dagang:",
