@@ -377,10 +377,10 @@ function ItemPage() {
             </div>
 
             {/* Metadata */}
-            <div className="pt-2 space-y-1.5 text-sm">
+            <div className="pt-2 text-md font-bold">
               {item.material && (
                 <div>
-                  <span className="font-semibold">{dict.material}:</span>{" "}
+                  <span >{dict.material}:</span>{" "}
                   {item.material}
                 </div>
               )}
@@ -396,7 +396,11 @@ function ItemPage() {
             {item.description && (
               <div
                 className="prose prose-sm max-w-none text-black/80 break-words"
-                dangerouslySetInnerHTML={{ __html: item.description }}
+                dangerouslySetInnerHTML={
+                  { __html: 
+                    item.description 
+                  }
+                }
               />
             )}
           </div>
