@@ -3,7 +3,7 @@ import "./sections.css";
 
 type Lang = "en" | "ru" | "id";
 
-const T: Record<Lang, { home: string; catalog: string; size: string; terms: string; refund: string; privacy: string }> = {
+const T: Record<Lang, { home: string; catalog: string; size: string; terms: string; refund: string; privacy: string; trademark:string }> = {
   en: {
     home: "Home",
     catalog: "Collections",
@@ -11,14 +11,16 @@ const T: Record<Lang, { home: string; catalog: string; size: string; terms: stri
     terms: "Terms & Conditions",
     refund: "Refund Policy",
     privacy: "Privacy Policy",
+    trademark: "© Brand operated by Win Win Silver | All Rights Reserved.",
   },
   ru: {
-    home: "Главная",
+    home: "Главная", 
     catalog: "Коллекции",
     size: "Узнать размер",
     terms: "Условия использования",
     refund: "Политика возврата",
     privacy: "Политика конфиденциальности",
+    trademark: "Бренд под управлением Win Win Silver | Все права защищены.",
   },
   id: {
     home: "Beranda",
@@ -27,6 +29,7 @@ const T: Record<Lang, { home: string; catalog: string; size: string; terms: stri
     terms: "Syarat & Ketentuan",
     refund: "Kebijakan Pengembalian",
     privacy: "Kebijakan Privasi",
+    trademark: "© Merek dioperasikan oleh Win Win Silver | Semua Hak Dilindungi Undang-Undang.",
   },
 };
 
@@ -58,7 +61,7 @@ export function Footer() {
             ZAAV G
           </a>
         </div>
-        <p className="zav-footer__copyright">© Brand operated by Win Win Silver | All Rights Reserved.</p>
+        <p className="zav-footer__copyright">{t.trademark}</p>
       </div>
     </footer>
   );
