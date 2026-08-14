@@ -58,7 +58,7 @@ export function Footer() {
             ZAAV G
           </a>
         </div>
-        <p className="zav-footer__copyright">© Win Win Silver | All Rights Reserved.</p>
+        <p className="zav-footer__copyright">© Brand operated by Win Win Silver | All Rights Reserved.</p>
       </div>
     </footer>
   );

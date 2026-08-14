@@ -222,7 +222,7 @@ export function Navbar() {
         </div>
 
         <div className="zav-sidebar__footer">
-          <p className="zav-sidebar__copyright">© 2026 Zaav G</p>
+          <p className="zav-sidebar__copyright">© 2026 Zaav G is a brand operated by Win Win Silver</p>
         </div>
       </nav>
     </>
