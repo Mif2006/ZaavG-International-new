@@ -375,7 +375,7 @@ function ItemPage() {
                 {dict.buy}
               </button>
             </div>
-
+<div>
             {/* Metadata */}
             <div className="pt-2 text-md font-bold">
               {item.material && (
@@ -405,7 +405,7 @@ function ItemPage() {
             )}
           </div>
         </div>
-
+</div>
         {/* Recommendations */}
         {recs.length > 0 && (
           <section className="mt-12 px-4 md:px-12 lg:px-24 pb-8 w-full max-w-full">

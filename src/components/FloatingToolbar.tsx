@@ -7,21 +7,21 @@ type Lang = "en" | "ru" | "id";
 
 const translations = {
   en: { 
-    toolbarSearch: "Search", 
+    toolbarSearch: "Search products...", 
     toolbarContact: "Contact Us", 
     contactTitle: "Contact Us",
     noResults: "No results found",
     loading: "Loading..."
   },
   ru: { 
-    toolbarSearch: "Поиск", 
+    toolbarSearch: "Поиск изделий...", 
     toolbarContact: "Связаться", 
     contactTitle: "Напишите нам",
     noResults: "Ничего не найдено",
     loading: "Загрузка..."
   },
   id: { 
-    toolbarSearch: "Cari", 
+    toolbarSearch: "Cari produk...", 
     toolbarContact: "Hubungi Kami", 
     contactTitle: "Hubungi Kami",
     noResults: "Tidak ada hasil",
@@ -138,7 +138,7 @@ export function FloatingToolbar() {
                 ref={inputRef}
                 type="search"
                 className="zav-search-overlay__input"
-                placeholder={`${t.toolbarSearch} products...`}
+                placeholder={`${t.toolbarSearch}`}
                 autoComplete="off"
                 aria-label="Search"
                 value={query}
