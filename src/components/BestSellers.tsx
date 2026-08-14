@@ -103,7 +103,7 @@ export function Bestsellers() {
   }
 
   return (
-    <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+    <section className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 md:py-24 sm:py-0">
       <div className="flex flex-col items-center mb-8 sm:mb-12">
         <h2 className="text-2xl sm:text-3xl font-semibold text-black tracking-tight">
           {dict.title}
