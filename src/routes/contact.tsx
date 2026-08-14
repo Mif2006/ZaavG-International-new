@@ -45,7 +45,7 @@ const T: Record<
     contactInfoTitle: "Контакты",
     storeAddressTitle: "Адрес нашего магазина",
     storeAddress:
-      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali, Indonesia",
+      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali 80582, Indonesia",
     storeHours: "ежедневно с 09.00 до 17.00",
     companyDetailsTitle: "Реквизиты",
     tradenameLabel: "Торговый знак:",
@@ -59,7 +59,7 @@ const T: Record<
     contactInfoTitle: "Contact",
     storeAddressTitle: "Our Store Address",
     storeAddress:
-      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali, Indonesia",
+      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali 80582, Indonesia",
     storeHours: "Daily from 09:00 AM to 17:00 PM",
     companyDetailsTitle: "Company Details",
     tradenameLabel: "Trademark:",
@@ -73,7 +73,7 @@ const T: Record<
     contactInfoTitle: "Kontak",
     storeAddressTitle: "Alamat Toko Kami",
     storeAddress:
-      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali, Indonesia",
+      "Jl. Raya Singapadu, Singapadu, Kec. Sukawati, Kabupaten Gianyar, Bali 80582, Indonesia",
     storeHours: "Setiap hari pukul 09.00 - 17.00",
     companyDetailsTitle: "Detail Perusahaan",
     tradenameLabel: "Nama Dagang:",
@@ -140,7 +140,7 @@ function ContactPage() {
                   href="https://www.google.com/maps/place/Zaav+G+jewelry/@-8.5920999,115.2648896,18.87z/data=!4m6!3m5!1s0x2dd23f9ab07189a5:0x2729aeb27f922727!8m2!3d-8.592194!4d115.2656306!16s%2Fg%2F11nhk1nb4x?entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline font-inherit cursor-pointer text-[#1a1a1a] underline underline-offset-4 decoration-neutral-400 md:no-underline md:text-[#666666] hover:text-[#1a1a1a] hover:decoration-[#1a1a1a] transition-colors"
+                  className="inline font-inherit cursor-pointer text-[#1a1a1a] underline underline-offset-4 decoration-neutral-400 hover:text-[#1a1a1a] hover:decoration-[#1a1a1a] transition-colors"
                 >
                   {t.storeAddress}
                 </a>
@@ -165,13 +165,14 @@ function ContactPage() {
               <h2 className="mb-5 text-[1.15rem] md:text-[1.25rem] font-semibold text-[#1a1a1a]">
                 {t.companyDetailsTitle}
               </h2>
+                <p className="m-0 text-[0.95rem] md:text-base leading-[1.8] text-[#666666]">
+                {t.legalEntity}
+              </p>
               <p className="mb-2 text-[0.95rem] md:text-base leading-[1.8] text-[#666666]">
                 <span>{t.tradenameLabel}</span>{" "}
                 <span>{t.tradenameValue}</span>
               </p>
-              <p className="m-0 text-[0.95rem] md:text-base leading-[1.8] text-[#666666]">
-                {t.legalEntity}
-              </p>
+            
             </div>
           </div>
 
