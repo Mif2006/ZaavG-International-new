@@ -143,10 +143,12 @@ function ApplePayLogo() {
 
 function GooglePayLogo() {
   return (
-    <svg className="h-5 w-auto" viewBox="0 0 52 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8.7 8.35v2.85h6.98c-.28 1.81-2.14 5.3-6.98 5.3-4.21 0-7.64-3.48-7.64-7.78S4.49 1 8.7 1c2.4 0 4.01 1.02 4.93 1.9L15.89.65C14.04-1.08 11.6-1.8 8.7-1.8 3.9-1.8 0 2.1 0 6.9s3.9 8.7 8.7 8.7c5.01 0 8.34-3.52 8.34-8.49 0-.57-.06-1.13-.13-1.76H8.7z" fill="#4285F4" transform="translate(2,3) scale(0.8)"/>
-      <text x="17" y="13" fontFamily="sans-serif" fontSize="13" fontWeight="bold" fill="#5F6368">Pay</text>
-    </svg>
+    <img
+      src="https://commons.wikimedia.org/wiki/Special:FilePath/Google_Pay_Logo.svg"
+      alt="Google Pay"
+      className="h-5 w-auto object-contain"
+      loading="lazy"
+    />
   );
 }
 
