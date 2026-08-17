@@ -33,6 +33,7 @@ interface SectionWithList {
 
 interface PolicyContent {
   refundTitle: string;
+  refundTitleSmall: string;
   refundUpdated: string;
   intro: string[];
   sec1: SectionWithList;
@@ -84,6 +85,7 @@ interface PolicyContent {
 
 const enContent: PolicyContent = {
   refundTitle: "Refund & Return Policy",
+  refundTitleSmall: "Refund & Return Policy",
   refundUpdated: "Last updated: August 2026",
   intro: [
     "At ZAAV G, every piece of jewelry is created with care and handcrafted individually.",
@@ -229,7 +231,8 @@ const enContent: PolicyContent = {
 };
 
 const ruContent: PolicyContent = {
-  refundTitle: "Политика возврата, обмена и возмещения денежных средств",
+  refundTitle: "Политика возврата",
+  refundTitleSmall: "Политика возврата, обмена и возмещения денежных средств",
   refundUpdated: "Последнее обновление: август 2026 г.",
   intro: [
     "В ZAAV G каждое украшение создается с особым вниманием и изготавливается вручную.",
@@ -374,10 +377,154 @@ const ruContent: PolicyContent = {
   btnHome: "На главную",
 };
 
+const idContent: PolicyContent = {
+  refundTitle: "Kebijakan Pengembalian & Penukaran",
+  refundTitleSmall: "Kebijakan Pengembalian & Penukaran",
+  refundUpdated: "Terakhir diperbarui: Agustus 2026",
+  intro: [
+    "Di ZAAV G, setiap perhiasan dibuat dengan penuh ketelitian dan dirangkai secara buatan tangan.",
+    "Situs web ini, zaavgbali.com, dioperasikan oleh WIN WIN SILVER, bisnis terdaftar di Indonesia yang beroperasi di bawah merek komersial ZAAV G.",
+    "Kebijakan Pengembalian & Penukaran ini berlaku untuk pembelian yang dilakukan melalui zaavgbali.com.",
+  ],
+  sec1: {
+    title: "1. Pengembalian & Penukaran",
+    paragraphs: [
+      "Kami ingin Anda puas dengan perhiasan ZAAV G Anda.",
+      "Jika Anda ingin mengajukan pengembalian atau penukaran, silakan hubungi kami sesegera mungkin setelah menerima pesanan Anda di zaavg.bali@gmail.com.",
+      "Mohon sertakan:",
+    ],
+    list: [
+      "nomor pesanan Anda;",
+      "alasan pengajuan Anda;",
+      "foto produk yang jelas, jika relevan.",
+    ],
+    afterList: [
+      "Produk tidak boleh dikembalikan tanpa menghubungi kami terlebih dahulu. Setelah pengajuan Anda ditinjau, kami akan memberikan instruksi pengembalian jika disetujui.",
+      "Setiap hak pengembalian atau pembatalan wajib yang Anda miliki berdasarkan hukum perlindungan konsumen yang berlaku tetap tidak terpengaruh oleh Kebijakan ini.",
+    ],
+  },
+  sec2: {
+    title: "2. Syarat Pengembalian",
+    paragraphs: ["Agar memenuhi syarat untuk dikembalikan, produk secara umum harus:"],
+    list: [
+      "belum pernah dipakai dan tidak digunakan;",
+      "berada dalam kondisi aslinya;",
+      "menyertakan kemasan asli dan seluruh aksesori yang diberikan;",
+      "tidak menunjukkan tanda-tanda perubahan, pemotongan/perubahan ukuran, kerusakan, atau penanganan yang tidak tepat.",
+    ],
+    afterList: [
+      "Kami berhak menolak pengembalian apabila produk yang dikembalikan tidak memenuhi syarat-syarat ini, kecuali jika diwajibkan lain oleh hukum yang berlaku.",
+    ],
+  },
+  sec3: {
+    title: "3. Produk Rusak, Cacat, atau Salah",
+    paragraphs: [
+      "Harap periksa pesanan Anda saat tiba.",
+      "Jika Anda menerima produk yang rusak, cacat, atau berbeda dari yang Anda pesan, segera hubungi kami di zaavg.bali@gmail.com.",
+      "Mohon berikan:",
+    ],
+    list: [
+      "nomor pesanan Anda;",
+      "foto produk;",
+      "foto kemasan jika relevan;",
+      "deskripsi singkat mengenai masalah tersebut.",
+    ],
+    afterList: [
+      "Kami akan meninjau permintaan tersebut dan, jika klaim terkonfirmasi, kami akan mengatur solusi yang sesuai, yang dapat berupa perbaikan, penggantian, penukaran, atau pengembalian dana tergantung pada situasinya.",
+      "Apabila kesalahan terjadi dari pihak kami atau terkonfirmasi adanya cacat produksi, kami akan menanggung biaya pengiriman pengembalian yang wajar jika berlaku.",
+    ],
+  },
+  sec4: {
+    title: "4. Perhiasan Buatan Tangan & Batu Alam",
+    paragraphs: [
+      "Perhiasan ZAAV G dibuat secara buatan tangan (handcrafted), dan banyak produk menggunakan batu alam.",
+      "Batu alam dapat memiliki perbedaan dalam warna, transparansi, inklusi, pola, dan bentuk. Perhiasan buatan tangan juga dapat memiliki sedikit variasi dalam tekstur, dimensi, dan hasil akhir.",
+      "Karakteristik ini membuat setiap perhiasan unik dan tidak dianggap sebagai cacat produksi.",
+      "Foto produk ditujukan untuk merepresentasikan perhiasan kami seakurat mungkin, tetapi warna dan detail dapat terlihat sedikit berbeda tergantung pada pencahayaan dan pengaturan layar.",
+    ],
+  },
+  sec5: {
+    title: "5. Produk yang Tidak Dapat Dikembalikan",
+    paragraphs: [
+      "Kecuali diwajibkan lain oleh hukum yang berlaku, kami tidak menerima pengembalian atau penukaran untuk:",
+    ],
+    list: [
+      "perhiasan khusus (custom-made) atau yang dipersonalisasi;",
+      "produk yang dibuat secara khusus sesuai ukuran, ukiran, pilihan batu, atau spesifikasi individual lain yang diminta pelanggan;",
+      "kartu hadiah atau sertifikat hadiah;",
+      "produk yang telah dipakai, diubah, disesuaikan ukurannya, rusak, atau tidak dirawat dengan benar setelah pengiriman;",
+      "anting yang telah dipakai atau dicoba demi alasan higienis dan kesehatan.",
+    ],
+  },
+  sec6: {
+    title: "6. Pengembalian Dana (Refund)",
+    paragraphs: [
+      "Setelah pengembalian yang disetujui diterima dan diperiksa, kami akan memberi tahu Anda mengenai hasilnya.",
+      "Jika pengembalian dana disetujui, dana biasanya akan dikembalikan ke metode pembayaran asli yang digunakan saat pembelian.",
+      "Waktu yang dibutuhkan hingga dana yang dikembalikan muncul di rekening Anda bergantung pada penyedia layanan pembayaran, penerbit kartu, dan bank, serta di luar kendali langsung kami setelah pengembalian dana diproses.",
+      "Kecuali diwajibkan lain oleh hukum yang berlaku, biaya pengiriman awal, bea masuk, pajak impor, dan biaya lain yang dibayarkan kepada pihak ketiga tidak dapat dikembalikan.",
+    ],
+  },
+  sec7: {
+    title: "7. Biaya Pengiriman Pengembalian",
+    paragraphs: [
+      "Kecuali jika produk cacat, rusak saat diterima, salah kirim, atau hukum yang berlaku menentukan lain, pelanggan bertanggung jawab atas biaya pengiriman pengembalian.",
+      "Kami sangat menyarankan untuk menggunakan layanan pengiriman yang terlacak dan terasuransi dengan layak.",
+      "WIN WIN SILVER / ZAAV G tidak bertanggung jawab atas paket pengembalian yang hilang atau rusak sebelum disampaikan kepada kami.",
+      "Instruksi pengembalian dan alamat pengembalian yang berlaku akan diberikan setelah pengajuan pengembalian Anda disetujui.",
+    ],
+  },
+  sec8: {
+    title: "8. Pembatalan Pesanan",
+    paragraphs: [
+      "Jika Anda ingin membatalkan pesanan, silakan hubungi kami sesegera mungkin di zaavg.bali@gmail.com.",
+      "Jika pesanan belum masuk tahap produksi atau belum dikirim, kami akan mengupayakan pembatalan secara wajar.",
+      "Pesanan khusus (custom-made) atau yang dipersonalisasi biasanya tidak dapat dibatalkan setelah proses produksi dimulai, kecuali jika diwajibkan oleh hukum yang berlaku.",
+      "Jika pesanan telah dikirim, pembatalan akan ditangani sesuai dengan ketentuan pengembalian yang berlaku dalam Kebijakan ini.",
+    ],
+  },
+  sec9: {
+    title: "9. Paket Rusak",
+    paragraphs: [
+      "Jika paket Anda tiba dalam kondisi rusak secara fisik, kami menyarankan untuk mengambil foto kemasan luar sebelum membukanya.",
+      "Silakan foto juga produk dan kemasannya jika perhiasan di dalamnya terdampak, lalu segera hubungi kami.",
+      "Dokumentasi ini membantu kami menyelidiki masalah tersebut dengan jasa kurir pengiriman dan menyelesaikan klaim Anda secara lebih efisien.",
+    ],
+  },
+  sec10: {
+    title: "10. Pesanan Internasional",
+    paragraphs: [
+      "ZAAV G melayani pengiriman internasional.",
+      "Pelanggan bertanggung jawab untuk memahami bea masuk, biaya cukai, pajak, atau biaya lain yang diberlakukan oleh negara tujuan.",
+      "Apabila paket ditolak, tidak diambil, atau dikembalikan karena bea masuk atau biaya impor tidak dibayar, pengembalian dana akan dinilai setelah paket dikembalikan kepada kami dan dapat dikurangi biaya pengiriman, biaya pengembalian, bea cukai, atau biaya lain yang kami keluarkan, sejauh diizinkan oleh hukum yang berlaku.",
+    ],
+  },
+  sec11: {
+    title: "11. Hak-Hak Konsumen",
+    paragraphs: [
+      "Tidak ada bagian dari Kebijakan Pengembalian & Penukaran ini yang ditujukan untuk mengecualikan, membatasi, atau menggantikan hak-hak konsumen yang secara hukum tidak dapat dikesampingkan berdasarkan hukum yang berlaku.",
+      "Apabila hukum perlindungan konsumen yang bersifat wajib memberikan Hak yang lebih luas daripada yang dijelaskan dalam Kebijakan ini, maka hak-hak wajib tersebut yang berlaku.",
+    ],
+  },
+  sec12: {
+    title: "12. Kontak",
+    intro: "Untuk pengajuan pengembalian, penukaran, pembatalan, atau pengembalian dana, silakan hubungi:",
+    company: "WIN WIN SILVER",
+    brand: "Beroperasi di bawah merek ZAAV G",
+    location: "Bali, Indonesia",
+    emailLabel: "Email:",
+    email: "zaavg.bali@gmail.com",
+    websiteLabel: "Situs web:",
+    website: "zaavgbali.com",
+  },
+  btnCatalog: "Lihat Koleksi",
+  btnHome: "Beranda",
+};
+
 const content: Record<Lang, PolicyContent> = {
   en: enContent,
   ru: ruContent,
-  id: enContent,
+  id: idContent,
 };
 
 function renderParagraph(text: string) {
@@ -498,6 +645,7 @@ function RefundPolicyPage() {
         {/* Content Section */}
         <div id="refundContent" className="py-24 px-6 md:px-10 lg:px-16 max-w-4xl mx-auto">
           <p className="text-sm text-neutral-500 italic mb-10">{t.refundUpdated}</p>
+          <h1 className=" sm:text-6xl text-gray-800 font-semibold pb-12">{t.refundTitleSmall}</h1>
 
           {/* Intro Paragraphs */}
           <div className="mb-12 space-y-4">

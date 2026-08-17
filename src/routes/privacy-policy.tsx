@@ -22,6 +22,7 @@ type Lang = "en" | "ru" | "id";
 const T = {
   en: {
     privacyTitle: "PRIVACY POLICY",
+    privacyTitleSmall: "PRIVACY POLICY",
     privacyUpdated: "Last updated: August 2026",
     intro1: "At ZAAV G, we value your trust and are committed to handling your personal information responsibly and transparently.",
     intro2: "This website, zaavgbali.com, is operated by WIN WIN SILVER, an Indonesian-registered business operating under the commercial brand ZAAV G.",
@@ -184,12 +185,15 @@ const T = {
     // Section 13 / Contact Card
     s13Title: "13. Contact Information",
     s13Intro: "If you have questions about this Privacy Policy, how we process your personal information, or wish to exercise a privacy right, please contact:",
+    s13Legal: "Operating under the brand ZAAV G",
+    s13Location: "Bali, Indonesia",
     
     privacyBtnCatalog: "View Collections",
     privacyBtnHome: "Home",
   },
   ru: {
     privacyTitle: "Политика конфиденциальности",
+    privacyTitleSmall: "Политика конфиденциальности",
     privacyUpdated: "Последнее обновление: август 2026 г.",
     intro1: "В ZAAV G мы ценим ваше доверие и стремимся ответственно и прозрачно относиться к обработке вашей персональной информации.",
     intro2: "Сайт zaavgbali.com управляется компанией WIN WIN SILVER, зарегистрированной в Индонезии и осуществляющей деятельность под коммерческим брендом ZAAV G.",
@@ -339,13 +343,15 @@ const T = {
 
     s13Title: "13. Контактная информация",
     s13Intro: "Если у вас есть вопросы о настоящей Политике конфиденциальности, порядке обработки вашей персональной информации или вы хотите воспользоваться своими правами в отношении персональных данных, пожалуйста, свяжитесь с нами:",
+    s13Legal: "Работает под брендом ZAAV G",
+    s13Location: "Бали, Индонезия",
 
     privacyBtnCatalog: "Смотреть коллекции",
     privacyBtnHome: "На главную",
   },
   id: {
     privacyTitle: "KEBIJAKAN PRIVASI",
-    privacyUpdated: "Terakhir diperbarui: Agustus 2026",
+    privacyTitleSmall: "KEBIJAKAN PRIVASI",
     intro1: "Di ZAAV G, kami menghargai kepercayaan Anda dan berkomitmen untuk mengelola informasi pribadi Anda secara bertanggung jawab dan transparan.",
     intro2: "Website ini, zaavgbali.com, dioperasikan oleh WIN WIN SILVER, bisnis terdaftar di Indonesia yang beroperasi di bawah merek komersial ZAAV G.",
     intro3: "Dalam Kebijakan Privasi ini, “ZAAV G,” “kami,” dan “milik kami” mengacu pada WIN WIN SILVER yang beroperasi di bawah merek ZAAV G.",
@@ -489,6 +495,8 @@ const T = {
 
     s13Title: "13. Informasi Kontak",
     s13Intro: "Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini atau ingin menggunakan hak privasi Anda, silakan hubungi:",
+    s13Legal: "Beroperasi di bawah merek ZAAV G",
+    s13Location: "Bali, Indonesia",
 
     privacyBtnCatalog: "Lihat Katalog",
     privacyBtnHome: "Beranda",
@@ -538,6 +546,7 @@ function PrivacyPolicyPage() {
           <p className="text-sm text-neutral-500 italic mb-10">{t.privacyUpdated}</p>
 
           <div className="mb-12 space-y-4">
+          <h1 className="text-base sm:text-6xl text-black font-semibold leading-[1.9]">{t.privacyTitleSmall}</h1>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.intro1}</p>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.intro2}</p>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.intro3}</p>
@@ -714,7 +723,7 @@ function PrivacyPolicyPage() {
             <p className="text-base text-neutral-600 leading-[1.9]">{t.s13Intro}</p>
             <div className="text-base text-neutral-900 font-semibold leading-[1.9] mt-4">
               WIN WIN SILVER<br />
-              <span className="font-normal text-neutral-600">Operating under the brand ZAAV G</span><br />
+              <span className="font-normal text-neutral-600">{t.s13Legal}</span><br />
               <span className="font-normal text-neutral-600">Bali, Indonesia</span><br />
               📩 <a href="mailto:zaavg.bali@gmail.com" className="text-[#008060] font-normal hover:underline">zaavg.bali@gmail.com</a><br />
               🌐 <a href="https://zaavgbali.com" target="_blank" rel="noopener noreferrer" className="text-[#008060] font-normal hover:underline">zaavgbali.com</a>

@@ -8,6 +8,7 @@ const T: Record<
   Lang,
   {
     termsTitle: string;
+    termsTitleSmall: string;
     termsUpdated: string;
     termsWelcome: string;
     termsIntroLine1: string;
@@ -130,6 +131,7 @@ const T: Record<
 > = {
   en: {
     termsTitle: "Terms of Service",
+    termsTitleSmall: "Terms of Service",
     termsUpdated: "Last updated: August 2026",
     termsWelcome: "Welcome to ZAAV G.",
     termsIntroLine1: "This website, zaavgbali.com, is operated by WIN WIN SILVER, an Indonesian-registered business operating under the commercial brand ZAAV G.",
@@ -251,6 +253,7 @@ const T: Record<
   },
   ru: {
     termsTitle: "Условия использования",
+    termsTitleSmall: "Условия использования",
     termsUpdated: "Последнее обновление: август 2026 г.",
     termsWelcome: "Добро пожаловать в ZAAV G.",
     termsIntroLine1: "Сайт zaavgbali.com управляется компанией WIN WIN SILVER, зарегистрированной в Индонезии и осуществляющей деятельность под коммерческим брендом ZAAV G.",
@@ -372,6 +375,7 @@ const T: Record<
   },
   id: {
     termsTitle: "Syarat Layanan",
+    termsTitleSmall: "Syarat Layanan",
     termsUpdated: "Terakhir diperbarui: Agustus 2026",
     termsWelcome: "Selamat datang di ZAAV G.",
     termsIntroLine1: "Situs web ini, zaavgbali.com, dioperasikan oleh WIN WIN SILVER, sebuah bisnis yang terdaftar di Indonesia yang beroperasi di bawah merek komersial ZAAV G.",
@@ -552,6 +556,7 @@ function TermsOfServicePage() {
           <p className="text-sm text-neutral-500 italic mb-10">{t.termsUpdated}</p>
 
           <div className="mb-12 space-y-4">
+            <h1 className="text-base sm:text-6xl text-black font-semibold leading-[1.9]">{t.termsTitleSmall}</h1>
             <p className="text-base sm:text-lg text-neutral-900 font-semibold leading-[1.9]">{t.termsWelcome}</p>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.termsIntroLine1}</p>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.termsIntroLine2}</p>
