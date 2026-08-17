@@ -15,15 +15,15 @@ import Devider from "@/components/Devider";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ювелирные украшения ручной работы" },
+      { title: "Handmade jewelry made in Bali" },
       {
         name: "description",
-        content: "Авторские украшения — кольца, серьги, браслеты, подвески и цепи.",
+        content: "Designer jewelry - rings, earrings, bracelets, pendants and chains.",
       },
-      { property: "og:title", content: "Ювелирные украшения ручной работы" },
+      { property: "og:title", content: "Handmade jewelry made in Bali" },
       {
         property: "og:description",
-        content: "Авторские украшения — кольца, серьги, браслеты, подвески и цепи.",
+        content: "Designer jewelry - rings, earrings, bracelets, pendants and chains.",
       },
     ],
   }),
