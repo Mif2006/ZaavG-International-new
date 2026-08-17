@@ -251,19 +251,19 @@ const T: Record<
 
 const instructionImages = {
   ru: {
-    ring: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/ring.png?v=1778338698",
+    ring: "SizeRingRu.png.webp",
     finger:
-      "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/thread.png?v=1778338698",
+      "SizeThreadRu.png",
   },
   en: {
-    ring: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1918.jpg?v=1778245689",
+    ring: "/SizeRingEn.webp",
     finger:
-      "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/ChatGPT_Image_May_4_2026_06_13_14_AM.png?v=1777864430",
+      "/SizeThreadEn.webp",
   },
   id: {
-    ring: "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1918.jpg?v=1778245689",
+    ring: "/SizeRingEn.webp",
     finger:
-      "https://cdn.shopify.com/s/files/1/0987/8745/9350/files/ChatGPT_Image_May_4_2026_06_13_14_AM.png?v=1777864430",
+      "/SizeThreadEn.webp",
   },
 };
 

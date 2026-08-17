@@ -46,9 +46,9 @@ const LANGS = ["en", "ru", "id"];
 type Lang = "en" | "ru" | "id";
 
 const T: Record<Lang, {trademark: string}> = {
-  en: {trademark: "© 2026 Zaav G | Brand operated by Win Win Silver | All Rights Reserved."},
-  ru: {trademark: "© 2026 Zaav G | Бренд под управлением Win Win Silver | Все права защищены."},
-  id: {trademark: "© 2026 Zaav G | Merek dioperasikan oleh Win Win Silver | Semua Hak Dilindungi Undang-Undang."},
+  en: {trademark: "© 2026 Zaav G | Brand operated by Win Win Silver"},
+  ru: {trademark: "© 2026 Zaav G | Бренд под управлением Win Win Silver"},
+  id: {trademark: "© 2026 Zaav G | Merek dioperasikan oleh Win Win Silver"},
 }
 
 export function Navbar() {
