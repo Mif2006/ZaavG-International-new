@@ -1161,7 +1161,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
 
                   <div className="text-xs text-center text-black/50 leading-relaxed px-2">
                     {t.privacyTextBefore}
-                    <a href="/pages/privacy" className="underline hover:text-black transition-colors" style={{ color: "#45cbad" }}>
+                    <a href="/privacy-policy" className="underline hover:text-black transition-colors" style={{ color: "#45cbad" }}>
                       {t.privacyLink}
                     </a>
                   </div>
