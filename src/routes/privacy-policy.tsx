@@ -543,10 +543,10 @@ function PrivacyPolicyPage() {
 
         {/* Content Section */}
         <div id="privacyContent" className="py-24 px-6 md:px-10 lg:px-16 max-w-4xl mx-auto">
+          <h1 className="text-base sm:text-6xl text-black font-semibold leading-[1.9]">{t.privacyTitleSmall}</h1>
           <p className="text-sm text-neutral-500 italic mb-10">{t.privacyUpdated}</p>
 
           <div className="mb-12 space-y-4">
-          <h1 className="text-base sm:text-6xl text-black font-semibold leading-[1.9]">{t.privacyTitleSmall}</h1>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.intro1}</p>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.intro2}</p>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.intro3}</p>

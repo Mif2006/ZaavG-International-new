@@ -644,8 +644,8 @@ function RefundPolicyPage() {
 
         {/* Content Section */}
         <div id="refundContent" className="py-24 px-6 md:px-10 lg:px-16 max-w-4xl mx-auto">
+          <h1 className=" text-6xl text-gray-800 font-semibold pb-12">{t.refundTitleSmall}</h1>
           <p className="text-sm text-neutral-500 italic mb-10">{t.refundUpdated}</p>
-          <h1 className=" sm:text-6xl text-gray-800 font-semibold pb-12">{t.refundTitleSmall}</h1>
 
           {/* Intro Paragraphs */}
           <div className="mb-12 space-y-4">

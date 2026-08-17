@@ -261,7 +261,12 @@ function CooperationPage() {
     <PublicShell>
       <div className="relative w-full min-h-screen bg-white font-sans text-neutral-900 selection:bg-neutral-900 selection:text-white">
         {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[450px] flex items-center justify-center  bg-cover bg-center overflow-hidden bg-[url('/FaqCoop.webp')]">
+        <section className="relative z-0 flex h-[60vh] min-h-[450px] items-center justify-center overflow-hidden">
+  {/* Background Layer: Parallax on PC, standard scroll on iPad/mobile */}
+  <div 
+    className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat bg-scroll xl:[@media(pointer:fine)]:bg-fixed"
+    style={{ backgroundImage: `url('/FaqCoop.webp')` }}
+  />
           <div className="absolute inset-0 bg-[#0a140f]/75 z-10" />
           <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
             <h1

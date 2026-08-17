@@ -280,13 +280,12 @@ function DeliveryShippingPage() {
     <PublicShell>
       <div className="min-h-screen bg-white font-sans text-[#1a1a1a]">
         {/* Hero Section */}
-        <section
-          className="relative flex h-[60vh] min-h-[350px] md:min-h-[480px] w-full items-center justify-center overflow-hidden bg-cover bg-center md:bg-fixed"
-          style={{
-            backgroundImage:
-              "url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1327.jpg?v=1776287860')",
-          }}
-        >
+        <section className="relative z-0 flex h-[60vh] min-h-[350px] md:min-h-[480px] w-full items-center justify-center overflow-hidden">
+  {/* Background Layer: Parallax on PC, standard scroll on iPad/mobile */}
+  <div 
+    className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat bg-scroll xl:[@media(pointer:fine)]:bg-fixed"
+    style={{ backgroundImage: `url('/FaqDelivery.webp')` }}
+  />
           <div className="absolute inset-0 bg-[#0a140f]/75 z-10" />
           <div className="relative z-20 px-5 text-center">
             <h1

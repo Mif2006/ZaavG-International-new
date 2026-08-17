@@ -553,10 +553,10 @@ function TermsOfServicePage() {
 
         {/* Content Section */}
         <div id="termsContent" className="py-24 px-6 md:px-10 lg:px-16 max-w-4xl mx-auto">
+            <h1 className="text-base sm:text-6xl text-black font-semibold leading-[1.9]">{t.termsTitleSmall}</h1>
           <p className="text-sm text-neutral-500 italic mb-10">{t.termsUpdated}</p>
 
           <div className="mb-12 space-y-4">
-            <h1 className="text-base sm:text-6xl text-black font-semibold leading-[1.9]">{t.termsTitleSmall}</h1>
             <p className="text-base sm:text-lg text-neutral-900 font-semibold leading-[1.9]">{t.termsWelcome}</p>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.termsIntroLine1}</p>
             <p className="text-base sm:text-lg text-neutral-600 leading-[1.9]">{t.termsIntroLine2}</p>
