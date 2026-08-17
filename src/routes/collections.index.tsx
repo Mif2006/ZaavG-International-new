@@ -261,7 +261,7 @@ function CollectionsPage() {
                       {it.title}
                     </h3>
                     <p className="text-sm text-neutral-500 font-normal mt-0.5 tabular-nums">
-                      Rp {Number(it.price).toLocaleString("id-ID")}
+                      Rp {Number(it.price).toLocaleString("en-US").replace(/,/g, "\u00A0")}
                     </p>
                   </div>
                 </Link>

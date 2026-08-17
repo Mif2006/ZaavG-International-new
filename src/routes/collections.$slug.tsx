@@ -294,7 +294,7 @@ function ItemPage() {
             <div>
               <h1 className="text-3xl font-bold md:text-4xl">{item.title}</h1>
               <div className="mt-2 text-lg text-black/80 tabular-nums">
-               Rp {Number(item.price).toLocaleString(dict.locale)} 
+               Rp {Number(item.price).toLocaleString("en-US").replace(/,/g, " ")} 
               </div>
             </div>
 
@@ -430,7 +430,7 @@ function ItemPage() {
                   <div className="pt-3">
                     <div className="text-sm font-medium truncate">{r.title}</div>
                     <div className="mt-0.5 text-sm text-black/70 tabular-nums">
-                     Rp {Number(r.price).toLocaleString(dict.locale)} 
+                     Rp {Number(r.price).toLocaleString("en-US").replace(/,/g, " ")} 
                     </div>
                   </div>
                 </Link>
