@@ -870,13 +870,13 @@
   color: var(--faq-accent);
   transform: translateX(-50%) translateY(-2px);
 }
+
+/* iPad Portrait & Tablets (1024px and below) */
 @media (max-width: 1024px) {
   .zav-faq { padding: 80px 40px; }
   .zav-faq__grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
-}
-@media (max-width: 768px) {
-  .zav-faq { padding: 60px 24px; }
-  .zav-faq__grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  /* Touch-friendly static elements (Title top, Button bottom) */
   .zav-faq__card-content {
     top: 0 !important;
     bottom: 0 !important;
@@ -918,6 +918,8 @@
     opacity: 1 !important;
   }
 }
+
+/* Small Mobile Screens (480px and below) */
 @media (max-width: 480px) {
   .zav-faq { padding: 50px 20px; }
   .zav-faq__grid {
@@ -941,7 +943,6 @@
   .zav-faq__card-title { font-size: 1.1rem; padding: 8px 20px !important; top: 28px !important; }
   .zav-faq__learn-more { padding: 8px 20px; font-size: 0.8rem; bottom: 20px !important; }
 }
-
 /* ─── FOOTER ─── */
 .zav-footer *, .zav-footer *::before, .zav-footer *::after {
   box-sizing: border-box; margin: 0; padding: 0;
