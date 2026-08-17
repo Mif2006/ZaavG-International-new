@@ -13,7 +13,7 @@ const T: Record<Lang, { title: string; subtitle: string; cards: [string, string,
   ru: {
     title: "FAQ",
     subtitle: "Всё, что может пригодиться перед заказом",
-    cards: ["Размеры", "Доставка", "Способы оплаты", "Партнерство"],
+    cards: ["Узнать Размер", "Доставка", "Способы оплаты", "Сотрудничество"],
     learnMore: "Узнать Больше →",
   },
   id: {
