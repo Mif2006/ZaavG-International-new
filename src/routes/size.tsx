@@ -306,7 +306,11 @@ function SizeGuidePage() {
     <PublicShell>
       <div className="min-h-screen bg-white font-sans text-[#1a1a1a] leading-relaxed">
         {/* Hero Section */}
-        <section className="relative flex h-[50vh] min-h-[300px] md:min-h-[480px] items-center justify-center bg-[url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1328.jpg?v=1776287860')] bg-cover bg-center bg-scroll md:bg-fixed overflow-hidden">
+        <section className="relative flex h-[50vh] min-h-[300px] md:min-h-[480px] items-center justify-center overflow-hidden">
+  {/* Fixed Parallax Layer */}
+  <div 
+    className="absolute inset-0 -z-10 bg-[url('https://cdn.shopify.com/s/files/1/0987/8745/9350/files/IMG_1328.jpg?v=1776287860')] bg-cover bg-center bg-no-repeat lg:bg-fixed"
+  />
           <div className="absolute inset-0 bg-[#0a140f]/62 z-10" />
           <div className="relative z-20 text-center px-5">
             <h1
