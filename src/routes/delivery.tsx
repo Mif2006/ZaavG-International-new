@@ -5,13 +5,13 @@ import { PublicShell } from "@/components/public-shell";
 export const Route = createFileRoute("/delivery")({
   head: () => ({
     meta: [
-      { title: "Delivery & Shipping — ZAAV G" },
+      { title: "Shipping & Delivery — ZAAV G" },
       {
         name: "description",
         content:
           "Worldwide delivery and shipping information, processing times, and policies for ZAAV G jewelry.",
       },
-      { property: "og:title", content: "Delivery & Shipping — ZAAV G" },
+      { property: "og:title", content: "Shipping & Delivery — ZAAV G" },
       {
         property: "og:description",
         content:
@@ -72,7 +72,7 @@ const T: Record<
   }
 > = {
   en: {
-    deliveryTitle: "DELIVERY & SHIPPING",
+    deliveryTitle: "SHIPPING & DELIVERY",
     deliveryUpdated: "Last updated: May 2026",
     deliveryIntro:
       "At ZAAV G, every piece is carefully prepared and shipped from Bali with attention, care, and respect for the craftsmanship behind it.\nWe currently offer worldwide shipping.",

@@ -32,7 +32,7 @@ const NAV_ITEMS = [
   { to: "/", labels: { en: "Home", ru: "Главная", id: "Beranda" } },
   { to: "/collections", labels: { en: "Collections", ru: "Коллекции", id: "Katalog" } },
   { to: "/size", labels: { en: "Size Guide", ru: "Узнать Размер", id: "Panduan Ukuran" } },
-  { to: "/delivery", labels: { en: "Delivery & Shipping", ru: "Доставка", id: "Pengiriman" } },
+  { to: "/delivery", labels: { en: "Shipping & Delivery", ru: "Доставка", id: "Pengiriman" } },
   { to: "/paymentinfo", labels: { en: "Payment Methods", ru: "Оплата", id: "Pembayaran" } },
   { to: "/cooperation", labels: { en: "Partnerships", ru: "Сотрудничество", id: "Kerjasama" } },
   { to: "/contact", labels: { en: "Contact", ru: "Контакты", id: "Kontak" } },

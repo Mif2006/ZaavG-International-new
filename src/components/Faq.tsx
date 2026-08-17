@@ -7,7 +7,7 @@ const T: Record<Lang, { title: string; subtitle: string; cards: [string, string,
   en: {
     title: "FAQ",
     subtitle: "Answers to the most common questions about our jewelry and orders.",
-    cards: ["Size Guide", "Delivery & Shipping", "Payment Methods", "Partnerships"],
+    cards: ["Size Guide", "Shipping & Delivery", "Payment Methods", "Partnerships"],
     learnMore: "Learn More →",
   },
   ru: {
