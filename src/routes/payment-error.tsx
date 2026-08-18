@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import { Navbar } from "@/components/Navbar";
 
 export const Route = createFileRoute("/payment-error")({
   component: PaymentErrorPage,
@@ -51,6 +52,8 @@ export function PaymentErrorPage() {
   const whatsappUrl = `https://wa.me/${waNumber}`;
 
   return (
+    <>
+    <Navbar />
     <div className="relative flex flex-col items-center justify-center min-h-screen text-white px-4 overflow-hidden bg-black">
       {/* Background Image with Dark Overlay */}
       <div
@@ -103,5 +106,6 @@ export function PaymentErrorPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
