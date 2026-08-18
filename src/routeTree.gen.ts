@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CooperationRouteImport } from './routes/cooperation'
 import { Route as DeliveryRouteImport } from './routes/delivery'
+import { Route as PaymentErrorRouteImport } from './routes/payment-error'
 import { Route as PaymentinfoRouteImport } from './routes/paymentinfo'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
@@ -46,6 +47,11 @@ const CooperationRoute = CooperationRouteImport.update({
 const DeliveryRoute = DeliveryRouteImport.update({
   id: '/delivery',
   path: '/delivery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentErrorRoute = PaymentErrorRouteImport.update({
+  id: '/payment-error',
+  path: '/payment-error',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PaymentinfoRoute = PaymentinfoRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
+  '/payment-error': typeof PaymentErrorRoute
   '/paymentinfo': typeof PaymentinfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
+  '/payment-error': typeof PaymentErrorRoute
   '/paymentinfo': typeof PaymentinfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
+  '/payment-error': typeof PaymentErrorRoute
   '/paymentinfo': typeof PaymentinfoRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/refund-policy': typeof RefundPolicyRoute
@@ -187,6 +196,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cooperation'
     | '/delivery'
+    | '/payment-error'
     | '/paymentinfo'
     | '/privacy-policy'
     | '/refund-policy'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cooperation'
     | '/delivery'
+    | '/payment-error'
     | '/paymentinfo'
     | '/privacy-policy'
     | '/refund-policy'
@@ -227,6 +238,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cooperation'
     | '/delivery'
+    | '/payment-error'
     | '/paymentinfo'
     | '/privacy-policy'
     | '/refund-policy'
@@ -248,6 +260,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CooperationRoute: typeof CooperationRoute
   DeliveryRoute: typeof DeliveryRoute
+  PaymentErrorRoute: typeof PaymentErrorRoute
   PaymentinfoRoute: typeof PaymentinfoRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       path: '/delivery'
       fullPath: '/delivery'
       preLoaderRoute: typeof DeliveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payment-error': {
+      id: '/payment-error'
+      path: '/payment-error'
+      fullPath: '/payment-error'
+      preLoaderRoute: typeof PaymentErrorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/paymentinfo': {
@@ -400,6 +420,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CooperationRoute: CooperationRoute,
   DeliveryRoute: DeliveryRoute,
+  PaymentErrorRoute: PaymentErrorRoute,
   PaymentinfoRoute: PaymentinfoRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   RefundPolicyRoute: RefundPolicyRoute,
