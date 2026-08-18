@@ -41,8 +41,9 @@ async function handler(request: Request) {
       payment_type,
       bank,
       customer_details,
-      custom_field1, // NOW CONTAINS: Order Notes
-      custom_field2, // NOW CONTAINS: Items List (with sizes)
+      custom_field1, // Order Notes
+      custom_field2, // Items List (with sizes)
+      custom_field3, // Delivery Address
     } = body;
 
     const serverKey = process.env.MIDTRANS_SERVER_KEY || "";
@@ -67,18 +68,22 @@ async function handler(request: Request) {
     const customerEmail = customer_details?.email || "N/A";
     const customerPhone = customer_details?.phone || "N/A";
     
-    // Assign our new custom fields properly
+    // Assign custom fields properly
     const orderNotes = custom_field1 || "None";
     const itemsList = custom_field2 || "N/A";
+    const deliveryAddress = custom_field3 || "N/A";
     
     const paymentMethodText = bank ? `${payment_type} (${bank.toUpperCase()})` : payment_type || "N/A";
 
-    // Included Order Notes in the Telegram block!
+    // Included Address and Order Notes in the Telegram block
     const customerDetailsBlock = `
 <b>Customer Info:</b>
 • <b>Name:</b> ${customerName.trim()}
 • <b>Email:</b> ${customerEmail}
 • <b>Phone:</b> ${customerPhone}
+
+<b>Delivery Address:</b>
+${deliveryAddress}
 
 <b>Order Notes:</b>
 ${orderNotes}
