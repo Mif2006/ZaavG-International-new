@@ -651,7 +651,8 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
           id: item.id,
           price: item.price,
           quantity: item.quantity,
-          name: item.title.substring(0, 50),
+          // Update this line to append the size if it exists:
+          name: (item.size ? `${item.title} (${item.size})` : item.title).substring(0, 50),
         })),
       };
 
