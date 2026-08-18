@@ -11,24 +11,108 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { I18nProvider } from "@/lib/i18n";
+import { I18nProvider, useI18n } from "@/lib/i18n";
 import { Toaster } from "@/components/ui/sonner";
 
-function NotFoundComponent() {
+type Lang = "en" | "ru" | "id";
+
+const T_NOT_FOUND: Record<
+  Lang,
+  {
+    notFoundTitle: string;
+    notFoundDescriptionPre: string;
+    notFoundDescriptionPost: string;
+    btnHome: string;
+    btnCatalog: string;
+  }
+> = {
+  ru: {
+    notFoundTitle: "Страница не найдена",
+    notFoundDescriptionPre:
+      "Запрашиваемая страница не существует или была перемещена.\nЕсли у вас возникли вопросы, свяжитесь с нами по номеру ",
+    notFoundDescriptionPost: "",
+    btnHome: "На главную",
+    btnCatalog: "В каталог",
+  },
+  en: {
+    notFoundTitle: "Page Not Found",
+    notFoundDescriptionPre:
+      "The page you are looking for doesn't exist or has been moved.\nIf you have any questions, contact us at ",
+    notFoundDescriptionPost: "",
+    btnHome: "Home",
+    btnCatalog: "Catalog",
+  },
+  id: {
+    notFoundTitle: "Halaman Tidak Ditemukan",
+    notFoundDescriptionPre:
+      "Halaman yang Anda cari tidak ada atau telah dipindahkan.\nJika Anda memiliki pertanyaan, hubungi kami di ",
+    notFoundDescriptionPost: "",
+    btnHome: "Beranda",
+    btnCatalog: "Katalog",
+  },
+};
+
+export function NotFoundComponent() {
+  const { lang } = useI18n();
+  const t = T_NOT_FOUND[(lang as Lang) || "en"] || T_NOT_FOUND.en;
+
+  const waNumber = "6281139888882";
+  const whatsappUrl = `https://wa.me/${waNumber}`;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="relative flex flex-col items-center justify-center min-h-screen text-white px-4 overflow-hidden bg-black">
+      {/* Background Image with Dark Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 z-0"
+        style={{
+          backgroundImage: `url('/ThankYouMountain.webp')`,
+        }}
+      />
+      <div className="absolute inset-0 bg-black/30 z-0" />
+
+      {/* Content Container */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto space-y-6">
+        {/* Large 404 Accent */}
+        <span className="text-7xl md:text-9xl font-extrabold tracking-widest text-[#45cbad] opacity-90 select-none">
+          404
+        </span>
+
+        {/* Error Title */}
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+          {t.notFoundTitle}
+        </h1>
+
+        {/* Description Text with Phone/WhatsApp Link */}
+        <p className="text-base md:text-lg font-light text-gray-200 leading-relaxed max-w-xl whitespace-pre-line">
+          {t.notFoundDescriptionPre}
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white font-medium underline underline-offset-4 hover:text-[#45cbad] transition-colors"
+          >
+            62 (811) 398 88 882
+          </a>
+          {t.notFoundDescriptionPost}
         </p>
-        <div className="mt-6">
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full">
+          {/* Main Green Action Button */}
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-medium text-black text-sm tracking-wide transition-all shadow-lg hover:opacity-95"
+            style={{ backgroundColor: "#45cbad" }}
           >
-            Go home
+            {t.btnHome}
+          </Link>
+
+          {/* Secondary White Action Button */}
+          <Link
+            to="/collections"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-medium text-black text-sm tracking-wide bg-white transition-all shadow-lg hover:bg-gray-100"
+          >
+            {t.btnCatalog}
           </Link>
         </div>
       </div>
