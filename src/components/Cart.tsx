@@ -616,10 +616,20 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     setIsProcessing(true);
 
     try {
-      // Combine street address and apartment cleanly for backend/Midtrans storage if needed
-      const fullStreetString = apartment.trim()
-        ? `${streetAddress}, Apt/Suite: ${apartment}`
-        : streetAddress;
+      // Combine all parts of the address into a single formatted string
+      const fullAddressString =
+        method === "delivery"
+          ? [
+              streetAddress,
+              apartment ? `Apt/Suite: ${apartment}` : null,
+              city,
+              province,
+              postalCode,
+              COUNTRIES.find((c) => c.alpha3 === deliveryCountryCode)?.name || deliveryCountryCode,
+            ]
+              .filter(Boolean)
+              .join(", ")
+          : t.pickupAddress;
 
       const cartSummaryString = items
         .map((i) => `${i.title} ${i.size ? `(${i.size})` : ""} x${i.quantity}`)
@@ -631,6 +641,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
         grossAmount: total,
         orderNotes: orderNotes,
         cartSummary: cartSummaryString,
+        address: fullAddressString, // Top-level address string read by the backend
         customerDetails: {
           first_name: firstName,
           last_name: lastName,
@@ -639,7 +650,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
           shipping_address:
             method === "delivery"
               ? {
-                  address: fullStreetString,
+                  address: fullAddressString,
                   city: city,
                   postal_code: postalCode,
                   country_code: deliveryCountryCode,
@@ -651,7 +662,6 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
           id: item.id,
           price: item.price,
           quantity: item.quantity,
-          // Update this line to append the size if it exists:
           name: (item.size ? `${item.title} (${item.size})` : item.title).substring(0, 50),
         })),
       };
