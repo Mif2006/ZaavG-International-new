@@ -59,7 +59,7 @@ function ThankYouPage() {
         className="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat pt-[80px]"
         style={{
           backgroundImage:
-            'url("/ThankYouMountain.png")',
+            'url("/ThankYouMountain.webp")',
         }}
       >
         {/* Dark overlay to ensure text readability against the image */}

@@ -264,24 +264,24 @@ function PaymentMethodsPage() {
               </div>
 
               {/* Apple Pay */}
-              <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md">
+              {/* <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md">
                 <div className="flex h-9 w-14 items-center justify-center rounded bg-[#fcfcfc]">
                   <ApplePayLogo />
                 </div>
                 <span className="text-center text-sm font-medium text-[#444444]">
                   {t.methodApplePay}
                 </span>
-              </div>
+              </div> */}
 
               {/* Google Pay */}
-              <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md">
+              {/* <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md">
                 <div className="flex h-9 w-14 items-center justify-center rounded bg-[#fcfcfc]">
                   <GooglePayLogo />
                 </div>
                 <span className="text-center text-sm font-medium text-[#444444]">
                   {t.methodGooglePay}
                 </span>
-              </div>
+              </div> */}
 
               {/* Bank Transfer */}
               <div className="flex w-full min-w-[120px] flex-col items-center gap-2 rounded-lg border border-[#e5e5e5] bg-white p-4 shadow-sm transition-all duration-200 hover:shadow-md">
