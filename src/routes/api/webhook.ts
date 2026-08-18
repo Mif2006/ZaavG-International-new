@@ -26,6 +26,18 @@ async function sendTelegramNotification(text: string) {
   }
 }
 
+// Helper function to split comma-separated items into separate bulleted lines
+function formatItemsList(itemsRaw?: string): string {
+  if (!itemsRaw || !itemsRaw.trim()) return "N/A";
+
+  return itemsRaw
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .map((item) => `• ${item}`)
+    .join("\n");
+}
+
 async function handler(request: Request) {
   try {
     const body = await request.json();
@@ -67,13 +79,15 @@ async function handler(request: Request) {
     const customerName = customer_details?.full_name || customer_details?.first_name || "N/A";
     const customerEmail = customer_details?.email || "N/A";
     const customerPhone = customer_details?.phone || "N/A";
-    
+
     // Assign custom fields properly
     const orderNotes = custom_field1 || "None";
-    const itemsList = custom_field2 || "N/A";
+    const itemsListFormatted = formatItemsList(custom_field2);
     const deliveryAddress = custom_field3 || "N/A";
-    
-    const paymentMethodText = bank ? `${payment_type} (${bank.toUpperCase()})` : payment_type || "N/A";
+
+    const paymentMethodText = bank
+      ? `${payment_type} (${bank.toUpperCase()})`
+      : payment_type || "N/A";
 
     // Included Address and Order Notes in the Telegram block
     const customerDetailsBlock = `
@@ -89,13 +103,12 @@ ${deliveryAddress}
 ${orderNotes}
 
 <b>Items:</b>
-${itemsList}
+${itemsListFormatted}
 `.trim();
 
     // 4. Handle Transaction Status and Send Telegram Alerts
     if (transaction_status === "capture" || transaction_status === "settlement") {
       if (fraud_status === "accept" || !fraud_status) {
-        
         // TODO: Update your database -> Order status = PAID
 
         await sendTelegramNotification(`
@@ -112,7 +125,6 @@ ${customerDetailsBlock}
       transaction_status === "deny" ||
       transaction_status === "expire"
     ) {
-      
       // TODO: Update your database -> Order status = FAILED / CANCELLED
 
       await sendTelegramNotification(`
@@ -124,7 +136,6 @@ ${customerDetailsBlock}
 ${customerDetailsBlock}
 `.trim());
     } else if (transaction_status === "pending") {
-      
       // TODO: Update your database -> Order status = PENDING
 
       await sendTelegramNotification(`
