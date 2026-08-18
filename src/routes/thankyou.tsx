@@ -78,7 +78,7 @@ function ThankYouPage() {
           <div className="flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row sm:gap-6">
             <Link
               to="/"
-              className="inline-flex min-w-[200px] w-full cursor-pointer items-center justify-center rounded-lg bg-[#55e6a5] px-8 py-4 font-sans text-base font-semibold text-white no-underline shadow-[0_4px_16px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#42ce8f] sm:w-auto"
+              className="inline-flex min-w-[200px] w-full cursor-pointer items-center justify-center rounded-lg bg-[#4AC2B6] px-8 py-4 font-sans text-base font-semibold text-white no-underline shadow-[0_4px_16px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#42ce8f] sm:w-auto"
             >
               {t.btnHome}
             </Link>

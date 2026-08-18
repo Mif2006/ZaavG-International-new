@@ -75,7 +75,7 @@ export function PaymentErrorPage() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white font-medium underline underline-offset-4 hover:text-[#45cbad] transition-colors"
+            className="text-white font-medium underline underline-offset-4 hover:text-[#4AC2B6] transition-colors"
           >
             +62 (811) 398 88 882
           </a>
@@ -88,7 +88,7 @@ export function PaymentErrorPage() {
           <Link
             to="/"
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-medium text-black text-sm tracking-wide transition-all shadow-lg hover:opacity-95"
-            style={{ backgroundColor: "#45cbad" }}
+            style={{ backgroundColor: "#4AC2B6" }}
           >
             {t.btnHome}
           </Link>
