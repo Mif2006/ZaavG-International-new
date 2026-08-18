@@ -5,64 +5,66 @@ export const Route = createFileRoute("/payment-error")({
 });
 
 function PaymentErrorPage() {
-  // TODO: Replace these with your actual phone number when you have it.
-  // The waNumber should be numbers only (e.g., "79991234567") for the URL to work correctly.
-  const waNumber = "1234567890"; 
-  const displayNumber = "+1 234 567 890"; // How it looks on the screen
-
-  const whatsappLink = `https://wa.me/${waNumber}`;
+  // Replace these with your actual phone number and WhatsApp link when ready
+  const waNumber = "79050441111"; // Numbers only format for URL (e.g. 79050441111)
+  const whatsappUrl = `https://wa.me/${waNumber}`;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] p-4 text-center px-4">
+    <div className="relative flex flex-col items-center justify-center min-h-screen text-white px-4 overflow-hidden bg-black">
       
-      {/* Red Error/Warning Icon */}
-      <svg 
-        className="w-16 h-16 text-red-500 mb-6" 
-        fill="none" 
-        stroke="currentColor" 
-        viewBox="0 0 24 24" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path 
-          strokeLinecap="round" 
-          strokeLinejoin="round" 
-          strokeWidth={2} 
-          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
-        />
-      </svg>
+      {/* Background Image with Dark Overlay (Matches the Yosemite/Nature theme from your screenshot) */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60 z-0"
+        style={{ 
+          backgroundImage: `url('/ThankYouMountain.webp')` 
+        }}
+      />
+      <div className="absolute inset-0 bg-black/30 z-0" />
 
-      <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-        Что-то пошло не так.
-      </h1>
-      
-      <div className="max-w-lg space-y-4 text-gray-600 text-lg">
-        <p>
+      {/* Content Container */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-2xl mx-auto space-y-6">
+        
+        {/* Error Title */}
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+          Что-то пошло не так :(
+        </h1>
+
+        {/* Description Text with Phone Number Link */}
+        <p className="text-base md:text-lg font-light text-gray-200 leading-relaxed max-w-xl">
           При оплате произошла ошибка. Проверьте введенные вами данные и повторите попытку.
-        </p>
-        <p>
+          <br />
           Если ошибка повторяется, вы можете связаться с нами по номеру{" "}
-          <a 
-            href={whatsappLink}
+          <a
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-green-600 font-semibold hover:underline"
+            className="text-white font-medium underline underline-offset-4 hover:text-[#45cbad] transition-colors"
           >
-            {displayNumber}
+            8 (905) 044-11-11
           </a>
-          {" "} (WhatsApp).
         </p>
-      </div>
 
-      <div className="mt-10">
-        {/* Button to go back to the home page or cart */}
-        <Link 
-          to="/" 
-          className="px-8 py-3 bg-black text-white font-medium rounded-md hover:bg-gray-800 transition-colors"
-        >
-          Вернуться на главную
-        </Link>
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full">
+          {/* Main Green Action Button */}
+          <Link
+            to="/"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-medium text-black text-sm tracking-wide transition-all shadow-lg hover:opacity-95"
+            style={{ backgroundColor: "#45cbad" }}
+          >
+            На главную
+          </Link>
+
+          {/* Secondary White Action Button (e.g. Catalog / Cart) */}
+          <Link
+            to="/" 
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-medium text-black text-sm tracking-wide bg-white transition-all shadow-lg hover:bg-gray-100"
+          >
+            В каталог
+          </Link>
+        </div>
+
       </div>
-      
     </div>
   );
 }
