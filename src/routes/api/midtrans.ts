@@ -10,31 +10,34 @@ const snap = new midtransClient.Snap({
 
 async function handler(request: Request) {
   try {
-    // Parse the JSON payload sent from your frontend
     const body = await request.json();
-    const { orderId, grossAmount, customerDetails, itemDetails } = body;
+    
+    // 1. Destructure `orderNotes` from the body so we don't lose it
+    const { orderId, grossAmount, customerDetails, itemDetails, orderNotes } = body;
 
-    // Pack the item names and quantities for the webhook notification
+    // 2. Pack the item names (which now include sizes!) and quantities
     const itemsSummary = (itemDetails || [])
       .map((i: any) => `${i.name} (x${i.quantity})`)
       .join(", ")
-      .substring(0, 255); // Safety cap for Midtrans limit
+      .substring(0, 255); 
 
-    // Construct the payload exactly how Midtrans requires it
     const parameter = {
       transaction_details: {
         order_id: orderId,
-        gross_amount: grossAmount, // Assuming this is now passed as IDR integer
+        gross_amount: grossAmount, 
       },
-      item_details: itemDetails, // Passed as-is, assuming prices are IDR
-      customer_details: customerDetails, // Sent to dashboard
-      custom_field1: itemsSummary,       // Echoed back to webhook
+      item_details: itemDetails, 
+      customer_details: customerDetails, 
+      
+      // 3. Put the customer's notes in field 1 (if they exist)
+      custom_field1: orderNotes ? orderNotes.substring(0, 255) : undefined,
+      
+      // 4. Put your custom summary in field 2
+      custom_field2: itemsSummary,       
     };
 
-    // Request the unique Snap Token for this specific transaction
     const transaction = await snap.createTransaction(parameter);
 
-    // Return a standard Web Response with the token
     return new Response(JSON.stringify({ token: transaction.token }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
@@ -50,7 +53,6 @@ async function handler(request: Request) {
 export const Route = createFileRoute("/api/midtrans")({
   server: {
     handlers: {
-      // You generally only need POST since you are submitting order data
       POST: ({ request }) => handler(request),
     },
   },

@@ -41,7 +41,8 @@ async function handler(request: Request) {
       payment_type,
       bank,
       customer_details,
-      custom_field1, // Contains item list (e.g., "Kopara (x1), Coral (x1)")
+      custom_field1, // NOW CONTAINS: Order Notes
+      custom_field2, // NOW CONTAINS: Items List (with sizes)
     } = body;
 
     const serverKey = process.env.MIDTRANS_SERVER_KEY || "";
@@ -60,19 +61,27 @@ async function handler(request: Request) {
       });
     }
 
-    // 3. Format customer info & amount
+    // 3. Format customer info, notes, items & amount
     const formattedAmount = Math.round(Number(gross_amount)).toLocaleString("id-ID");
     const customerName = customer_details?.full_name || customer_details?.first_name || "N/A";
     const customerEmail = customer_details?.email || "N/A";
     const customerPhone = customer_details?.phone || "N/A";
-    const itemsList = custom_field1 || "N/A";
+    
+    // Assign our new custom fields properly
+    const orderNotes = custom_field1 || "None";
+    const itemsList = custom_field2 || "N/A";
+    
     const paymentMethodText = bank ? `${payment_type} (${bank.toUpperCase()})` : payment_type || "N/A";
 
+    // Included Order Notes in the Telegram block!
     const customerDetailsBlock = `
 <b>Customer Info:</b>
 • <b>Name:</b> ${customerName.trim()}
 • <b>Email:</b> ${customerEmail}
 • <b>Phone:</b> ${customerPhone}
+
+<b>Order Notes:</b>
+${orderNotes}
 
 <b>Items:</b>
 ${itemsList}
