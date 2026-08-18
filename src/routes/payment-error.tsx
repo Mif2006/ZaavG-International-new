@@ -77,7 +77,7 @@ export function PaymentErrorPage() {
             rel="noopener noreferrer"
             className="text-white font-medium underline underline-offset-4 hover:text-[#45cbad] transition-colors"
           >
-            62 (811) 398 88 882
+            +62 (811) 398 88 882
           </a>
           {t.errorDescriptionPost}
         </p>
