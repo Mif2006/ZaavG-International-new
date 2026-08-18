@@ -251,14 +251,16 @@ const CART_T = {
     title: "Your Order",
     empty: "Your cart is empty.",
     checkout: "Delivery Information",
-    name: "Full Name",
+    firstName: "First Name",
+    lastName: "Last Name",
     email: "Email Address",
     phone: "Phone Number",
     method: "Delivery Method",
     pickup: "Self Pickup (Bali Store)",
     delivery: "International / Indonesia Delivery",
     addressTitle: "Delivery Address",
-    streetAddress: "Street Address, Apartment, Suite, etc.",
+    streetAddress: "Street Address",
+    apartment: "Apartment, Suite, Unit, etc. (Optional)",
     city: "City / Town",
     province: "Province / State / Region",
     postalCode: "Postal Code / ZIP",
@@ -277,7 +279,8 @@ const CART_T = {
     undoText: "You removed",
     undoAction: "Undo",
     errors: {
-      nameRequired: "Please enter your full name.",
+      firstNameRequired: "Please enter your first name.",
+      lastNameRequired: "Please enter your last name.",
       emailRequired: "Please enter your email address.",
       emailInvalid: "Please enter a valid email address.",
       phoneRequired: "Please enter your phone number.",
@@ -293,14 +296,16 @@ const CART_T = {
     title: "Ваш Заказ",
     empty: "Ваша корзина пуста.",
     checkout: "Информация для доставки",
-    name: "Ваше Имя",
+    firstName: "Имя",
+    lastName: "Фамилия",
     email: "Email",
     phone: "Номер телефона",
     method: "Способ доставки",
     pickup: "Самовывоз (Магазин на Бали)",
     delivery: "Доставка по Индонезии / Другим странам",
     addressTitle: "Адрес доставки",
-    streetAddress: "Улица, дом, квартира / офис",
+    streetAddress: "Улица и номер дома",
+    apartment: "Квартира, офис, апартаменты (необязательно)",
     city: "Город / Населённый пункт",
     province: "Область / Регион / Штат",
     postalCode: "Почтовый индекс",
@@ -319,11 +324,12 @@ const CART_T = {
     undoText: "Вы удалили",
     undoAction: "Отменить",
     errors: {
-      nameRequired: "Пожалуйста, укажите ваше имя.",
+      firstNameRequired: "Пожалуйста, укажите ваше имя.",
+      lastNameRequired: "Пожалуйста, укажите вашу фамилию.",
       emailRequired: "Пожалуйста, укажите ваш email.",
       emailInvalid: "Пожалуйста, введите корректный email.",
       phoneRequired: "Пожалуйста, укажите номер телефона.",
-      streetRequired: "Пожалуйста, укажите адрес доставки.",
+      streetRequired: "Пожалуйста, укажите адрес улицы.",
       cityRequired: "Пожалуйста, укажите город.",
       provinceRequired: "Пожалуйста, укажите регион или область.",
       postalRequired: "Пожалуйста, укажите почтовый индекс.",
@@ -335,14 +341,16 @@ const CART_T = {
     title: "Pesanan Anda",
     empty: "Keranjang Anda kosong.",
     checkout: "Informasi Pengiriman",
-    name: "Nama Lengkap",
+    firstName: "Nama Depan",
+    lastName: "Nama Belakang",
     email: "Alamat Email",
     phone: "Nomor Telepon",
     method: "Metode Pengiriman",
     pickup: "Ambil Sendiri (Toko Bali)",
     delivery: "Pengiriman (Bali / Indonesia)",
     addressTitle: "Alamat Pengiriman",
-    streetAddress: "Nama Jalan, Gedung, No. Rumah / Unit",
+    streetAddress: "Nama Jalan dan Nomor",
+    apartment: "Nomor Apartemen, Gedung, Unit (Opsional)",
     city: "Kota / Kabupaten",
     province: "Provinsi / Negara Bagian",
     postalCode: "Kode Pos",
@@ -361,7 +369,8 @@ const CART_T = {
     undoText: "Anda menghapus",
     undoAction: "Batal",
     errors: {
-      nameRequired: "Harap isi nama lengkap Anda.",
+      firstNameRequired: "Harap isi nama depan Anda.",
+      lastNameRequired: "Harap isi nama belakang Anda.",
       emailRequired: "Harap isi alamat email Anda.",
       emailInvalid: "Harap isi alamat email yang valid.",
       phoneRequired: "Harap isi nomor telepon Anda.",
@@ -387,19 +396,20 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
   const { items, total, removeItem, updateQuantity } = useCart();
 
   const [method, setMethod] = useState<"pickup" | "delivery">("pickup");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(
     COUNTRIES.find((c) => c.name === "Indonesia") || COUNTRIES[0]
   );
 
-  // Structured Full Address Fields
+  // Structured Full Address Fields (Separated Street & Apartment)
   const [streetAddress, setStreetAddress] = useState("");
+  const [apartment, setApartment] = useState("");
   const [city, setCity] = useState("");
   const [province, setProvince] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  // Default delivery country code to 3-letter ISO alpha-3 ("IDN" for Indonesia)
   const [deliveryCountryCode, setDeliveryCountryCode] = useState("IDN");
   const [orderNotes, setOrderNotes] = useState("");
 
@@ -414,7 +424,6 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
 
     const scriptSrc = "https://app.sandbox.midtrans.com/snap/snap.js";
     const clientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
-
     const scriptId = "midtrans-script";
 
     if (!document.getElementById(scriptId)) {
@@ -434,7 +443,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     };
   }, [isOpen]);
 
-  // 5-second delayed deletion with smooth, immediate progress tracking
+  // 5-second delayed deletion with progress tracking
   const [pendingDeletions, setPendingDeletions] = useState<
     Record<
       string,
@@ -543,7 +552,6 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Helper to clear errors when input changes
   const clearError = (field: string) => {
     if (errors[field]) {
       setErrors((prev) => {
@@ -555,12 +563,14 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     if (apiError) setApiError(null);
   };
 
-  // Comprehensive Form Validation
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!name.trim()) {
-      newErrors.name = t.errors.nameRequired;
+    if (!firstName.trim()) {
+      newErrors.firstName = t.errors.firstNameRequired;
+    }
+    if (!lastName.trim()) {
+      newErrors.lastName = t.errors.lastNameRequired;
     }
 
     if (!email.trim()) {
@@ -599,7 +609,6 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     e.preventDefault();
     setApiError(null);
 
-    // Validate inputs client-side first
     if (!validateForm()) {
       return;
     }
@@ -607,22 +616,32 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     setIsProcessing(true);
 
     try {
+      // Combine street address and apartment cleanly for backend/Midtrans storage if needed
+      const fullStreetString = apartment.trim()
+        ? `${streetAddress}, Apt/Suite: ${apartment}`
+        : streetAddress;
+
+      const cartSummaryString = items
+        .map((i) => `${i.title} ${i.size ? `(${i.size})` : ""} x${i.quantity}`)
+        .join(", ")
+        .substring(0, 255);
+
       const payload = {
         orderId: `ORDER-${Date.now()}`,
         grossAmount: total,
         orderNotes: orderNotes,
-        custom_field1: orderNotes ? orderNotes.substring(0, 255) : undefined,
+        cartSummary: cartSummaryString,
         customerDetails: {
-          first_name: name,
+          first_name: firstName,
+          last_name: lastName,
           email: email,
           phone: `${selectedCountry.code}${phoneNumber}`,
           shipping_address:
             method === "delivery"
               ? {
-                  address: streetAddress,
+                  address: fullStreetString,
                   city: city,
                   postal_code: postalCode,
-                  // Midtrans strictly requires an ISO 3166-1 alpha-3 code (e.g. "IDN")
                   country_code: deliveryCountryCode,
                   province: province,
                 }
@@ -632,8 +651,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
           id: item.id,
           price: item.price,
           quantity: item.quantity,
-          // Append the size if it exists, keeping the 50-character limit Midtrans requires
-          name: (item.size ? `${item.title} (${item.size})` : item.title).substring(0, 50),
+          name: item.title.substring(0, 50),
         })),
       };
 
@@ -649,7 +667,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
         throw new Error(data.error || t.errors.serverError);
       }
 
-      // @ts-ignore - Ignore TS error for window.snap injected by script
+      // @ts-ignore
       window.snap.pay(data.token, {
         onSuccess: function (result: any) {
           console.log("Payment success:", result);
@@ -685,7 +703,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
         onClick={onClose}
       />
 
-      {/* Centered Spacious Modal Box */}
+      {/* Modal Box */}
       <div className="relative w-full max-w-2xl max-h-[90vh] bg-white text-black shadow-2xl flex flex-col z-10 overflow-y-auto overflow-x-hidden animate-scale-up">
         {/* Header */}
         <div className="sticky top-0 bg-white z-20 flex items-center justify-between px-8 py-6 border-b border-black/10 shrink-0">
@@ -734,9 +752,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                           <div className="relative w-6 h-6 flex items-center justify-center text-[#ff5722] font-light text-xs shrink-0">
                             <svg
                               className="absolute inset-0 w-full h-full pointer-events-none"
-                              style={{
-                                transform: "rotate(90deg) scaleX(-1)",
-                              }}
+                              style={{ transform: "rotate(90deg) scaleX(-1)" }}
                               viewBox="0 0 24 24"
                             >
                               <circle
@@ -763,7 +779,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                             <span className="relative z-10 tabular-nums">{pending.timeLeft}</span>
                           </div>
                           <span>
-                            {t.undoText} &ldquo;{item.title}&rdquo;
+                            {t.undoText} “{item.title}”
                           </span>
                         </div>
                         <button
@@ -845,7 +861,6 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
               >
                 <h3 className="text-xs font-bold tracking-widest uppercase text-black/60">{t.checkout}</h3>
 
-                {/* API / Server Level Error Banner */}
                 {apiError && (
                   <div className="p-4 bg-red-50 border border-red-200 text-red-600 text-xs font-medium rounded-md animate-fade-in">
                     {apiError}
@@ -853,25 +868,46 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                 )}
 
                 <div className="space-y-6">
-                  {/* Name Input */}
-                  <div>
-                    <input
-                      type="text"
-                      placeholder={t.name}
-                      value={name}
-                      onChange={(e) => {
-                        setName(e.target.value);
-                        clearError("name");
-                      }}
-                      className={`w-full border-b pb-3 text-sm focus:outline-none transition-colors bg-transparent placeholder:text-black/40 ${
-                        errors.name ? "border-red-500 focus:border-red-500" : "border-black/20 focus:border-black"
-                      }`}
-                    />
-                    {errors.name && (
-                      <span className="text-xs text-red-500 mt-1.5 block font-medium">
-                        {errors.name}
-                      </span>
-                    )}
+                  {/* First Name & Last Name Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <input
+                        type="text"
+                        placeholder={t.firstName}
+                        value={firstName}
+                        onChange={(e) => {
+                          setFirstName(e.target.value);
+                          clearError("firstName");
+                        }}
+                        className={`w-full border-b pb-3 text-sm focus:outline-none transition-colors bg-transparent placeholder:text-black/40 ${
+                          errors.firstName ? "border-red-500 focus:border-red-500" : "border-black/20 focus:border-black"
+                        }`}
+                      />
+                      {errors.firstName && (
+                        <span className="text-xs text-red-500 mt-1.5 block font-medium">
+                          {errors.firstName}
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder={t.lastName}
+                        value={lastName}
+                        onChange={(e) => {
+                          setLastName(e.target.value);
+                          clearError("lastName");
+                        }}
+                        className={`w-full border-b pb-3 text-sm focus:outline-none transition-colors bg-transparent placeholder:text-black/40 ${
+                          errors.lastName ? "border-red-500 focus:border-red-500" : "border-black/20 focus:border-black"
+                        }`}
+                      />
+                      {errors.lastName && (
+                        <span className="text-xs text-red-500 mt-1.5 block font-medium">
+                          {errors.lastName}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Email Input */}
@@ -928,7 +964,6 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                       </span>
                     )}
 
-                    {/* Country Selector Dropdown */}
                     {isCountryOpen && (
                       <div className="absolute left-0 top-full mt-1 w-72 max-h-60 overflow-y-auto bg-white border border-black/15 shadow-xl z-30 rounded-md">
                         {filteredCountries.map((c) => (
@@ -990,7 +1025,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                     </div>
                   </div>
 
-                  {/* Conditional Method Info / Full Structured Address Form */}
+                  {/* Conditional Method Info / Spread Address Form */}
                   {method === "pickup" ? (
                     <div className="p-5 bg-neutral-50 border border-black/10 text-xs text-black/70 space-y-2 leading-relaxed">
                       <p className="font-semibold text-black uppercase tracking-wider">{t.pickupLocationTitle}</p>
@@ -1034,6 +1069,17 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                             {errors.streetAddress}
                           </span>
                         )}
+                      </div>
+
+                      {/* Apartment / Suite / Unit (Separate field) */}
+                      <div>
+                        <input
+                          type="text"
+                          placeholder={t.apartment}
+                          value={apartment}
+                          onChange={(e) => setApartment(e.target.value)}
+                          className="w-full border-b pb-3 text-sm focus:outline-none transition-colors bg-transparent placeholder:text-black/40 border-black/20 focus:border-black"
+                        />
                       </div>
 
                       {/* City */}
@@ -1105,7 +1151,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                         )}
                       </div>
 
-                      {/* Country Select (ISO 3166-1 Alpha-3 Format Required by Midtrans) */}
+                      {/* Country Select */}
                       <div>
                         <select
                           value={deliveryCountryCode}
