@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CartRouteImport } from './routes/cart'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CooperationRouteImport } from './routes/cooperation'
 import { Route as DeliveryRouteImport } from './routes/delivery'
@@ -20,6 +19,7 @@ import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SizeRouteImport } from './routes/size'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
+import { Route as ThankyouRouteImport } from './routes/thankyou'
 import { Route as VideosRouteImport } from './routes/videos'
 import { Route as ApiCooperationRouteImport } from './routes/api/cooperation'
 import { Route as ApiMidtransRouteImport } from './routes/api/midtrans'
@@ -31,11 +31,6 @@ import { Route as CollectionsSlugRouteImport } from './routes/collections.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CartRoute = CartRouteImport.update({
-  id: '/cart',
-  path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -83,6 +78,11 @@ const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThankyouRoute = ThankyouRouteImport.update({
+  id: '/thankyou',
+  path: '/thankyou',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VideosRoute = VideosRouteImport.update({
   id: '/videos',
   path: '/videos',
@@ -121,7 +121,6 @@ const CollectionsSlugRoute = CollectionsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
@@ -131,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/thankyou': typeof ThankyouRoute
   '/videos': typeof VideosRoute
   '/api/cooperation': typeof ApiCooperationRoute
   '/api/midtrans': typeof ApiMidtransRoute
@@ -141,7 +141,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
@@ -151,6 +150,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/thankyou': typeof ThankyouRoute
   '/videos': typeof VideosRoute
   '/api/cooperation': typeof ApiCooperationRoute
   '/api/midtrans': typeof ApiMidtransRoute
@@ -162,7 +162,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
@@ -172,6 +171,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/thankyou': typeof ThankyouRoute
   '/videos': typeof VideosRoute
   '/api/cooperation': typeof ApiCooperationRoute
   '/api/midtrans': typeof ApiMidtransRoute
@@ -184,7 +184,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/cart'
     | '/contact'
     | '/cooperation'
     | '/delivery'
@@ -194,6 +193,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
+    | '/thankyou'
     | '/videos'
     | '/api/cooperation'
     | '/api/midtrans'
@@ -204,7 +204,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/cart'
     | '/contact'
     | '/cooperation'
     | '/delivery'
@@ -214,6 +213,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
+    | '/thankyou'
     | '/videos'
     | '/api/cooperation'
     | '/api/midtrans'
@@ -224,7 +224,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/cart'
     | '/contact'
     | '/cooperation'
     | '/delivery'
@@ -234,6 +233,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
+    | '/thankyou'
     | '/videos'
     | '/api/cooperation'
     | '/api/midtrans'
@@ -245,7 +245,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CartRoute: typeof CartRoute
   ContactRoute: typeof ContactRoute
   CooperationRoute: typeof CooperationRoute
   DeliveryRoute: typeof DeliveryRoute
@@ -255,6 +254,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SizeRoute: typeof SizeRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
+  ThankyouRoute: typeof ThankyouRoute
   VideosRoute: typeof VideosRoute
   ApiCooperationRoute: typeof ApiCooperationRoute
   ApiMidtransRoute: typeof ApiMidtransRoute
@@ -271,13 +271,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cart': {
-      id: '/cart'
-      path: '/cart'
-      fullPath: '/cart'
-      preLoaderRoute: typeof CartRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -343,6 +336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/thankyou': {
+      id: '/thankyou'
+      path: '/thankyou'
+      fullPath: '/thankyou'
+      preLoaderRoute: typeof ThankyouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/videos': {
       id: '/videos'
       path: '/videos'
@@ -397,7 +397,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CartRoute: CartRoute,
   ContactRoute: ContactRoute,
   CooperationRoute: CooperationRoute,
   DeliveryRoute: DeliveryRoute,
@@ -407,6 +406,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SizeRoute: SizeRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
+  ThankyouRoute: ThankyouRoute,
   VideosRoute: VideosRoute,
   ApiCooperationRoute: ApiCooperationRoute,
   ApiMidtransRoute: ApiMidtransRoute,
