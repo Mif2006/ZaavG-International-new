@@ -121,9 +121,7 @@ const T: Record<
 
     section14Title: string;
     sec14Intro: string;
-    contactCompany: string;
-    contactBrand: string;
-    contactLocation: string;
+
     contactEmail: string;
     contactWebsite: string;
 
@@ -155,7 +153,7 @@ const T: Record<
     sec1EmailLabel: "Email:",
     sec1EmailVal: "zaavg.bali@gmail.com",
     sec1Text1: "ZAAV G is an independent jewelry brand creating handcrafted sterling silver jewelry and jewelry with natural stones in Bali, Indonesia.",
-    sec1Text2: "By using this website, you confirm that you are legally capable of entering into a purchase agreement under the laws applicable to you or that you have the permission of a parent or legal guardian where required.",
+    sec1Text2: "",
     sec1Text3: "We may update these Terms from time to time. The version published on this website at the time of your order will apply to that purchase.",
 
     section2Title: "2. Products & Handmade Nature",
@@ -246,9 +244,6 @@ const T: Record<
 
     section14Title: "14. Contact Information",
     sec14Intro: "For questions about these Terms, an order, or our services, please contact:",
-    contactCompany: "WIN WIN SILVER",
-    contactBrand: "Operating under the brand ZAAV G",
-    contactLocation: "Bali, Indonesia",
     contactEmail: "zaavg.bali@gmail.com",
     contactWebsite: "zaavgbali.com",
 
@@ -370,9 +365,6 @@ const T: Record<
 
     section14Title: "14. Контактная информация",
     sec14Intro: "По вопросам, связанным с настоящими Условиями, заказами или нашими услугами, пожалуйста, свяжитесь с нами:",
-    contactCompany: "WIN WIN SILVER",
-    contactBrand: "Осуществляет деятельность под брендом ZAAV G",
-    contactLocation: "Бали, Индонезия",
     contactEmail: "zaavg.bali@gmail.com",
     contactWebsite: "zaavgbali.com",
 
@@ -403,7 +395,7 @@ const T: Record<
     sec1EmailLabel: "Email:",
     sec1EmailVal: "zaavg.bali@gmail.com",
     sec1Text1: "ZAAV G adalah merek perhiasan independen yang menciptakan perhiasan perak murni buatan tangan dan perhiasan dengan batu alam di Bali, Indonesia.",
-    sec1Text2: "Dengan menggunakan situs web ini, Anda mengonfirmasi bahwa Anda secara hukum mampu membuat perjanjian pembelian di bawah hukum yang berlaku untuk Anda atau bahwa Anda memiliki izin dari orang tua atau wali sah jika diperlukan.",
+    sec1Text2: "",
     sec1Text3: "Kami dapat memperbarui Syarat ini dari waktu ke waktu. Versi yang dipublikasikan di situs web ini pada saat pemesanan Anda akan berlaku untuk pembelian tersebut.",
 
     section2Title: "2. Produk & Sifat Buatan Tangan",
@@ -494,9 +486,6 @@ const T: Record<
 
     section14Title: "14. Informasi Kontak",
     sec14Intro: "Untuk pertanyaan tentang Syarat ini, pesanan, atau layanan kami, silakan hubungi:",
-    contactCompany: "WIN WIN SILVER",
-    contactBrand: "Beroperasi di bawah merek ZAAV G",
-    contactLocation: "Bali, Indonesia",
     contactEmail: "zaavg.bali@gmail.com",
     contactWebsite: "zaavgbali.com",
 
