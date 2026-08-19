@@ -136,7 +136,7 @@ const T: Record<
     termsTitleSmall: "Terms of Service",
     termsUpdated: "Last updated: August 2026",
     termsWelcome: "Welcome to ZAAV G.",
-    termsIntroLine1: "This website, zaavgbali.com, is operated by WIN WIN SILVER, an Indonesian-registered business operating under the commercial brand ZAAV G.",
+    termsIntroLine1: "This website, zaavgbali.com, is operated by WIN WIN SILVER, an Indonesian-registered business operating under the brand ZAAV G.",
     termsIntroLine2: "Throughout these Terms of Service, the terms “ZAAV G,” “we,” “us,” and “our” refer to WIN WIN SILVER operating under the ZAAV G brand.",
     termsIntroLine3: "These Terms of Service govern your access to and use of our website, products, and services. By accessing this website or placing an order, you agree to these Terms.",
     termsIntroLine4: "Please read them carefully before using the website.",
@@ -261,7 +261,7 @@ const T: Record<
     termsUpdated: "Последнее обновление: август 2026 г.",
     termsWelcome: "Добро пожаловать в ZAAV G.",
     termsIntroLine1: "Настоящие Условия использования регулируют использование сайта zaavgbali.com, а также оформление и выполнение заказов, совершённых через этот сайт.",
-    termsIntroLine2: "ZAAV G — коммерческий ювелирный бренд. Деятельность под брендом ZAAV G осуществляется I KADEK JOFANA как индивидуальным владельцем бизнеса, зарегистрированным в Индонезии под наименованием WIN WIN SILVER.",
+    termsIntroLine2: "ZAAV G — ювелирный бренд. Деятельность под брендом ZAAV G осуществляется I KADEK JOFANA как индивидуальным владельцем бизнеса, зарегистрированным в Индонезии под наименованием WIN WIN SILVER.",
     termsIntroLine3: "В настоящих Условиях слова «ZAAV G», «мы», «нас» и «наш» относятся к деятельности, осуществляемой под брендом ZAAV G.",
     termsIntroLine4: "Используя сайт или оформляя заказ, вы подтверждаете, что ознакомились с настоящими Условиями и соглашаетесь соблюдать их.",
 

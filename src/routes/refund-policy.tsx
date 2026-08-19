@@ -90,7 +90,7 @@ const enContent: PolicyContent = {
   intro: [
     "At ZAAV G, every piece of jewelry is created with attention to detail and handcrafted in Bali.",
     "This Return and Refund Policy (the “Return Policy”) applies to purchases made through zaavgbali.com and is part of our Terms of Use.",
-    "ZAAV G is a commercial jewelry brand. Operations under the ZAAV G brand are carried out by I KADEK JOFANA as an individual business owner registered in Indonesia under the name WIN WIN SILVER.",
+    "ZAAV G is a jewelry brand. Operations under the ZAAV G brand are carried out by I KADEK JOFANA as an individual business owner registered in Indonesia under the name WIN WIN SILVER.",
     "This Return, Exchange, and Refund Policy applies to purchases made through the zaavgbali.com website."
   ],
   sec1: {
@@ -237,7 +237,7 @@ const ruContent: PolicyContent = {
   intro: [
     "В ZAAV G каждое украшение создаётся с вниманием к деталям и вручную изготавливается на Бали.",
     "Настоящая Политика возврата и возмещения денежных средств («Политика возврата») применяется к покупкам, совершённым через zaavgbali.com, и является частью наших Условий использования.",
-    "ZAAV G — коммерческий ювелирный бренд. Деятельность под брендом ZAAV G осуществляется I KADEK JOFANA как индивидуальным владельцем бизнеса, зарегистрированным в Индонезии под наименованием WIN WIN SILVER.",
+    "ZAAV G — ювелирный бренд. Деятельность под брендом ZAAV G осуществляется I KADEK JOFANA как индивидуальным владельцем бизнеса, зарегистрированным в Индонезии под наименованием WIN WIN SILVER.",
     "Настоящая Политика возврата, обмена и возмещения денежных средств применяется к покупкам, совершенным через сайт zaavgbali.com."
   ],
   sec1: {

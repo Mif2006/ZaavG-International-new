@@ -24,10 +24,10 @@ const T = {
     privacyTitle: "PRIVACY POLICY",
     privacyTitleSmall: "PRIVACY POLICY",
     privacyUpdated: "Last updated: August 2026",
-    intro1: "At ZAAV G, we value your trust and are committed to handling your personal information responsibly and transparently.",
-    intro2: "This website, zaavgbali.com, is operated by WIN WIN SILVER, an Indonesian-registered business operating under the commercial brand ZAAV G.",
-    intro3: "Throughout this Privacy Policy, “ZAAV G,” “we,” “us,” and “our” refer to WIN WIN SILVER operating under the ZAAV G brand.",
-    intro4: "This Privacy Policy explains how we collect, use, store, disclose, and protect personal information when you visit our website, place an order, contact us, or otherwise interact with our services.",
+    intro1: "At ZAAV G, we respect the privacy of our customers and website visitors and are committed to handling their personal data responsibly.",
+    intro2: "This Privacy Policy explains what personal data may be collected when using zaavgbali.com, for what purposes it is used, to whom it may be transferred, and what measures are taken to protect it.",
+    intro3: "ZAAV G is a commercial jewelry brand. Operations under the ZAAV G brand are carried out by I KADEK JOFANA as an individual business owner registered in Indonesia under the name WIN WIN SILVER.",
+    intro4: "In this Policy, the words “ZAAV G”, “we”, “us”, and “our” refer to operations carried out under the ZAAV G brand.",
     
     // Section 1
     s1Title: "1. Information We Collect",
@@ -98,8 +98,8 @@ const T = {
 
     // Section 4
     s4Title: "4. International Data Processing",
-    s4Para1: "ZAAV G serves customers internationally. As a result, personal information may be processed or transferred outside your country of residence, including where our technology providers, payment processors, shipping partners, or other service providers operate internationally.",
-    s4Para2: "Where required by applicable law, we take reasonable steps to ensure that appropriate safeguards are used when personal information is transferred internationally.",
+    s4Para1: "ZAAV G is located in Bali and accepts orders from international customers. To operate the website, process payments, facilitate communication, and handle international shipping, personal data may be processed by service providers located in Indonesia or other countries.",
+    s4Para2: "As a result, certain personal data may be transferred or processed outside the customer's country of residence. If applicable law establishes special requirements for the international transfer of personal data, we take reasonable measures to comply with such requirements.",
 
     // Section 5
     s5Title: "5. Cookies & Similar Technologies",
@@ -197,7 +197,7 @@ const T = {
     privacyUpdated: "Последнее обновление: август 2026 г.",
     intro1: "В ZAAV G мы с уважением относимся к конфиденциальности наших покупателей и посетителей сайта и стремимся ответственно обрабатывать их персональные данные.",
     intro2: "Настоящая Политика конфиденциальности объясняет, какие персональные данные могут собираться при использовании zaavgbali.com, для каких целей они используются, кому могут передаваться и какие меры принимаются для их защиты.",
-    intro3: "ZAAV G — коммерческий ювелирный бренд. Деятельность под брендом ZAAV G осуществляется I KADEK JOFANA как индивидуальным владельцем бизнеса, зарегистрированным в Индонезии под наименованием WIN WIN SILVER.",
+    intro3: "ZAAV G — ювелирный бренд. Деятельность под брендом ZAAV G осуществляется I KADEK JOFANA как индивидуальным владельцем бизнеса, зарегистрированным в Индонезии под наименованием WIN WIN SILVER.",
     intro4: "В настоящей Политике слова «ZAAV G», «мы», «нас» и «наш» относятся к деятельности, осуществляемой под брендом ZAAV G.",
     
     s1Title: "1. Какую информацию мы собираем",
@@ -352,10 +352,10 @@ const T = {
   id: {
     privacyTitle: "KEBIJAKAN PRIVASI",
     privacyTitleSmall: "KEBIJAKAN PRIVASI",
-    intro1: "Di ZAAV G, kami menghargai kepercayaan Anda dan berkomitmen untuk mengelola informasi pribadi Anda secara bertanggung jawab dan transparan.",
-    intro2: "Website ini, zaavgbali.com, dioperasikan oleh WIN WIN SILVER, bisnis terdaftar di Indonesia yang beroperasi di bawah merek komersial ZAAV G.",
-    intro3: "Dalam Kebijakan Privasi ini, “ZAAV G,” “kami,” dan “milik kami” mengacu pada WIN WIN SILVER yang beroperasi di bawah merek ZAAV G.",
-    intro4: "Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, mengungkapkan, dan melindungi informasi pribadi saat Anda mengunjungi website kami, melakukan pemesanan, atau menghubungi kami.",
+    intro1: "Di ZAAV G, kami menghormati privasi pelanggan dan pengunjung situs web kami serta berkomitmen untuk mengelola data pribadi mereka secara bertanggung jawab.",
+    intro2: "Kebijakan Privasi ini menjelaskan data pribadi apa saja yang dapat dikumpulkan saat menggunakan zaavgbali.com, untuk tujuan apa data tersebut digunakan, kepada siapa data dapat dibagikan, dan langkah-langkah apa yang diambil untuk melindunginya.",
+    intro3: "ZAAV G adalah merek perhiasan komersial. Operasional di bawah merek ZAAV G dijalankan oleh I KADEK JOFANA sebagai pemilik bisnis perorangan yang terdaftar di Indonesia dengan nama WIN WIN SILVER.",
+    intro4: "Dalam Kebijakan ini, kata “ZAAV G”, “kami”, dan “milik kami” mengacu pada operasional yang dijalankan di bawah merek ZAAV G.",
 
     s1Title: "1. Informasi yang Kami Kumpulkan",
     s1Intro: "Tergantung bagaimana Anda berinteraksi dengan kami, kami dapat mengumpulkan kategori informasi pribadi berikut.",
@@ -422,8 +422,8 @@ const T = {
     s3Para3: "Kami hanya membagikan informasi yang diperlukan secara wajar.",
 
     s4Title: "4. Pemrosesan Data Internasional",
-    s4Para1: "ZAAV G melayani pelanggan secara internasional. Informasi pribadi Anda dapat diproses atau ditransfer ke luar negara tempat tinggal Anda.",
-    s4Para2: "Jika diwajibkan oleh hukum, kami mengambil langkah-langkah yang wajar untuk memastikan perlindungan data yang memadai.",
+    s4Para1: "ZAAV G berlokasi di Bali dan menerima pesanan dari pelanggan internasional. Untuk pengoperasian situs web, pemrosesan pembayaran, komunikasi, dan pengiriman internasional, data pribadi dapat diproses oleh penyedia layanan yang berlokasi di Indonesia atau negara lain.",
+    s4Para2: "Akibatnya, data pribadi tertentu dapat ditransfer atau diproses di luar negara tempat tinggal pelanggan. Jika hukum yang berlaku menetapkan persyaratan khusus untuk transfer data pribadi internasional, kami mengambil langkah-langkah yang wajar untuk mematuhi persyaratan tersebut.",
 
     s5Title: "5. Cookie & Teknologi Serupa",
     s5Intro: "Website kami dapat menggunakan cookie untuk:",
