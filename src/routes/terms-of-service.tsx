@@ -136,10 +136,10 @@ const T: Record<
     termsTitleSmall: "Terms of Service",
     termsUpdated: "Last updated: August 2026",
     termsWelcome: "Welcome to ZAAV G.",
-    termsIntroLine1: "This website, zaavgbali.com, is operated by WIN WIN SILVER, an Indonesian-registered business operating under the brand ZAAV G.",
-    termsIntroLine2: "Throughout these Terms of Service, the terms “ZAAV G,” “we,” “us,” and “our” refer to WIN WIN SILVER operating under the ZAAV G brand.",
-    termsIntroLine3: "These Terms of Service govern your access to and use of our website, products, and services. By accessing this website or placing an order, you agree to these Terms.",
-    termsIntroLine4: "Please read them carefully before using the website.",
+    termsIntroLine1: "These Terms of Service govern the use of the zaavgbali.com website, as well as the placement and fulfillment of orders made through this website.",
+    termsIntroLine2: "ZAAV G is a jewelry brand. Activities under the ZAAV G brand are carried out by I KADEK JOFANA as an individual business owner registered in Indonesia under the name WIN WIN SILVER.",
+    termsIntroLine3: "In these Terms, the words “ZAAV G,” “we,” “us,” and “our” refer to the activities carried out under the ZAAV G brand.",
+    termsIntroLine4: "By using the site or placing an order, you confirm that you have read these Terms and agree to comply with them.",
 
     section1Title: "1. Business Information",
     sec1BrandNameLabel: "Brand name:",
@@ -342,7 +342,7 @@ const T: Record<
     sec8Text2: "Чтобы сохранить внешний вид и свойства украшений, мы рекомендуем избегать длительного контакта с водой, парфюмерией, косметическими средствами, бытовой химией и другими веществами, способными повлиять на металл или натуральные камни.",
     sec8Text3: "Мы также рекомендуем снимать украшения перед плаванием, занятиями спортом, сном и любой деятельностью, при которой изделие может подвергнуться ударам или чрезмерному трению.",
     sec8Text4: "Естественные следы носки, окисление, царапины, а также изменения, возникшие вследствие использования, неправильного хранения, случайного повреждения или воздействия химических веществ, не считаются производственными дефектами.",
-
+ 
     section9Title: "9. Интеллектуальная собственность",
     sec9Text1: "Если прямо не указано иное, материалы сайта zaavgbali.com, включая фотографии, видео, тексты, графические материалы, логотипы, элементы фирменного стиля и оригинальные дизайны ювелирных изделий, принадлежат WIN WIN SILVER / ZAAV G либо используются ими на законных основаниях и защищены применимым законодательством об интеллектуальной собственности.",
     sec9Text2: "Материалы сайта не могут быть скопированы, воспроизведены, распространены, использованы в коммерческих целях, а также применяться для производства или продвижения конкурирующих товаров без предварительного письменного разрешения, за исключением случаев, когда такое использование допускается законодательством.",
@@ -384,10 +384,10 @@ const T: Record<
     termsTitleSmall: "Syarat Layanan",
     termsUpdated: "Terakhir diperbarui: Agustus 2026",
     termsWelcome: "Selamat datang di ZAAV G.",
-    termsIntroLine1: "Situs web ini, zaavgbali.com, dioperasikan oleh WIN WIN SILVER, sebuah bisnis yang terdaftar di Indonesia yang beroperasi di bawah merek komersial ZAAV G.",
-    termsIntroLine2: "Di seluruh Syarat Layanan ini, istilah “ZAAV G,” “kami,” dan “milik kami” merujuk pada WIN WIN SILVER yang beroperasi di bawah merek ZAAV G.",
-    termsIntroLine3: "Syarat Layanan ini mengatur akses Anda ke dan penggunaan situs web, produk, dan layanan kami. Dengan mengakses situs web ini atau melakukan pemesanan, Anda menyetujui Syarat ini.",
-    termsIntroLine4: "Harap baca dengan cermat sebelum menggunakan situs web.",
+    termsIntroLine1: "Syarat Layanan ini mengatur penggunaan situs web zaavgbali.com, serta penempatan dan pemenuhan pesanan yang dilakukan melalui situs web ini.",
+    termsIntroLine2: "ZAAV G adalah merek perhiasan. Kegiatan di bawah merek ZAAV G dilakukan oleh I KADEK JOFANA sebagai pemilik bisnis individu yang terdaftar di Indonesia dengan nama WIN WIN SILVER.",
+    termsIntroLine3: "Dalam Syarat ini, kata “ZAAV G,” “kami,” dan “milik kami” merujuk pada kegiatan yang dilakukan di bawah merek ZAAV G.",
+    termsIntroLine4: "Dengan menggunakan situs atau melakukan pemesanan, Anda mengonfirmasi bahwa Anda telah membaca Syarat ini dan setuju untuk mematuhinya.",
 
     section1Title: "1. Informasi Bisnis",
     sec1BrandNameLabel: "Nama merek:",

@@ -26,7 +26,7 @@ const T = {
     privacyUpdated: "Last updated: August 2026",
     intro1: "At ZAAV G, we respect the privacy of our customers and website visitors and are committed to handling their personal data responsibly.",
     intro2: "This Privacy Policy explains what personal data may be collected when using zaavgbali.com, for what purposes it is used, to whom it may be transferred, and what measures are taken to protect it.",
-    intro3: "ZAAV G is a commercial jewelry brand. Operations under the ZAAV G brand are carried out by I KADEK JOFANA as an individual business owner registered in Indonesia under the name WIN WIN SILVER.",
+    intro3: "ZAAV G is a jewelry brand. Operations under the ZAAV G brand are carried out by I KADEK JOFANA as an individual business owner registered in Indonesia under the name WIN WIN SILVER.",
     intro4: "In this Policy, the words “ZAAV G”, “we”, “us”, and “our” refer to operations carried out under the ZAAV G brand.",
     
     // Section 1
@@ -185,8 +185,6 @@ const T = {
     // Section 13 / Contact Card
     s13Title: "13. Contact Information",
     s13Intro: "If you have questions about this Privacy Policy, how we process your personal information, or wish to exercise a privacy right, please contact:",
-    s13Legal: "Operating under the brand ZAAV G",
-    s13Location: "Bali, Indonesia",
     
     privacyBtnCatalog: "View Collections",
     privacyBtnHome: "Home",
@@ -343,8 +341,7 @@ const T = {
 
     s13Title: "13. Контактная информация",
     s13Intro: "Если у вас есть вопросы о настоящей Политике конфиденциальности, порядке обработки вашей персональной информации или вы хотите воспользоваться своими правами в отношении персональных данных, пожалуйста, свяжитесь с нами:",
-    s13Legal: "Работает под брендом ZAAV G",
-    s13Location: "Бали, Индонезия",
+
 
     privacyBtnCatalog: "Смотреть коллекции",
     privacyBtnHome: "На главную",
@@ -352,9 +349,10 @@ const T = {
   id: {
     privacyTitle: "KEBIJAKAN PRIVASI",
     privacyTitleSmall: "KEBIJAKAN PRIVASI",
+    privacyUpdated: "Terakhir diperbarui: Agustus 2026",
     intro1: "Di ZAAV G, kami menghormati privasi pelanggan dan pengunjung situs web kami serta berkomitmen untuk mengelola data pribadi mereka secara bertanggung jawab.",
     intro2: "Kebijakan Privasi ini menjelaskan data pribadi apa saja yang dapat dikumpulkan saat menggunakan zaavgbali.com, untuk tujuan apa data tersebut digunakan, kepada siapa data dapat dibagikan, dan langkah-langkah apa yang diambil untuk melindunginya.",
-    intro3: "ZAAV G adalah merek perhiasan komersial. Operasional di bawah merek ZAAV G dijalankan oleh I KADEK JOFANA sebagai pemilik bisnis perorangan yang terdaftar di Indonesia dengan nama WIN WIN SILVER.",
+    intro3: "ZAAV G adalah merek perhiasan. Operasional di bawah merek ZAAV G dijalankan oleh I KADEK JOFANA sebagai pemilik bisnis perorangan yang terdaftar di Indonesia dengan nama WIN WIN SILVER.",
     intro4: "Dalam Kebijakan ini, kata “ZAAV G”, “kami”, dan “milik kami” mengacu pada operasional yang dijalankan di bawah merek ZAAV G.",
 
     s1Title: "1. Informasi yang Kami Kumpulkan",
@@ -430,10 +428,11 @@ const T = {
     s5Items: [
       "menyediakan fungsionalitas utama website;",
       "mengingat preferensi;",
-      "menjaga fungsi keranjang belanja;",
-      "menganalisis lalu lintas dan performa;",
+      "menjaga fungsi keranjang belanja dan website;",
+      "memahami bagaimana pengunjung menggunakan website;",
+      "menganalisis lalu lintas dan performa website;",
       "meningkatkan layanan kami;",
-      "mendukung aktivitas pemasaran.",
+      "mendukung aktivitas periklanan dan pemasaran jika berlaku.",
     ],
     s5Para1: "Beberapa cookie disediakan oleh layanan pihak ketiga.",
     s5Para2: "Cookie non-esensial digunakan berdasarkan persetujuan Anda.",
@@ -442,10 +441,11 @@ const T = {
     s6Title: "6. Retensi Data",
     s6Intro: "Kami menyimpan informasi pribadi hanya selama yang diperlukan untuk:",
     s6Items: [
-      "memenuhi pesanan dan layanan pelanggan;",
-      "menyimpan catatan bisnis dan hukum;",
-      "mencegah penipuan;",
-      "menegakkan hak hukum.",
+      "memenuhi pesanan dan memberikan layanan pelanggan;",
+      "menyimpan catatan transaksi dan bisnis;",
+      "mematuhi persyaratan akuntansi, pajak, peraturan, dan hukum;",
+      "mencegah penipuan dan menyelesaikan perselisihan;",
+      "menegakkan perjanjian kami dan melindungi hak hukum kami.",
     ],
     s6Para1: "Periode retensi dapat berbeda tergantung pada jenis informasi dan hukum yang berlaku.",
     s6Para2: "Setelah tidak diperlukan, data akan dihapus atau dianonimkan dengan aman.",
@@ -453,12 +453,14 @@ const T = {
     s7Title: "7. Hak Privasi Anda",
     s7Intro: "Tergantung pada lokasi Anda, Anda dapat memiliki hak privasi termasuk:",
     s7Items: [
-      "meminta informasi tentang data yang kami simpan;",
-      "meminta akses ke data pribadi Anda;",
-      "meminta koreksi data yang tidak akurat;",
-      "meminta penghapusan data;",
-      "menarik persetujuan pemrosesan data;",
-      "berhenti berlangganan komunikasi pemasaran.",
+      "meminta informasi tentang data pribadi yang kami simpan tentang Anda;",
+      "meminta akses ke informasi pribadi Anda;",
+      "meminta koreksi informasi yang tidak akurat atau tidak lengkap;",
+      "meminta penghapusan informasi pribadi dalam keadaan tertentu;",
+      "menarik persetujuan jika pemrosesan didasarkan pada persetujuan;",
+      "menolak atau meminta pembatasan pemrosesan tertentu jika berlaku;",
+      "berhenti berlangganan komunikasi pemasaran;",
+      "menggunakan hak privasi lainnya yang diatur oleh hukum yang berlaku.",
     ],
     s7Para1: "Hak-hak ini dapat tunduk pada batasan hukum (seperti penyimpanan catatan pajak).",
     s7Contact: "Untuk mengajukan permintaan privasi, silakan hubungi kami di ",
@@ -495,8 +497,7 @@ const T = {
 
     s13Title: "13. Informasi Kontak",
     s13Intro: "Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini atau ingin menggunakan hak privasi Anda, silakan hubungi:",
-    s13Legal: "Beroperasi di bawah merek ZAAV G",
-    s13Location: "Bali, Indonesia",
+
 
     privacyBtnCatalog: "Lihat Katalog",
     privacyBtnHome: "Beranda",

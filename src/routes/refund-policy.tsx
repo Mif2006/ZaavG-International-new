@@ -384,7 +384,7 @@ const idContent: PolicyContent = {
   intro: [
     "Di ZAAV G, setiap perhiasan dibuat dengan penuh perhatian terhadap detail dan dikerjakan dengan tangan di Bali.",
     "Kebijakan Pengembalian Barang dan Dana ini (“Kebijakan Pengembalian”) berlaku untuk pembelian yang dilakukan melalui zaavgbali.com dan merupakan bagian dari Ketentuan Penggunaan kami.",
-    "ZAAV G adalah merek perhiasan komersial. Operasional di bawah merek ZAAV G dijalankan oleh I KADEK JOFANA sebagai pemilik bisnis perorangan yang terdaftar di Indonesia dengan nama WIN WIN SILVER.",
+    "ZAAV G adalah merek perhiasan. Operasional di bawah merek ZAAV G dijalankan oleh I KADEK JOFANA sebagai pemilik bisnis perorangan yang terdaftar di Indonesia dengan nama WIN WIN SILVER.",
     "Kebijakan Pengembalian Barang, Penukaran, dan Pengembalian Dana ini berlaku untuk pembelian yang dilakukan melalui situs web zaavgbali.com."
   ],
   sec1: {
@@ -442,7 +442,7 @@ const idContent: PolicyContent = {
       "Karakteristik ini membuat setiap perhiasan unik dan tidak dianggap sebagai cacat produksi.",
       "Foto produk ditujukan untuk merepresentasikan perhiasan kami seakurat mungkin, tetapi warna dan detail dapat terlihat sedikit berbeda tergantung pada pencahayaan dan pengaturan layar.",
     ],
-  },
+  }, 
   sec5: {
     title: "5. Produk yang Tidak Dapat Dikembalikan",
     paragraphs: [
@@ -454,6 +454,9 @@ const idContent: PolicyContent = {
       "kartu hadiah atau sertifikat hadiah;",
       "produk yang telah dipakai, diubah, disesuaikan ukurannya, rusak, atau tidak dirawat dengan benar setelah pengiriman;",
       "anting yang telah dipakai atau dicoba demi alasan higienis dan kesehatan.",
+    ],
+    afterList: [
+      "Produk yang dibuat berdasarkan pesanan (made-to-order) yang merupakan bagian dari koleksi reguler kami tidak secara otomatis dianggap dipersonalisasi semata-mata karena diproduksi setelah pesanan dilakukan. Kelayakan pengembaliannya akan bergantung pada keadaan pesanan dan hukum yang berlaku."
     ],
   },
   sec6: {
