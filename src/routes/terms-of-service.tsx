@@ -17,16 +17,18 @@ const T: Record<
     termsIntroLine4: string;
 
     section1Title: string;
-    sec1RegNameLabel: string;
-    sec1RegNameVal: string;
     sec1BrandNameLabel: string;
     sec1BrandNameVal: string;
+    sec1RegNameLabel: string;
+    sec1RegNameVal: string;
+    sec1OwnerLabel: string;
+    sec1OwnerVal: string;
+    sec1LocationLabel: string;
+    sec1LocationVal: string;
     sec1WebsiteLabel: string;
     sec1WebsiteVal: string;
-    sec1CountryLabel: string;
-    sec1CountryVal: string;
-    sec1ActivityLabel: string;
-    sec1ActivityVal: string;
+    sec1EmailLabel: string;
+    sec1EmailVal: string;
     sec1Text1: string;
     sec1Text2: string;
     sec1Text3: string;
@@ -140,16 +142,18 @@ const T: Record<
     termsIntroLine4: "Please read them carefully before using the website.",
 
     section1Title: "1. Business Information",
-    sec1RegNameLabel: "Registered business name:",
-    sec1RegNameVal: "WIN WIN SILVER",
     sec1BrandNameLabel: "Brand name:",
     sec1BrandNameVal: "ZAAV G",
+    sec1RegNameLabel: "Registered business name:",
+    sec1RegNameVal: "WIN WIN SILVER",
+    sec1OwnerLabel: "Business owner:",
+    sec1OwnerVal: "I KADEK JOFANA",
+    sec1LocationLabel: "Location:",
+    sec1LocationVal: "Bali, Indonesia",
     sec1WebsiteLabel: "Website:",
     sec1WebsiteVal: "zaavgbali.com",
-    sec1CountryLabel: "Country of registration:",
-    sec1CountryVal: "Indonesia",
-    sec1ActivityLabel: "Business activity:",
-    sec1ActivityVal: "Design, production, and retail sale of handcrafted jewelry.",
+    sec1EmailLabel: "Email:",
+    sec1EmailVal: "zaavg.bali@gmail.com",
     sec1Text1: "ZAAV G is an independent jewelry brand creating handcrafted sterling silver jewelry and jewelry with natural stones in Bali, Indonesia.",
     sec1Text2: "By using this website, you confirm that you are legally capable of entering into a purchase agreement under the laws applicable to you or that you have the permission of a parent or legal guardian where required.",
     sec1Text3: "We may update these Terms from time to time. The version published on this website at the time of your order will apply to that purchase.",
@@ -164,8 +168,8 @@ const T: Record<
     sec2Text4: "We make every reasonable effort to display our products accurately. However, colors and proportions may appear slightly different depending on the device or screen used to view the website.",
 
     section3Title: "3. Prices & Currency",
-    sec3Text1: "Product prices are displayed on the website in the currency selected or indicated at checkout.",
-    sec3Text2: "Where required for our Indonesian payment processing and regulatory requirements, prices may also be displayed or processed in Indonesian Rupiah (IDR).",
+    sec3Text1: "All product prices on zaavgbali.com are listed in Indonesian Rupiah (IDR / Rp).",
+    sec3Text2: "",
     sec3Text3: "Prices may be changed without prior notice. Any price change will not affect an order that has already been confirmed.",
     sec3Text4: "International customers may be responsible for import duties, customs charges, taxes, or other fees imposed by the destination country. Unless expressly stated otherwise at checkout, these charges are not included in the product or shipping price and are the responsibility of the customer.",
 
@@ -187,7 +191,7 @@ const T: Record<
     sec5Text3: "By submitting payment information, you confirm that:",
     sec5Item1: "you are authorized to use the selected payment method;",
     sec5Item2: "the information you provide is complete and accurate;",
-    sec5Item3: "you authorize the applicable payment provider to process the transaction. Payment availability, processing, authorization, settlement, and refunds may also be subject to the terms of the applicable payment provider and issuing bank.",
+    sec5Item3: "you authorize the applicable payment provider to process the transaction. Payment availability, processing, authorization, settlement, and refunds may juga be subject to the terms of the applicable payment provider and issuing bank.",
 
     section6Title: "6. Shipping & Delivery",
     sec6Text1: "ZAAV G offers shipping to international destinations, subject to carrier availability and applicable restrictions.",
@@ -256,24 +260,26 @@ const T: Record<
     termsTitleSmall: "Условия использования",
     termsUpdated: "Последнее обновление: август 2026 г.",
     termsWelcome: "Добро пожаловать в ZAAV G.",
-    termsIntroLine1: "Сайт zaavgbali.com управляется компанией WIN WIN SILVER, зарегистрированной в Индонезии и осуществляющей деятельность под коммерческим брендом ZAAV G.",
-    termsIntroLine2: "В настоящих Условиях использования термины «ZAAV G», «мы», «нас» и «наш» относятся к WIN WIN SILVER, осуществляющей деятельность под брендом ZAAV G.",
-    termsIntroLine3: "Настоящие Условия использования регулируют доступ к нашему сайту, а также использование наших товаров и услуг. Посещая этот сайт или оформляя заказ, вы соглашаетесь с настоящими Условиями.",
-    termsIntroLine4: "Пожалуйста, внимательно ознакомьтесь с ними перед использованием сайта.",
+    termsIntroLine1: "Настоящие Условия использования регулируют использование сайта zaavgbali.com, а также оформление и выполнение заказов, совершённых через этот сайт.",
+    termsIntroLine2: "ZAAV G — коммерческий ювелирный бренд. Деятельность под брендом ZAAV G осуществляется I KADEK JOFANA как индивидуальным владельцем бизнеса, зарегистрированным в Индонезии под наименованием WIN WIN SILVER.",
+    termsIntroLine3: "В настоящих Условиях слова «ZAAV G», «мы», «нас» и «наш» относятся к деятельности, осуществляемой под брендом ZAAV G.",
+    termsIntroLine4: "Используя сайт или оформляя заказ, вы подтверждаете, что ознакомились с настоящими Условиями и соглашаетесь соблюдать их.",
 
-    section1Title: "1. Информация о компании",
-    sec1RegNameLabel: "Зарегистрированное наименование:",
-    sec1RegNameVal: "WIN WIN SILVER",
+    section1Title: "1. Информация о продавце",
     sec1BrandNameLabel: "Бренд:",
     sec1BrandNameVal: "ZAAV G",
+    sec1RegNameLabel: "Зарегистрированное наименование бизнеса:",
+    sec1RegNameVal: "WIN WIN SILVER",
+    sec1OwnerLabel: "Владелец бизнеса:",
+    sec1OwnerVal: "I KADEK JOFANA",
+    sec1LocationLabel: "Местонахождение:",
+    sec1LocationVal: "Bali, Indonesia",
     sec1WebsiteLabel: "Сайт:",
     sec1WebsiteVal: "zaavgbali.com",
-    sec1CountryLabel: "Страна регистрации:",
-    sec1CountryVal: "Индонезия",
-    sec1ActivityLabel: "Вид деятельности:",
-    sec1ActivityVal: "дизайн, производство и розничная продажа ювелирных изделий ручной работы.",
-    sec1Text1: "ZAAV G — независимый ювелирный бренд, создающий на Бали, Индонезия, украшения ручной работы из серебра 925 пробы и натуральных камней.",
-    sec1Text2: "Используя этот сайт, вы подтверждаете, что обладаете необходимой дееспособностью для заключения договора купли-продажи в соответствии с применимым к вам законодательством либо, если это требуется, получили согласие родителя или законного представителя.",
+    sec1EmailLabel: "Email:",
+    sec1EmailVal: "zaavg.bali@gmail.com",
+    sec1Text1: "ZAAV G создаёт и продаёт ювелирные украшения ручной работы, изготовленные на Бали, Индонезия.",
+    sec1Text2: "",
     sec1Text3: "Мы можем время от времени обновлять настоящие Условия. К вашей покупке применяется версия Условий, опубликованная на сайте на момент оформления заказа.",
 
     section2Title: "2. Товары и особенности ручной работы",
@@ -286,8 +292,8 @@ const T: Record<
     sec2Text4: "Мы прилагаем все разумные усилия для максимально точного отображения наших товаров на сайте. Однако оттенки и пропорции могут незначительно отличаться в зависимости от устройства и экрана, используемых для просмотра сайта.",
 
     section3Title: "3. Цены и валюта",
-    sec3Text1: "Цены на товары отображаются на сайте в валюте, выбранной или указанной при оформлении заказа.",
-    sec3Text2: "Если это необходимо в соответствии с требованиями индонезийских платежных систем или законодательства, цены также могут отображаться или обрабатываться в индонезийских рупиях (IDR).",
+    sec3Text1: "Все цены на товары на zaavgbali.com указаны в индонезийских рупиях (IDR / Rp).",
+    sec3Text2: "",
     sec3Text3: "Цены могут быть изменены без предварительного уведомления. Изменение цены не распространяется на уже подтвержденные заказы.",
     sec3Text4: "При международной доставке покупатель может быть обязан оплатить импортные пошлины, таможенные сборы, налоги или иные платежи, установленные страной назначения. Если при оформлении заказа прямо не указано иное, такие платежи не включены в стоимость товара или доставки и оплачиваются покупателем самостоятельно.",
 
@@ -384,16 +390,18 @@ const T: Record<
     termsIntroLine4: "Harap baca dengan cermat sebelum menggunakan situs web.",
 
     section1Title: "1. Informasi Bisnis",
-    sec1RegNameLabel: "Nama bisnis terdaftar:",
-    sec1RegNameVal: "WIN WIN SILVER",
     sec1BrandNameLabel: "Nama merek:",
     sec1BrandNameVal: "ZAAV G",
+    sec1RegNameLabel: "Nama bisnis terdaftar:",
+    sec1RegNameVal: "WIN WIN SILVER",
+    sec1OwnerLabel: "Pemilik bisnis:",
+    sec1OwnerVal: "I KADEK JOFANA",
+    sec1LocationLabel: "Lokasi:",
+    sec1LocationVal: "Bali, Indonesia",
     sec1WebsiteLabel: "Situs web:",
     sec1WebsiteVal: "zaavgbali.com",
-    sec1CountryLabel: "Negara pendaftaran:",
-    sec1CountryVal: "Indonesia",
-    sec1ActivityLabel: "Kegiatan bisnis:",
-    sec1ActivityVal: "Desain, produksi, dan penjualan eceran perhiasan buatan tangan.",
+    sec1EmailLabel: "Email:",
+    sec1EmailVal: "zaavg.bali@gmail.com",
     sec1Text1: "ZAAV G adalah merek perhiasan independen yang menciptakan perhiasan perak murni buatan tangan dan perhiasan dengan batu alam di Bali, Indonesia.",
     sec1Text2: "Dengan menggunakan situs web ini, Anda mengonfirmasi bahwa Anda secara hukum mampu membuat perjanjian pembelian di bawah hukum yang berlaku untuk Anda atau bahwa Anda memiliki izin dari orang tua atau wali sah jika diperlukan.",
     sec1Text3: "Kami dapat memperbarui Syarat ini dari waktu ke waktu. Versi yang dipublikasikan di situs web ini pada saat pemesanan Anda akan berlaku untuk pembelian tersebut.",
@@ -408,8 +416,8 @@ const T: Record<
     sec2Text4: "Kami melakukan setiap upaya yang wajar untuk menampilkan produk kami secara akurat. Namun, warna dan proporsi mungkin tampak sedikit berbeda tergantung pada perangkat atau layar yang digunakan.",
 
     section3Title: "3. Harga & Mata Uang",
-    sec3Text1: "Harga produk ditampilkan di situs web dalam mata uang yang dipilih atau diindikasikan saat checkout.",
-    sec3Text2: "Jika diperlukan untuk pemrosesan pembayaran dan persyaratan regulasi Indonesia kami, harga juga dapat ditampilkan atau diproses dalam Rupiah Indonesia (IDR).",
+    sec3Text1: "Semua harga produk di zaavgbali.com tercantum dalam Rupiah Indonesia (IDR/Rp).",
+    sec3Text2: "",
     sec3Text3: "Harga dapat diubah tanpa pemberitahuan sebelumnya. Perubahan harga tidak akan memengaruhi pesanan yang telah dikonfirmasi.",
     sec3Text4: "Pelanggan internasional mungkin bertanggung jawab atas bea masuk, biaya bea cukai, pajak, atau biaya lain yang dikenakan oleh negara tujuan. Kecuali dinyatakan lain secara tegas saat checkout, biaya-biaya ini tidak termasuk dalam harga produk atau pengiriman dan menjadi tanggung jawab pelanggan.",
 
@@ -569,24 +577,27 @@ function TermsOfServicePage() {
             <h2 className="text-xl sm:text-2xl font-semibold text-neutral-900 mb-5 leading-tight">{t.section1Title}</h2>
             <ul className="list-none space-y-2 my-4 pl-0">
               <li className="relative pl-6 text-neutral-600 text-base leading-[1.7] before:content-['•'] before:absolute before:left-1 before:text-neutral-900 before:font-bold before:text-lg">
+                <strong className="text-neutral-900">{t.sec1BrandNameLabel}</strong> {t.sec1BrandNameVal}
+              </li>
+              <li className="relative pl-6 text-neutral-600 text-base leading-[1.7] before:content-['•'] before:absolute before:left-1 before:text-neutral-900 before:font-bold before:text-lg">
                 <strong className="text-neutral-900">{t.sec1RegNameLabel}</strong> {t.sec1RegNameVal}
               </li>
               <li className="relative pl-6 text-neutral-600 text-base leading-[1.7] before:content-['•'] before:absolute before:left-1 before:text-neutral-900 before:font-bold before:text-lg">
-                <strong className="text-neutral-900">{t.sec1BrandNameLabel}</strong> {t.sec1BrandNameVal}
+                <strong className="text-neutral-900">{t.sec1OwnerLabel}</strong> {t.sec1OwnerVal}
+              </li>
+              <li className="relative pl-6 text-neutral-600 text-base leading-[1.7] before:content-['•'] before:absolute before:left-1 before:text-neutral-900 before:font-bold before:text-lg">
+                <strong className="text-neutral-900">{t.sec1LocationLabel}</strong> {t.sec1LocationVal}
               </li>
               <li className="relative pl-6 text-neutral-600 text-base leading-[1.7] before:content-['•'] before:absolute before:left-1 before:text-neutral-900 before:font-bold before:text-lg">
                 <strong className="text-neutral-900">{t.sec1WebsiteLabel}</strong> {t.sec1WebsiteVal}
               </li>
               <li className="relative pl-6 text-neutral-600 text-base leading-[1.7] before:content-['•'] before:absolute before:left-1 before:text-neutral-900 before:font-bold before:text-lg">
-                <strong className="text-neutral-900">{t.sec1CountryLabel}</strong> {t.sec1CountryVal}
-              </li>
-              <li className="relative pl-6 text-neutral-600 text-base leading-[1.7] before:content-['•'] before:absolute before:left-1 before:text-neutral-900 before:font-bold before:text-lg">
-                <strong className="text-neutral-900">{t.sec1ActivityLabel}</strong> {t.sec1ActivityVal}
+                <strong className="text-neutral-900">{t.sec1EmailLabel}</strong> {t.sec1EmailVal}
               </li>
             </ul>
-            <p className="text-base text-neutral-600 leading-[1.9]">{t.sec1Text1}</p>
-            <p className="text-base text-neutral-600 leading-[1.9]">{t.sec1Text2}</p>
-            <p className="text-base text-neutral-600 leading-[1.9]">{t.sec1Text3}</p>
+            {t.sec1Text1 && <p className="text-base text-neutral-600 leading-[1.9]">{t.sec1Text1}</p>}
+            {t.sec1Text2 && <p className="text-base text-neutral-600 leading-[1.9]">{t.sec1Text2}</p>}
+            {t.sec1Text3 && <p className="text-base text-neutral-600 leading-[1.9]">{t.sec1Text3}</p>}
           </div>
 
           {/* 2. Products & Handmade Nature */}
@@ -728,9 +739,6 @@ function TermsOfServicePage() {
             <h2 className="text-xl sm:text-2xl font-semibold text-neutral-900 mb-5 leading-tight">{t.section14Title}</h2>
             <p className="text-base text-neutral-600 leading-[1.9]">{t.sec14Intro}</p>
             <div className="text-base text-neutral-900 leading-[1.9] mt-4">
-              <span className="font-semibold">{t.contactCompany}</span><br />
-              <span className="text-neutral-600">{t.contactBrand}</span><br />
-              <span className="text-neutral-600">{t.contactLocation}</span><br />
               📩 <a href={`mailto:${t.contactEmail}`} className="text-[#008060] font-normal hover:underline">{t.contactEmail}</a><br />
               🌐 <a href={`https://${t.contactWebsite}`} target="_blank" rel="noopener noreferrer" className="text-[#008060] font-normal hover:underline">{t.contactWebsite}</a>
             </div>
