@@ -88,14 +88,14 @@ const enContent: PolicyContent = {
   refundTitleSmall: "Refund & Return Policy",
   refundUpdated: "Last updated: August 2026",
   intro: [
-    "At ZAAV G, every piece of jewelry is created with care and handcrafted individually.",
-    "This website, zaavgbali.com, is operated by WIN WIN SILVER, an Indonesian-registered business operating under the commercial brand ZAAV G.",
-    "This Refund & Return Policy applies to purchases made through zaavgbali.com.",
+    "At ZAAV G, every piece of jewelry is created with attention to detail and handcrafted in Bali.",
+    "This Return and Refund Policy (the “Return Policy”) applies to purchases made through zaavgbali.com and is part of our Terms of Use.",
+    "ZAAV G is a commercial jewelry brand. Operations under the ZAAV G brand are carried out by I KADEK JOFANA as an individual business owner registered in Indonesia under the name WIN WIN SILVER.",
+    "This Return, Exchange, and Refund Policy applies to purchases made through the zaavgbali.com website."
   ],
   sec1: {
     title: "1. Returns & Exchanges",
     paragraphs: [
-      "We want you to be happy with your ZAAV G jewelry.",
       "If you would like to request a return or exchange, please contact us as soon as possible after receiving your order at zaavg.bali@gmail.com.",
       "Please include:",
     ],
@@ -235,14 +235,14 @@ const ruContent: PolicyContent = {
   refundTitleSmall: "Политика возврата, обмена и возмещения денежных средств",
   refundUpdated: "Последнее обновление: август 2026 г.",
   intro: [
-    "В ZAAV G каждое украшение создается с особым вниманием и изготавливается вручную.",
-    "Сайт zaavgbali.com управляется компанией WIN WIN SILVER, зарегистрированной в Индонезии и осуществляющей деятельность под коммерческим брендом ZAAV G.",
-    "Настоящая Политика возврата, обмена и возмещения денежных средств применяется к покупкам, совершенным через сайт zaavgbali.com.",
+    "В ZAAV G каждое украшение создаётся с вниманием к деталям и вручную изготавливается на Бали.",
+    "Настоящая Политика возврата и возмещения денежных средств («Политика возврата») применяется к покупкам, совершённым через zaavgbali.com, и является частью наших Условий использования.",
+    "ZAAV G — коммерческий ювелирный бренд. Деятельность под брендом ZAAV G осуществляется I KADEK JOFANA как индивидуальным владельцем бизнеса, зарегистрированным в Индонезии под наименованием WIN WIN SILVER.",
+    "Настоящая Политика возврата, обмена и возмещения денежных средств применяется к покупкам, совершенным через сайт zaavgbali.com."
   ],
   sec1: {
     title: "1. Возврат и обмен",
     paragraphs: [
-      "Мы хотим, чтобы вы были довольны украшениями ZAAV G.",
       "Если вы хотите оформить возврат или обмен, пожалуйста, свяжитесь с нами как можно скорее после получения заказа по электронной почте: zaavg.bali@gmail.com.",
       "В обращении укажите:",
     ],
@@ -382,14 +382,14 @@ const idContent: PolicyContent = {
   refundTitleSmall: "Kebijakan Pengembalian & Penukaran",
   refundUpdated: "Terakhir diperbarui: Agustus 2026",
   intro: [
-    "Di ZAAV G, setiap perhiasan dibuat dengan penuh ketelitian dan dirangkai secara buatan tangan.",
-    "Situs web ini, zaavgbali.com, dioperasikan oleh WIN WIN SILVER, bisnis terdaftar di Indonesia yang beroperasi di bawah merek komersial ZAAV G.",
-    "Kebijakan Pengembalian & Penukaran ini berlaku untuk pembelian yang dilakukan melalui zaavgbali.com.",
+    "Di ZAAV G, setiap perhiasan dibuat dengan penuh perhatian terhadap detail dan dikerjakan dengan tangan di Bali.",
+    "Kebijakan Pengembalian Barang dan Dana ini (“Kebijakan Pengembalian”) berlaku untuk pembelian yang dilakukan melalui zaavgbali.com dan merupakan bagian dari Ketentuan Penggunaan kami.",
+    "ZAAV G adalah merek perhiasan komersial. Operasional di bawah merek ZAAV G dijalankan oleh I KADEK JOFANA sebagai pemilik bisnis perorangan yang terdaftar di Indonesia dengan nama WIN WIN SILVER.",
+    "Kebijakan Pengembalian Barang, Penukaran, dan Pengembalian Dana ini berlaku untuk pembelian yang dilakukan melalui situs web zaavgbali.com."
   ],
   sec1: {
     title: "1. Pengembalian & Penukaran",
     paragraphs: [
-      "Kami ingin Anda puas dengan perhiasan ZAAV G Anda.",
       "Jika Anda ingin mengajukan pengembalian atau penukaran, silakan hubungi kami sesegera mungkin setelah menerima pesanan Anda di zaavg.bali@gmail.com.",
       "Mohon sertakan:",
     ],
@@ -755,9 +755,6 @@ function RefundPolicyPage() {
             </h2>
             <p className="text-base text-neutral-600 leading-[1.9]">{t.sec12.intro}</p>
             <div className="text-base text-neutral-900 leading-[1.9] mt-4 space-y-1">
-              <p className="font-semibold">{t.sec12.company}</p>
-              <p>{t.sec12.brand}</p>
-              <p>{t.sec12.location}</p>
               <p>
                 {t.sec12.emailLabel}{" "}
                 <a
