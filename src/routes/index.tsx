@@ -42,11 +42,11 @@ function LandingPage() {
       <Hero />
       
       </section>
-      <section className="bg-white">
+      {/* <section className="bg-white">
       <About />
       <Devider />
       
-      </section>
+      </section> */}
 
       <section className="bg-white">
       <ArtSpace />
