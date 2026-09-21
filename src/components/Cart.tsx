@@ -422,7 +422,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
   useEffect(() => {
     if (!isOpen) return;
 
-    const scriptSrc = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const scriptSrc = "https://app.midtrans.com/snap/snap.js";
     const clientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
     const scriptId = "midtrans-script";
 
