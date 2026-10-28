@@ -3,7 +3,7 @@ import { getItemBySlug, listItems } from "@/lib/db";
 import { PublicShell } from "@/components/public-shell";
 import { useI18n } from "@/lib/i18n";
 import { useCart } from "@/lib/cart-store";
-import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 
 type Lang = "en" | "ru" | "id";
@@ -17,7 +17,10 @@ const T: Record<
     buy: string;
     recs: string;
     material: string;
-    stock: string;
+    back: string;
+    unavailableTitle: string;
+    unavailableMessage: string;
+
     locale: string;
   }
 > = {
@@ -28,7 +31,10 @@ const T: Record<
     buy: "Buy it now",
     recs: "You may also like",
     material: "Material",
-    stock: "In stock",
+    back: "Back to collections",
+    unavailableTitle: "Unable to purchase",
+    unavailableMessage: "This item cannot be purchased right now because no size has been selected or it is currently out of stock. Please contact us and we will be happy to help.",
+
     locale: "en-US",
   },
   ru: {
@@ -38,7 +44,10 @@ const T: Record<
     buy: "Купить сейчас",
     recs: "Вам также может понравиться",
     material: "Материал",
-    stock: "В наличии",
+    back: "Вернуться к коллекциям",
+    unavailableTitle: "Невозможно оформить покупку",
+    unavailableMessage: "Этот товар сейчас нельзя приобрести: размер не выбран или товар закончился. Свяжитесь с нами, и мы с радостью поможем.",
+
     locale: "ru-RU",
   },
   id: {
@@ -48,7 +57,10 @@ const T: Record<
     buy: "Beli sekarang",
     recs: "Anda mungkin juga menyukai",
     material: "Bahan",
-    stock: "Stok",
+    back: "Kembali ke koleksi",
+    unavailableTitle: "Tidak dapat melakukan pembelian",
+    unavailableMessage: "Produk ini belum dapat dibeli karena ukuran belum dipilih atau stok sedang habis. Silakan hubungi kami dan kami akan dengan senang hati membantu.",
+
     locale: "id-ID",
   },
 };
@@ -131,6 +143,7 @@ function ItemPage() {
 
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [buyUnavailableOpen, setBuyUnavailableOpen] = useState(false);
 
   const { item, images, recommendedIds, sizes } = full;
 
@@ -179,6 +192,19 @@ function ItemPage() {
   const defaultSize =
     stockRows.find((s) => s.stock !== 0)?.size || stockRows[0]?.size || null;
   const activeSize = selectedSize ?? defaultSize;
+  const hasSizeOptions = stockRows.length > 0;
+  const hasStock =
+    stockRows.some((s) => Number(s.stock) > 0) ||
+    (stockOnly ? Number(stockOnly.stock) > 0 : false);
+
+  const handleBuyNow = () => {
+    if (!hasStock || (hasSizeOptions && selectedSize === null)) {
+      setBuyUnavailableOpen(true);
+      return;
+    }
+
+    handleAddToCart();
+  };
 
   const decreaseQty = () => setQuantity((q) => Math.max(1, q - 1));
   const increaseQty = () => setQuantity((q) => q + 1);
@@ -197,8 +223,20 @@ function ItemPage() {
   return (
     <div className="bg-white overflow-x-hidden w-full max-w-full">
       <PublicShell variant="light">
-        <div className="grid gap-8 pt-28 px-4 md:px-8 lg:px-12 pb-12 md:grid-cols-[minmax(0,1fr)_340px] lg:grid-cols-[minmax(0,1.2fr)_420px] lg:gap-16 items-start w-full max-w-full">
+        <div className="relative grid gap-8 pt-[calc(7rem+env(safe-area-inset-top))] px-4 md:px-8 lg:px-12 pb-12 md:grid-cols-[minmax(0,1fr)_340px] lg:grid-cols-[minmax(0,1.2fr)_420px] lg:gap-16 items-start w-full max-w-full">
           
+          <Link
+            to="/collections"
+            aria-label={dict.back}
+            className="absolute left-4 top-[calc(6rem+env(safe-area-inset-top))] z-20 flex min-h-11 min-w-11 touch-manipulation items-center justify-center rounded-full text-black transition-colors hover:bg-black/5 active:bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40 md:left-8"
+          >
+            <ArrowLeft
+              aria-hidden="true"
+              className="h-6 w-6 shrink-0"
+              strokeWidth={1.5}
+            />
+          </Link>
+
           {/* Gallery Area */}
           <div className="relative w-full min-w-0 max-w-full flex flex-col overflow-hidden">
             <div className="relative w-full overflow-hidden">
@@ -369,7 +407,7 @@ function ItemPage() {
                 </button>
               </div>
               <button
-                onClick={handleAddToCart}
+                onClick={handleBuyNow}
                 className="w-full rounded-xl bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-black/80 cursor-pointer"
               >
                 {dict.buy}
@@ -382,12 +420,6 @@ function ItemPage() {
                 <div>
                   <span >{dict.material}:</span>{" "}
                   {item.material}
-                </div>
-              )}
-              {stockOnly && (
-                <div>
-                  <span className="font-semibold">{dict.stock}:</span>{" "}
-                  {stockOnly.stock}
                 </div>
               )}
             </div>
@@ -438,6 +470,94 @@ function ItemPage() {
             </div>
           </section>
         )}
+
+        {/* BUY UNAVAILABLE MODAL */}
+        <div
+          className={`zav-contact-modal__overlay  ${buyUnavailableOpen ? " active" : ""}`}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setBuyUnavailableOpen(false);
+          }}
+        >
+          <div className="zav-contact-modal " role="dialog" aria-modal="true">
+            <button
+              className="zav-contact-modal__close"
+              aria-label="Close"
+              onClick={() => setBuyUnavailableOpen(false)}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            <h2 className="zav-contact-modal__title">{dict.unavailableTitle}</h2>
+            <p className="px-2 text-center text-sm leading-relaxed text-black/60">
+              {dict.unavailableMessage}
+            </p>
+
+            <div className="zav-contact-modal__grid  ">
+              <a
+                href="https://instagram.com/zaav_g_bali"
+                className="zav-contact-modal__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="zav-contact-modal__icon zav-contact-modal__icon--instagram">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" strokeWidth={2} />
+                    <circle cx="12" cy="12" r="4" stroke="white" strokeWidth={2} fill="none" />
+                    <circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none" />
+                  </svg>
+                </div>
+                <span className="zav-contact-modal__label">Instagram</span>
+              </a>
+
+              <a href="mailto:zaavg.bali@gmail.com" className="zav-contact-modal__link">
+                <div className="zav-contact-modal__icon zav-contact-modal__icon--gmail">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6Z"
+                      fill="#EA4335"
+                      stroke="none"
+                    />
+                    <path
+                      d="M22 6L12 13L2 6"
+                      stroke="#ffffff"
+                      strokeWidth={1.8}
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path d="M22 18L15 12" stroke="#ffffff" strokeWidth={1.8} fill="none" strokeLinecap="round" />
+                    <path d="M2 18L9 12" stroke="#ffffff" strokeWidth={1.8} fill="none" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <span className="zav-contact-modal__label">Email</span>
+              </a>
+
+              <a
+                href="https://wa.me/6281139888882"
+                className="zav-contact-modal__link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="zav-contact-modal__icon zav-contact-modal__icon--whatsapp">
+                  <svg viewBox="0 0 24 24" fill="white">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                  </svg>
+                </div>
+                <span className="zav-contact-modal__label">WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </PublicShell>
     </div>
   );

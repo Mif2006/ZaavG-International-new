@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { useCart, CartItem } from "@/lib/cart-store";
-
 // Comprehensive list of countries with dial codes, flags, and ISO 3166-1 alpha-3 codes
 const COUNTRIES = [
   { name: "Afghanistan", code: "+93", flag: "🇦🇫", alpha3: "AFG" },
@@ -266,12 +266,13 @@ const CART_T = {
     postalCode: "Postal Code / ZIP",
     country: "Country",
     orderNotesPlaceholder: "Order Notes (Optional)",
-    placeOrder: "Pay",
+    placeOrder: "Finalize Checkout",
     processing: "Processing...",
     total: "Subtotal",
     continue: "Continue Shopping",
-    privacyTextBefore: "By clicking the \"Pay\" button you consent to the ",
+    privacyTextBefore: "I agree to the ",
     privacyLink: "Privacy Policy",
+    termsLink: "Terms of Service",
     pickupLocationTitle: "Pickup location:",
     pickupAddress: "Jl. Raya Singapadu, Singapadu, Gianyar, Bali, Indonesia",
     mapLinkText: "View on Google Maps",
@@ -311,12 +312,13 @@ const CART_T = {
     postalCode: "Почтовый индекс",
     country: "Страна",
     orderNotesPlaceholder: "Комментарий к заказу (необязательно)",
-    placeOrder: "Оплатить",
+    placeOrder: "Завершить оформление",
     processing: "Обработка...",
     total: "Итого",
     continue: "Продолжить покупки",
-    privacyTextBefore: "Нажимая на кнопку \"Оплатить\" Вы соглашаетесь с ",
+    privacyTextBefore: "Я соглашаюсь с ",
     privacyLink: "Политикой конфиденциальности",
+    termsLink: "Условиями использования",
     pickupLocationTitle: "Адрес самовывоза:",
     pickupAddress: "Jl. Raya Singapadu, Singapadu, Gianyar, Bali, Indonesia",
     mapLinkText: "Открыть на Google Картах",
@@ -356,12 +358,13 @@ const CART_T = {
     postalCode: "Kode Pos",
     country: "Negara",
     orderNotesPlaceholder: "Catatan Pesanan (Opsional)",
-    placeOrder: "Bayar",
+    placeOrder: "Selesaikan Checkout",
     processing: "Memproses...",
     total: "Subtotal",
     continue: "Lanjut Belanja",
-    privacyTextBefore: "Dengan mengklik tombol \"Bayar\" Anda menyetujui ",
+    privacyTextBefore: "Saya menyetujui ",
     privacyLink: "Kebijakan Privasi",
+    termsLink: "Ketentuan Layanan",
     pickupLocationTitle: "Lokasi Pengambilan:",
     pickupAddress: "Jl. Raya Singapadu, Singapadu, Gianyar, Bali, Indonesia",
     mapLinkText: "Lihat di Google Maps",
@@ -395,6 +398,9 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
 
   const { items, total, removeItem, updateQuantity } = useCart();
 
+  const [forceOpen, setForceOpen] = useState(false);
+  const modalIsOpen = isOpen || forceOpen;
+
   const [method, setMethod] = useState<"pickup" | "delivery">("pickup");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -412,35 +418,66 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
   const [postalCode, setPostalCode] = useState("");
   const [deliveryCountryCode, setDeliveryCountryCode] = useState("IDN");
   const [orderNotes, setOrderNotes] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   // Form Validation & API Error States
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [apiError, setApiError] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
 
-  // Load Midtrans Script dynamically when modal is open
-  useEffect(() => {
-    if (!isOpen) return;
+  const restoreCheckoutForm = () => {
+    try {
+      const raw = sessionStorage.getItem("zaavg-checkout");
+      if (!raw) return;
+      const saved = JSON.parse(raw);
 
-    const scriptSrc = "https://app.midtrans.com/snap/snap.js";
-    const clientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
-    const scriptId = "midtrans-script";
-
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement("script");
-      script.id = scriptId;
-      script.src = scriptSrc;
-      script.setAttribute("data-client-key", clientKey);
-      script.async = true;
-      document.body.appendChild(script);
+      if (saved.method === "pickup" || saved.method === "delivery") setMethod(saved.method);
+      setFirstName(saved.firstName || "");
+      setLastName(saved.lastName || "");
+      setEmail(saved.email || "");
+      const country = COUNTRIES.find(
+        (c) => c.code === saved.phoneCountryCode || c.name === saved.phoneCountryName
+      );
+      if (country) setSelectedCountry(country);
+      const savedPhone = String(saved.phone || "");
+      const dialCode = saved.phoneCountryCode || country?.code || "";
+      setPhoneNumber(dialCode && savedPhone.startsWith(dialCode) ? savedPhone.slice(dialCode.length) : savedPhone);
+      setStreetAddress(saved.streetAddress || "");
+      setApartment(saved.apartment || "");
+      setCity(saved.city || "");
+      setProvince(saved.province || "");
+      setPostalCode(saved.postalCode || "");
+      setDeliveryCountryCode(saved.deliveryCountryCode || "IDN");
+      setOrderNotes(saved.orderNotes || "");
+      // Checkout can only be reached after the terms checkbox was accepted.
+      setTermsAccepted(true);
+      setErrors({});
+      setApiError(null);
+    } catch (error) {
+      console.error("Unable to restore cart form data:", error);
     }
+  };
 
-    return () => {
-      const script = document.getElementById(scriptId);
-      if (script) {
-        document.body.removeChild(script);
-      }
+  const handleClose = () => {
+    setForceOpen(false);
+    try { sessionStorage.removeItem("zaavg-open-cart"); } catch {}
+    onClose();
+  };
+
+  useEffect(() => {
+    const openCart = () => {
+      setForceOpen(true);
+      restoreCheckoutForm();
     };
+
+    // The checkout page sets this flag before returning home. The event handles
+    // client-side navigation when the Navbar/cart modal remains mounted.
+    if (sessionStorage.getItem("zaavg-open-cart") === "1") openCart();
+    window.addEventListener("zaavg:open-cart", openCart);
+    return () => window.removeEventListener("zaavg:open-cart", openCart);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) restoreCheckoutForm();
   }, [isOpen]);
 
   // 5-second delayed deletion with progress tracking
@@ -605,113 +642,86 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+
+  const handleFinalizeCheckout = () => {
     setApiError(null);
+
+    if (!termsAccepted) {
+      return;
+    }
 
     if (!validateForm()) {
       return;
     }
 
-    setIsProcessing(true);
+    const fullAddressString =
+      method === "delivery"
+        ? [
+            streetAddress,
+            apartment ? `Apt/Suite: ${apartment}` : null,
+            city,
+            province,
+            postalCode,
+            COUNTRIES.find((c) => c.alpha3 === deliveryCountryCode)?.name || deliveryCountryCode,
+          ]
+            .filter(Boolean)
+            .join(", ")
+        : t.pickupAddress;
+
+    const deliveryCountry = COUNTRIES.find((c) => c.alpha3 === deliveryCountryCode);
+    const deliveryCountryAlpha2 = deliveryCountry
+      ? Array.from(deliveryCountry.flag)
+          .filter((char) => {
+            const code = char.codePointAt(0) || 0;
+            return code >= 0x1f1e6 && code <= 0x1f1ff;
+          })
+          .map((char) => String.fromCharCode((char.codePointAt(0) || 0) - 0x1f1e6 + 65))
+          .join("")
+      : "";
 
     try {
-      // Combine all parts of the address into a single formatted string
-      const fullAddressString =
-        method === "delivery"
-          ? [
-              streetAddress,
-              apartment ? `Apt/Suite: ${apartment}` : null,
-              city,
-              province,
-              postalCode,
-              COUNTRIES.find((c) => c.alpha3 === deliveryCountryCode)?.name || deliveryCountryCode,
-            ]
-              .filter(Boolean)
-              .join(", ")
-          : t.pickupAddress;
+      sessionStorage.setItem(
+        "zaavg-checkout",
+        JSON.stringify({
+          method,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.trim(),
+          phone: `${selectedCountry.code}${phoneNumber.trim()}`,
+          phoneCountryCode: selectedCountry.code,
+          phoneCountryName: selectedCountry.name,
+          streetAddress: streetAddress.trim(),
+          apartment: apartment.trim(),
+          city: city.trim(),
+          province: province.trim(),
+          postalCode: postalCode.trim(),
+          deliveryCountryCode,
+          deliveryCountryAlpha2,
+          deliveryCountryName:
+            COUNTRIES.find((c) => c.alpha3 === deliveryCountryCode)?.name || deliveryCountryCode,
+          orderNotes: orderNotes.trim(),
+          fullAddressString,
+          pickupAddress: t.pickupAddress,
+        })
+      );
 
-      const cartSummaryString = items
-        .map((i) => `${i.title} ${i.size ? `(${i.size})` : ""} x${i.quantity}`)
-        .join(", ")
-        .substring(0, 255);
-
-      const payload = {
-        orderId: `ORDER-${Date.now()}`,
-        grossAmount: total,
-        orderNotes: orderNotes,
-        cartSummary: cartSummaryString,
-        address: fullAddressString, // Top-level address string read by the backend
-        customerDetails: {
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          phone: `${selectedCountry.code}${phoneNumber}`,
-          shipping_address:
-            method === "delivery"
-              ? {
-                  address: fullAddressString,
-                  city: city,
-                  postal_code: postalCode,
-                  country_code: deliveryCountryCode,
-                  province: province,
-                }
-              : undefined,
-        },
-        itemDetails: items.map((item) => ({
-          id: item.id,
-          price: item.price,
-          quantity: item.quantity,
-          name: (item.size ? `${item.title} (${item.size})` : item.title).substring(0, 50),
-        })),
-      };
-
-      const response = await fetch("/api/midtrans", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.token) {
-        throw new Error(data.error || t.errors.serverError);
-      }
-
-      // @ts-ignore
-      window.snap.pay(data.token, {
-        onSuccess: function (result: any) {
-          console.log("Payment success:", result);
-          onClose();
-        },
-        onPending: function (result: any) {
-          console.log("Payment pending:", result);
-          onClose();
-        },
-        onError: function (result: any) {
-          console.error("Payment error:", result);
-          setApiError(t.errors.serverError);
-        },
-        onClose: function () {
-          console.log("Customer closed the popup without paying");
-        },
-      });
-    } catch (error: any) {
-      console.error("Checkout error:", error);
-      setApiError(error?.message || t.errors.serverError);
-    } finally {
-      setIsProcessing(false);
+      navigate({ to: "/checkout" });
+      handleClose();
+    } catch (error) {
+      console.error("Unable to prepare checkout:", error);
+      setApiError(t.errors.serverError);
     }
   };
 
-  if (!isOpen) return null;
+  if (!modalIsOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-fade-in"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* Modal Box */}
@@ -720,7 +730,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
         <div className="sticky top-0 bg-white z-20 flex items-center justify-between px-8 py-6 border-b border-black/10 shrink-0">
           <h2 className="text-xl font-bold tracking-wider uppercase">{t.title}</h2>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="cursor-pointer text-black/40 hover:text-black transition-colors p-1"
             aria-label="Close modal"
           >
@@ -737,7 +747,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
             <div className="flex flex-col items-center justify-center py-20 gap-4 text-black/50">
               <p className="text-base">{t.empty}</p>
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 className="cursor-pointer underline uppercase tracking-widest text-xs hover:text-black transition-colors"
               >
                 {t.continue}
@@ -867,7 +877,10 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
               <form
                 id="checkout-modal-form"
                 noValidate
-                onSubmit={handleSubmit}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleFinalizeCheckout();
+                }}
                 className="space-y-8 pt-6 border-t border-black/10"
               >
                 <h3 className="text-xs font-bold tracking-widest uppercase text-black/60">{t.checkout}</h3>
@@ -1007,31 +1020,47 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                     <label className="text-xs font-semibold text-black/60 uppercase tracking-widest block">
                       {t.method}
                     </label>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                       <button
                         type="button"
                         onClick={() => {
                           setMethod("pickup");
                           setErrors({});
                         }}
-                        className={`cursor-pointer py-3.5 px-4 text-xs font-semibold tracking-wider uppercase border transition-all text-center ${
+                        className={`group cursor-pointer rounded-2xl border p-4 text-left transition-all duration-300 ${
                           method === "pickup"
-                            ? "border-2 border-black bg-neutral-100 text-black shadow-xs"
-                            : "border-black/20 hover:border-black text-black/70 bg-white"
+                            ? "border-black bg-neutral-50 shadow-[0_10px_30px_rgba(0,0,0,0.07)]"
+                            : "border-black/10 bg-white hover:-translate-y-0.5 hover:border-black/25 hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
                         }`}
                       >
-                        {t.pickup}
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-[0.12em] text-black">{t.pickup}</p>
+                            <p className="mt-2 text-sm font-semibold">Free</p>
+                          </div>
+                          <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${method === "pickup" ? "border-black" : "border-black/20"}`}>
+                            {method === "pickup" && <span className="h-2 w-2 rounded-full bg-black" />}
+                          </span>
+                        </div>
                       </button>
                       <button
                         type="button"
                         onClick={() => setMethod("delivery")}
-                        className={`cursor-pointer py-3.5 px-4 text-xs font-semibold tracking-wider uppercase border transition-all text-center ${
+                        className={`group cursor-pointer rounded-2xl border p-4 text-left transition-all duration-300 ${
                           method === "delivery"
-                            ? "border-2 border-black bg-neutral-100 text-black shadow-xs"
-                            : "border-black/20 hover:border-black text-black/70 bg-white"
+                            ? "border-black bg-neutral-50 shadow-[0_10px_30px_rgba(0,0,0,0.07)]"
+                            : "border-black/10 bg-white hover:-translate-y-0.5 hover:border-black/25 hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
                         }`}
                       >
-                        {t.delivery}
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-xs font-bold uppercase tracking-[0.12em] text-black">{t.delivery}</p>
+                            <p className="mt-2 text-sm font-semibold">Rp 415k <span className="font-normal text-black/40">· ~US$23</span></p>
+                          </div>
+                          <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${method === "delivery" ? "border-black" : "border-black/20"}`}>
+                            {method === "delivery" && <span className="h-2 w-2 rounded-full bg-black" />}
+                          </span>
+                        </div>
                       </button>
                     </div>
                   </div>
@@ -1206,24 +1235,37 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                   </div>
                 </div>
 
-                {/* Action Button */}
+                {/* Checkout Action */}
                 <div className="pt-6 pb-4 space-y-5 border-t border-black/10">
+                  <label className="flex items-start gap-3 text-xs text-black/60 leading-relaxed cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={termsAccepted}
+                      onChange={(e) => setTermsAccepted(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 shrink-0 accent-black cursor-pointer"
+                    />
+                    <span>
+                      {t.privacyTextBefore}
+                      <a href="/privacy-policy" className="underline hover:text-black transition-colors" style={{ color: "#45cbad" }} onClick={(e) => e.stopPropagation()}>
+                        {t.privacyLink}
+                      </a>
+                      <span> {lang === "ru" ? "и " : lang === "id" ? "dan " : "and "}</span>
+                      <a href="/terms-of-service" className="underline hover:text-black transition-colors" style={{ color: "#45cbad" }} onClick={(e) => e.stopPropagation()}>
+                        {t.termsLink}
+                      </a>
+                    </span>
+                  </label>
+
                   <button
                     type="submit"
-                    disabled={isProcessing}
+                    disabled={!termsAccepted}
                     className="w-full text-white py-4 text-xs font-bold uppercase tracking-widest transition-opacity hover:opacity-90 cursor-pointer shadow-md rounded-none flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ backgroundColor: "#45cbad" }}
                   >
-                    {isProcessing ? t.processing || "PROCESSING..." : t.placeOrder}
+                    {t.placeOrder || "FINALIZE CHECKOUT"}
                   </button>
-
-                  <div className="text-xs text-center text-black/50 leading-relaxed px-2">
-                    {t.privacyTextBefore}
-                    <a href="/privacy-policy" className="underline hover:text-black transition-colors" style={{ color: "#45cbad" }}>
-                      {t.privacyLink}
-                    </a>
-                  </div>
                 </div>
+
               </form>
             </>
           )}

@@ -126,6 +126,28 @@ function CollectionsPage() {
     return m;
   }, [tags.data]);
 
+  // Products tagged with the special `hidden` tag must never appear
+  // in the public collections listing.
+  const hiddenItemIds = useMemo(() => {
+    const hiddenCategoryIds = new Set(
+      (cats.data ?? [])
+        .filter((c) => {
+          const name = (c.name || "").trim().toLowerCase();
+          const slug = (c.slug || "").trim().toLowerCase();
+          return name === "hidden" || slug === "hidden";
+        })
+        .map((c) => c.id),
+    );
+
+    if (hiddenCategoryIds.size === 0) return new Set<string>();
+
+    return new Set(
+      (tags.data ?? [])
+        .filter((tt) => hiddenCategoryIds.has(tt.category_id))
+        .map((tt) => tt.item_id),
+    );
+  }, [cats.data, tags.data]);
+
   const newCat = useMemo(() => {
     if (!cats.data) return null;
     return cats.data.find((c) => {
@@ -141,6 +163,9 @@ function CollectionsPage() {
       : tagIdsByItem.get(it.id)?.has(c.id) ?? false;
 
   const filtered = (items.data ?? []).filter((i) => {
+    // Hidden items are excluded before any category filtering is applied.
+    if (hiddenItemIds.has(i.id)) return false;
+
     if (!activeCat) return true;
     const c = tabCats.find((tc) => tc.id === activeCat);
     return c ? matchesCategory(i, c) : true;

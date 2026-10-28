@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CheckoutRouteImport } from './routes/checkout'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CooperationRouteImport } from './routes/cooperation'
 import { Route as DeliveryRouteImport } from './routes/delivery'
@@ -20,6 +21,7 @@ import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SizeRouteImport } from './routes/size'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
+import { Route as TestPaypalRouteImport } from './routes/test-paypal'
 import { Route as ThankyouRouteImport } from './routes/thankyou'
 import { Route as VideosRouteImport } from './routes/videos'
 import { Route as ApiCooperationRouteImport } from './routes/api/cooperation'
@@ -28,10 +30,18 @@ import { Route as ApiUploadthingRouteImport } from './routes/api/uploadthing'
 import { Route as ApiWebhookRouteImport } from './routes/api/webhook'
 import { Route as CollectionsIndexRouteImport } from './routes/collections.index'
 import { Route as CollectionsSlugRouteImport } from './routes/collections.$slug'
+import { Route as ApiPaypalCaptureOrderRouteImport } from './routes/api/paypal/capture-order'
+import { Route as ApiPaypalCreateOrderRouteImport } from './routes/api/paypal/create-order'
+import { Route as ApiPaypalQuoteRouteImport } from './routes/api/paypal/quote'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -84,6 +94,11 @@ const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TestPaypalRoute = TestPaypalRouteImport.update({
+  id: '/test-paypal',
+  path: '/test-paypal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThankyouRoute = ThankyouRouteImport.update({
   id: '/thankyou',
   path: '/thankyou',
@@ -124,9 +139,25 @@ const CollectionsSlugRoute = CollectionsSlugRouteImport.update({
   path: '/collections/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPaypalCaptureOrderRoute = ApiPaypalCaptureOrderRouteImport.update({
+  id: '/api/paypal/capture-order',
+  path: '/api/paypal/capture-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPaypalCreateOrderRoute = ApiPaypalCreateOrderRouteImport.update({
+  id: '/api/paypal/create-order',
+  path: '/api/paypal/create-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPaypalQuoteRoute = ApiPaypalQuoteRouteImport.update({
+  id: '/api/paypal/quote',
+  path: '/api/paypal/quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
@@ -137,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/test-paypal': typeof TestPaypalRoute
   '/thankyou': typeof ThankyouRoute
   '/videos': typeof VideosRoute
   '/api/cooperation': typeof ApiCooperationRoute
@@ -145,9 +177,13 @@ export interface FileRoutesByFullPath {
   '/api/webhook': typeof ApiWebhookRoute
   '/collections/$slug': typeof CollectionsSlugRoute
   '/collections/': typeof CollectionsIndexRoute
+  '/api/paypal/capture-order': typeof ApiPaypalCaptureOrderRoute
+  '/api/paypal/create-order': typeof ApiPaypalCreateOrderRoute
+  '/api/paypal/quote': typeof ApiPaypalQuoteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
@@ -158,6 +194,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/test-paypal': typeof TestPaypalRoute
   '/thankyou': typeof ThankyouRoute
   '/videos': typeof VideosRoute
   '/api/cooperation': typeof ApiCooperationRoute
@@ -166,10 +203,14 @@ export interface FileRoutesByTo {
   '/api/webhook': typeof ApiWebhookRoute
   '/collections/$slug': typeof CollectionsSlugRoute
   '/collections': typeof CollectionsIndexRoute
+  '/api/paypal/capture-order': typeof ApiPaypalCaptureOrderRoute
+  '/api/paypal/create-order': typeof ApiPaypalCreateOrderRoute
+  '/api/paypal/quote': typeof ApiPaypalQuoteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/checkout': typeof CheckoutRoute
   '/contact': typeof ContactRoute
   '/cooperation': typeof CooperationRoute
   '/delivery': typeof DeliveryRoute
@@ -180,6 +221,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/size': typeof SizeRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/test-paypal': typeof TestPaypalRoute
   '/thankyou': typeof ThankyouRoute
   '/videos': typeof VideosRoute
   '/api/cooperation': typeof ApiCooperationRoute
@@ -188,11 +230,15 @@ export interface FileRoutesById {
   '/api/webhook': typeof ApiWebhookRoute
   '/collections/$slug': typeof CollectionsSlugRoute
   '/collections/': typeof CollectionsIndexRoute
+  '/api/paypal/capture-order': typeof ApiPaypalCaptureOrderRoute
+  '/api/paypal/create-order': typeof ApiPaypalCreateOrderRoute
+  '/api/paypal/quote': typeof ApiPaypalQuoteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/checkout'
     | '/contact'
     | '/cooperation'
     | '/delivery'
@@ -203,6 +249,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
+    | '/test-paypal'
     | '/thankyou'
     | '/videos'
     | '/api/cooperation'
@@ -211,9 +258,13 @@ export interface FileRouteTypes {
     | '/api/webhook'
     | '/collections/$slug'
     | '/collections/'
+    | '/api/paypal/capture-order'
+    | '/api/paypal/create-order'
+    | '/api/paypal/quote'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/checkout'
     | '/contact'
     | '/cooperation'
     | '/delivery'
@@ -224,6 +275,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
+    | '/test-paypal'
     | '/thankyou'
     | '/videos'
     | '/api/cooperation'
@@ -232,9 +284,13 @@ export interface FileRouteTypes {
     | '/api/webhook'
     | '/collections/$slug'
     | '/collections'
+    | '/api/paypal/capture-order'
+    | '/api/paypal/create-order'
+    | '/api/paypal/quote'
   id:
     | '__root__'
     | '/'
+    | '/checkout'
     | '/contact'
     | '/cooperation'
     | '/delivery'
@@ -245,6 +301,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/size'
     | '/terms-of-service'
+    | '/test-paypal'
     | '/thankyou'
     | '/videos'
     | '/api/cooperation'
@@ -253,10 +310,14 @@ export interface FileRouteTypes {
     | '/api/webhook'
     | '/collections/$slug'
     | '/collections/'
+    | '/api/paypal/capture-order'
+    | '/api/paypal/create-order'
+    | '/api/paypal/quote'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CheckoutRoute: typeof CheckoutRoute
   ContactRoute: typeof ContactRoute
   CooperationRoute: typeof CooperationRoute
   DeliveryRoute: typeof DeliveryRoute
@@ -267,6 +328,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SizeRoute: typeof SizeRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
+  TestPaypalRoute: typeof TestPaypalRoute
   ThankyouRoute: typeof ThankyouRoute
   VideosRoute: typeof VideosRoute
   ApiCooperationRoute: typeof ApiCooperationRoute
@@ -275,6 +337,9 @@ export interface RootRouteChildren {
   ApiWebhookRoute: typeof ApiWebhookRoute
   CollectionsSlugRoute: typeof CollectionsSlugRoute
   CollectionsIndexRoute: typeof CollectionsIndexRoute
+  ApiPaypalCaptureOrderRoute: typeof ApiPaypalCaptureOrderRoute
+  ApiPaypalCreateOrderRoute: typeof ApiPaypalCreateOrderRoute
+  ApiPaypalQuoteRoute: typeof ApiPaypalQuoteRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -284,6 +349,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -356,6 +428,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/test-paypal': {
+      id: '/test-paypal'
+      path: '/test-paypal'
+      fullPath: '/test-paypal'
+      preLoaderRoute: typeof TestPaypalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/thankyou': {
       id: '/thankyou'
       path: '/thankyou'
@@ -412,11 +491,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/paypal/capture-order': {
+      id: '/api/paypal/capture-order'
+      path: '/api/paypal/capture-order'
+      fullPath: '/api/paypal/capture-order'
+      preLoaderRoute: typeof ApiPaypalCaptureOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/paypal/create-order': {
+      id: '/api/paypal/create-order'
+      path: '/api/paypal/create-order'
+      fullPath: '/api/paypal/create-order'
+      preLoaderRoute: typeof ApiPaypalCreateOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/paypal/quote': {
+      id: '/api/paypal/quote'
+      path: '/api/paypal/quote'
+      fullPath: '/api/paypal/quote'
+      preLoaderRoute: typeof ApiPaypalQuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CheckoutRoute: CheckoutRoute,
   ContactRoute: ContactRoute,
   CooperationRoute: CooperationRoute,
   DeliveryRoute: DeliveryRoute,
@@ -427,6 +528,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SizeRoute: SizeRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
+  TestPaypalRoute: TestPaypalRoute,
   ThankyouRoute: ThankyouRoute,
   VideosRoute: VideosRoute,
   ApiCooperationRoute: ApiCooperationRoute,
@@ -435,6 +537,9 @@ const rootRouteChildren: RootRouteChildren = {
   ApiWebhookRoute: ApiWebhookRoute,
   CollectionsSlugRoute: CollectionsSlugRoute,
   CollectionsIndexRoute: CollectionsIndexRoute,
+  ApiPaypalCaptureOrderRoute: ApiPaypalCaptureOrderRoute,
+  ApiPaypalCreateOrderRoute: ApiPaypalCreateOrderRoute,
+  ApiPaypalQuoteRoute: ApiPaypalQuoteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
