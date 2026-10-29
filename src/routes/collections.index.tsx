@@ -109,13 +109,36 @@ function CollectionsPage() {
   const items = useQuery({ queryKey: ["items"], queryFn: listItems });
   const tags = useQuery({ queryKey: ["item_tags"], queryFn: listItemTags });
 
-  const tabCats = useMemo(
-    () =>
-      (cats.data ?? [])
-        .filter((c) => c.show_in_catalog)
-        .sort((a, b) => a.catalog_order - b.catalog_order),
-    [cats.data],
-  );
+  const tabCats = useMemo(() => {
+    const sortedCats = (cats.data ?? [])
+      .filter((c) => {
+        if (!c.show_in_catalog) return false;
+
+        // Hide the generic men's category, but keep the mens-jewelry category.
+        const name = (c.name || "").trim().toLowerCase();
+        const slug = (c.slug || "").trim().toLowerCase();
+        return ![
+          "мужские украшения",
+          "men's jewelry",
+          "mens jewelry",
+          "men",
+          "mens",
+          "men's",
+        ].includes(name) && !["men", "mens"].includes(slug);
+      })
+      .sort((a, b) => a.catalog_order - b.catalog_order);
+
+    // Place mens-jewelry second last in the category menu.
+    const mensJewelryIndex = sortedCats.findIndex(
+      (c) => (c.slug || "").trim().toLowerCase() === "mens-jewelry",
+    );
+    if (mensJewelryIndex !== -1) {
+      const [mensJewelry] = sortedCats.splice(mensJewelryIndex, 1);
+      sortedCats.splice(Math.max(0, sortedCats.length - 1), 0, mensJewelry);
+    }
+
+    return sortedCats;
+  }, [cats.data]);
 
   const tagIdsByItem = useMemo(() => {
     const m = new Map<string, Set<string>>();
