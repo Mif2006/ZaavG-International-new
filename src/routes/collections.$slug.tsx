@@ -210,6 +210,11 @@ function ItemPage() {
   const increaseQty = () => setQuantity((q) => q + 1);
 
   const handleAddToCart = () => {
+    if (!hasStock) {
+      setBuyUnavailableOpen(true);
+      return;
+    }
+
     addItem({
       productId: item.id,
       title: item.title,
