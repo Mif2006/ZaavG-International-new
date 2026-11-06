@@ -233,7 +233,7 @@ function ItemPage() {
           <Link
             to="/collections"
             aria-label={dict.back}
-            className="absolute left-4 top-[calc(6rem+env(safe-area-inset-top))] z-20 flex min-h-11 min-w-11 touch-manipulation items-center justify-center rounded-full text-black transition-colors hover:bg-black/5 active:bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40 md:left-8"
+            className="absolute left-4 top-[calc(5.65rem+env(safe-area-inset-top))] z-20 flex min-h-11 min-w-11 touch-manipulation items-center justify-center rounded-full border border-black/10 bg-white/65 text-black/75 shadow-sm backdrop-blur-md transition-all duration-200 hover:bg-black/5 hover:text-black active:bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40 md:left-8 md:top-[calc(6rem+env(safe-area-inset-top))] md:border-transparent md:bg-transparent md:shadow-none md:backdrop-blur-none"
           >
             <ArrowLeft
               aria-hidden="true"
