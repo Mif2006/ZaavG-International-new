@@ -830,28 +830,29 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                             Size: {item.size}
                           </span>
                         )}
-                        <div className="flex items-center justify-between mt-3">
-                          <div className="flex items-center border border-black/20 rounded-md">
-                            <button
-                              type="button"
-                              onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
-                              className="px-3 py-1 text-sm text-black/60 hover:text-black cursor-pointer"
-                            >
-                              −
-                            </button>
-                            <span className="px-3 text-sm font-medium">{item.quantity}</span>
-                            <button
-                              type="button"
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="px-3 py-1 text-sm text-black/60 hover:text-black cursor-pointer"
-                            >
-                              +
-                            </button>
-                          </div>
-                          <span className="text-base tabular-nums font-bold">
-                            Rp {(item.price * item.quantity).toLocaleString("id-ID")}
-                          </span>
-                        </div>
+                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-3">
+  <div className="flex items-center border border-black/20 rounded-md w-fit">
+    <button
+      type="button"
+      onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+      className="px-3 py-1 text-sm text-black/60 hover:text-black cursor-pointer"
+    >
+      −
+    </button>
+    <span className="px-3 text-sm font-medium">{item.quantity}</span>
+    <button
+      type="button"
+      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+      className="px-3 py-1 text-sm text-black/60 hover:text-black cursor-pointer"
+    >
+      +
+    </button>
+  </div>
+
+  <span className="text-base tabular-nums font-bold whitespace-nowrap">
+    Rp {(item.price * item.quantity).toLocaleString("id-ID")}
+  </span>
+</div>
                       </div>
                       <button
                         onClick={() => handleDeleteClick(item)}
