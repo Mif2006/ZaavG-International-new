@@ -195,7 +195,7 @@ export function FloatingToolbar() {
                               {item.title}
                             </span>
                             <span className="!text-gray-500 !text-[14px] !mt-0.5 !block">
-                              {item.price.toFixed(2)}
+                              Rp {item.price.toLocaleString("id-ID", { maximumFractionDigits: 0 })}
                             </span>
                           </div>
                         </a>
