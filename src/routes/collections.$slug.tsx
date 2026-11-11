@@ -26,7 +26,7 @@ const T: Record<
 > = {
   en: {
     loading: "Loading...",
-    size: "Ring size",
+    size: "Size",
     cart: "Add to cart",
     buy: "Buy it now",
     recs: "You may also like",
