@@ -84,6 +84,9 @@ function getCategoryDisplayName(c: Category, lang: string) {
 }
 
 export const Route = createFileRoute("/collections/")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    category: typeof search.category === "string" ? search.category : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Collections — Find Your Piece" },
@@ -103,7 +106,8 @@ function CollectionsPage() {
   const { lang } = useI18n();
   const dict = T[lang as Lang] || T.en;
 
-  const [activeCat, setActiveCat] = useState<string | null>(null);
+  const { category } = Route.useSearch();
+  const [activeCat, setActiveCat] = useState<string | null>(category ?? null);
 
   const cats = useQuery({ queryKey: ["categories"], queryFn: listCategories });
   const items = useQuery({ queryKey: ["items"], queryFn: listItems });
@@ -276,6 +280,7 @@ function CollectionsPage() {
                 <Link
                   to="/collections/$slug"
                   params={{ slug: it.slug }}
+                  search={{ category: activeCat ?? undefined }}
                   key={it.id}
                   style={{
                     animationDelay: `${Math.min(idx, 15) * 70}ms`,

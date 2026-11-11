@@ -70,6 +70,9 @@ const T: Record<
 };
 
 export const Route = createFileRoute("/collections/$slug")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    category: typeof search.category === "string" ? search.category : undefined,
+  }),
   loader: async ({ params: { slug } }) => {
     const full = await getItemBySlug(slug);
     if (!full) throw notFound();
@@ -135,6 +138,7 @@ export const Route = createFileRoute("/collections/$slug")({
 
 function ItemPage() {
   const { full, allItems } = Route.useLoaderData();
+  const { category } = Route.useSearch();
 
   const { lang } = useI18n();
   const dict = T[lang as Lang] || T.en;
@@ -232,6 +236,7 @@ function ItemPage() {
           
           <Link
             to="/collections"
+            search={{ category }}
             aria-label={dict.back}
             className="absolute left-4 top-[calc(5.65rem+env(safe-area-inset-top))] z-20 flex min-h-11 min-w-11 touch-manipulation items-center justify-center rounded-full border border-black/10 bg-white/65 text-black/75 shadow-sm backdrop-blur-md transition-all duration-200 hover:bg-black/5 hover:text-black active:bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40 md:left-8 md:top-[calc(6rem+env(safe-area-inset-top))] md:border-transparent md:bg-transparent md:shadow-none md:backdrop-blur-none"
           >
