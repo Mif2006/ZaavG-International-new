@@ -15,6 +15,7 @@ const T: Record<
     size: string;
     cart: string;
     buy: string;
+    buyOutOfStock: string;
     recs: string;
     material: string;
     back: string;
@@ -29,6 +30,7 @@ const T: Record<
     size: "Size",
     cart: "Add to cart",
     buy: "Buy it now",
+    buyOutOfStock: "Temporarily out of stock",
     recs: "You may also like",
     material: "Material",
     back: "Back to collections",
@@ -42,6 +44,7 @@ const T: Record<
     size: "Размер",
     cart: "В корзину",
     buy: "Купить сейчас",
+    buyOutOfStock: "Временно нет в наличии",
     recs: "Вам также может понравиться",
     material: "Материал",
     back: "Вернуться к коллекциям",
@@ -55,6 +58,7 @@ const T: Record<
     size: "Ukuran",
     cart: "Tambah ke keranjang",
     buy: "Beli sekarang",
+    buyOutOfStock: "Untuk sementara stok habis",
     recs: "Anda mungkin juga menyukai",
     material: "Bahan",
     back: "Kembali ke koleksi",
@@ -198,11 +202,7 @@ function ItemPage() {
     (stockOnly ? Number(stockOnly.stock) > 0 : false);
 
   const handleBuyNow = () => {
-    if (!hasStock || (hasSizeOptions && selectedSize === null)) {
-      setBuyUnavailableOpen(true);
-      return;
-    }
-
+    if (!hasStock) return;
     handleAddToCart();
   };
 
@@ -413,9 +413,14 @@ function ItemPage() {
               </div>
               <button
                 onClick={handleBuyNow}
-                className="w-full rounded-xl bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-black/80 cursor-pointer"
+                disabled={!hasStock}
+                className={`w-full rounded-xl px-6 py-3 text-sm font-medium transition ${
+                  hasStock
+                    ? "bg-black text-white hover:bg-black/80 cursor-pointer"
+                    : "bg-neutral-300 text-neutral-500 cursor-not-allowed"
+                }`}
               >
-                {dict.buy}
+                {hasStock ? dict.buy : dict.buyOutOfStock}
               </button>
             </div>
 <div>
