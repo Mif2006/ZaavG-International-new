@@ -349,7 +349,7 @@ function ItemPage() {
             <div className="h-px w-full bg-black/10" />
 
             {/* Size Selector */}
-            {stockRows.length > 0 && (
+            {stockRows.length > 1 && (
               <div>
                 <div className="mb-3 text-sm text-black/80">{dict.size}</div>
                 <div className="flex flex-wrap gap-2">

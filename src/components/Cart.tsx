@@ -827,7 +827,7 @@ export function CartModal({ isOpen, onClose, lang }: CartModalProps) {
                         <span className="text-base font-semibold">{item.title}</span>
                         {item.size && (
                           <span className="text-xs text-black/60 uppercase tracking-wider mt-1">
-                            Size: {item.size}
+                            Size: {item.size}{/\b(?:bracelet|necklace)\b/i.test(item.title) && !/cm\s*$/i.test(String(item.size).trim()) ? " cm" : ""}
                           </span>
                         )}
                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-3">
