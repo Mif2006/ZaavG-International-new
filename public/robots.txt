@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /checkout
+Disallow: /thankyou
+Disallow: /payment-error
+Disallow: /test-paypal
+Disallow: /api/
+
+Sitemap: https://www.zaavgbali.com/sitemap.xml

@@ -1,46 +1,30 @@
-// src/routes/sitemap[.]xml.ts
 import { createFileRoute } from "@tanstack/react-router";
-import { listItems } from "@/lib/db";
+
+const DOMAIN = "https://www.zaavgbali.com";
 
 export const Route = createFileRoute("/sitemap.xml")({
   loader: async () => {
-    const domain = "https://zaav-g-international-new.vercel.app";
+    const staticPages = ["", "/collections", "/collections/rings", "/collections/earrings",
+      "/collections/bracelets", "/collections/pendants", "/collections/chains",
+      "/delivery", "/size", "/paymentinfo", "/cooperation", "/contact", "/videos"];
 
-    // 1. Static pages
-    const staticPages = ["", "/collections", "/delivery", "/size", "/paymentinfo", "/cooperation", "/contact", "/videos"];
-
-    // 2. Fetch active catalog items from Supabase
-    const items = await listItems();
-
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
-    xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-
-    // Output static routes
-    for (const page of staticPages) {
-      xml += `  <url>\n`;
-      xml += `    <loc>${domain}${page}</loc>\n`;
-      xml += `    <changefreq>weekly</changefreq>\n`;
-      xml += `    <priority>${page === "" ? "1.0" : "0.8"}</priority>\n`;
-      xml += `  </url>\n`;
+    let items: { slug: string; updated_at: string | null }[] = [];
+    try {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data } = await supabaseAdmin
+        .from("items").select("slug, updated_at").order("sort_order");
+      items = data ?? [];
+    } catch (e) {
+      console.error("sitemap: catalog fetch failed, serving static URLs", e);
     }
 
-    // Output collection items from database
-    for (const item of items) {
-      xml += `  <url>\n`;
-      xml += `    <loc>${domain}/collections/${item.slug}</loc>\n`;
-      xml += `    <lastmod>${new Date(item.updated_at || Date.now()).toISOString().split("T")[0]}</lastmod>\n`;
-      xml += `    <changefreq>daily</changefreq>\n`;
-      xml += `    <priority>0.9</priority>\n`;
-      xml += `  </url>\n`;
-    }
-
-    xml += `</urlset>`;
-
+    const urls = [
+      ...staticPages.map((p) => `  <url><loc>${DOMAIN}${p}</loc><changefreq>weekly</changefreq><priority>${p === "" ? "1.0" : "0.8"}</priority></url>`),
+      ...items.map((i) => `  <url><loc>${DOMAIN}/collections/${i.slug}</loc><lastmod>${new Date(i.updated_at ?? Date.now()).toISOString().split("T")[0]}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>`),
+    ];
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>`;
     return new Response(xml, {
-      headers: {
-        "Content-Type": "application/xml",
-        "Cache-Control": "public, max-age=3600, s-maxage=86400",
-      },
+      headers: { "Content-Type": "application/xml", "Cache-Control": "public, max-age=3600, s-maxage=86400" },
     });
   },
 });
