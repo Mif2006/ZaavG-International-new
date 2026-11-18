@@ -109,3 +109,34 @@ export async function getItemBySlug(slug: string) {
   if (!data) return null;
   return getItemFullByRow(data as Item);
 }
+
+export async function getCategoryBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("categories")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle();
+  if (error) throw error;
+  return (data ?? null) as Category | null;
+}
+
+export async function listItemsByCategory(categoryId: string) {
+  const { data: tagged, error: tagErr } = await supabase
+    .from("item_tags")
+    .select("item_id")
+    .eq("category_id", categoryId);
+  if (tagErr) throw tagErr;
+  const ids = (tagged ?? []).map((r) => r.item_id);
+
+  let query = supabase
+    .from("items")
+    .select("*")
+    .order("sort_order", { ascending: true });
+  query = ids.length
+    ? query.or(`primary_category_id.eq.${categoryId},id.in.(${ids.join(",")})`)
+    : query.eq("primary_category_id", categoryId);
+
+  const { data, error } = await query;
+  if (error) throw error;
+  return (data ?? []) as Item[];
+}

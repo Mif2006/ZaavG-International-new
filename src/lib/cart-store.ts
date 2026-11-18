@@ -35,21 +35,19 @@ export const cartStore = {
   addItem: (item: Omit<CartItem, "id">) => {
     const id = `${item.productId}-${item.size || "none"}`;
     const existingIndex = cart.findIndex((i) => i.id === id);
-    
+
     if (existingIndex >= 0) {
-      // Update quantity if item + size already exists
       const updated = [...cart];
-      updated[existingIndex] = { 
-        ...updated[existingIndex], 
-        quantity: updated[existingIndex].quantity + item.quantity 
+      updated[existingIndex] = {
+        ...updated[existingIndex],
+        quantity: updated[existingIndex].quantity + item.quantity,
       };
       cart = updated;
     } else {
-      // Add new item
       cart = [...cart, { ...item, id }];
     }
-    
-    isOpen = true; // Auto-open cart when adding items
+
+    isOpen = true;
     emit();
   },
   removeItem: (id: string) => {
@@ -76,15 +74,28 @@ export const cartStore = {
   getIsOpenSnapshot: () => isOpen,
 };
 
+// Stable server snapshots (must be constant references, not fresh arrays)
+const EMPTY_CART: CartItem[] = [];
+const getServerCartSnapshot = () => EMPTY_CART;
+const getServerIsOpenSnapshot = () => false;
+
 // Custom hook to use anywhere in your app
 export function useCart() {
-  const items = useSyncExternalStore(cartStore.subscribe, cartStore.getSnapshot);
-  const isCartOpen = useSyncExternalStore(cartStore.subscribe, cartStore.getIsOpenSnapshot);
-  
-  return { 
-    items, 
-    isCartOpen, 
-    total: items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-    ...cartStore 
+  const items = useSyncExternalStore(
+    cartStore.subscribe,
+    cartStore.getSnapshot,
+    getServerCartSnapshot,
+  );
+  const isCartOpen = useSyncExternalStore(
+    cartStore.subscribe,
+    cartStore.getIsOpenSnapshot,
+    getServerIsOpenSnapshot,
+  );
+
+  return {
+    items,
+    isCartOpen,
+    total: items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    ...cartStore,
   };
 }

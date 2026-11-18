@@ -159,20 +159,22 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Handmade jewelry from Bali" },
-      { name: "description", content: "Rings, earrings, bracelets, pendants, chains – designer handmade jewelry." },
+      { title: "ZAAV G | Handmade Jewelry from Bali" },
+      { name: "description", content: "Sculptural 925 sterling silver jewelry with 24k gold accents and natural stones. Designed by Elena Usnich, handcrafted in Bali. Rings, earrings, bracelets, pendants and chains — shipped worldwide." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "ZAAV G" },
+      { property: "og:url", content: "https://www.zaavgbali.com/" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:title", content: "Handmade jewelry from Bali" },
-      { name: "twitter:title", content: "Handmade jewelry from Bali" },
-      { property: "og:description", content: "Rings, earrings, bracelets, pendants, chains – designer handmade jewelry." },
-      { name: "twitter:description", content: "Rings, earrings, bracelets, pendants, chains – designer handmade jewelry." },
-      { property: "og:image", content: "/LinkImage.webp" },
-      { name: "twitter:image", content: "/LinkImage.webp" },
+      { property: "og:title", content: "ZAAV G | Handmade Jewelry from Bali" },
+      { name: "twitter:title", content: "ZAAV G | Handmade Jewelry from Bali" },
+      { property: "og:description", content: "Sculptural 925 sterling silver jewelry with 24k gold accents and natural stones. Handcrafted in Bali, shipped worldwide." },
+      { name: "twitter:description", content: "Sculptural 925 sterling silver jewelry with 24k gold accents and natural stones. Handcrafted in Bali, shipped worldwide." },
+      { property: "og:image", content: "https://www.zaavgbali.com/LinkImage.webp" },
+      { name: "twitter:image", content: "https://www.zaavgbali.com/LinkImage.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
