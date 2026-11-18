@@ -1,5 +1,13 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getItemBySlug, listItems } from "@/lib/db";
+import {
+  getItemBySlug,
+  listItems,
+  listCategories,
+  getCategoryBySlug,
+  listItemsByCategory,
+  type Category,
+  type Item,
+} from "@/lib/db";
 import { PublicShell } from "@/components/public-shell";
 import { useI18n } from "@/lib/i18n";
 import { useCart } from "@/lib/cart-store";
@@ -21,7 +29,6 @@ const T: Record<
     back: string;
     unavailableTitle: string;
     unavailableMessage: string;
-
     locale: string;
   }
 > = {
@@ -35,8 +42,8 @@ const T: Record<
     material: "Material",
     back: "Back to collections",
     unavailableTitle: "Unable to purchase",
-    unavailableMessage: "This item cannot be purchased right now because no size has been selected or it is currently out of stock. Please contact us and we will be happy to help.",
-
+    unavailableMessage:
+      "This item cannot be purchased right now because no size has been selected or it is currently out of stock. Please contact us and we will be happy to help.",
     locale: "en-US",
   },
   ru: {
@@ -49,8 +56,8 @@ const T: Record<
     material: "Материал",
     back: "Вернуться к коллекциям",
     unavailableTitle: "Невозможно оформить покупку",
-    unavailableMessage: "Этот товар сейчас нельзя приобрести: размер не выбран или товар закончился. Свяжитесь с нами, и мы с радостью поможем.",
-
+    unavailableMessage:
+      "Этот товар сейчас нельзя приобрести: размер не выбран или товар закончился. Свяжитесь с нами, и мы с радостью поможем.",
     locale: "ru-RU",
   },
   id: {
@@ -63,70 +70,220 @@ const T: Record<
     material: "Bahan",
     back: "Kembali ke koleksi",
     unavailableTitle: "Tidak dapat melakukan pembelian",
-    unavailableMessage: "Produk ini belum dapat dibeli karena ukuran belum dipilih atau stok sedang habis. Silakan hubungi kami dan kami akan dengan senang hati membantu.",
-
+    unavailableMessage:
+      "Produk ini belum dapat dibeli karena ukuran belum dipilih atau stok sedang habis. Silakan hubungi kami dan kami akan dengan senang hati membantu.",
     locale: "id-ID",
   },
 };
 
+const SITE = "https://www.zaavgbali.com";
+
+function plainText(html: string) {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const CATEGORY_SEO: Record<
+  string,
+  { title: string; description: string; h1: string; intro: string }
+> = {
+  rings: {
+    title: "Silver Rings Handmade in Bali — 925 Sterling | ZAAV G",
+    description:
+      "Sculptural 925 sterling silver rings handcrafted in Bali. Symbolic designs, natural stones and 24k gold accents by ZAAV G. Worldwide shipping.",
+    h1: "Handmade Silver Rings from Bali",
+    intro:
+      "Every ZAAV G ring begins as an ancient symbol, shaped by hand in our Bali workshop from solid 925 sterling silver — often accented with 24k gold and natural stones. From sculptural statement rings to delicate bands, each piece is made to be worn every day. Find your fit with our ring size guide, or visit the atelier in Singapadu to try them on.",
+  },
+  earrings: {
+    title: "Handmade Silver Earrings from Bali — 925 | ZAAV G",
+    description:
+      "Handcrafted 925 sterling silver earrings from Bali. Studs and statement designs with natural gemstones. By ZAAV G, shipped worldwide.",
+    h1: "Handmade Silver Earrings from Bali",
+    intro:
+      "From quiet studs to sculptural statement pieces, ZAAV G earrings are handcrafted in Bali from 925 sterling silver and set with natural gemstones. Each pair carries a symbol and a story — made to move with you, from everyday moments to the ones that matter.",
+  },
+  bracelets: {
+    title: "Bali Silver Bracelets — Handmade 925 Silver | ZAAV G",
+    description:
+      "Handmade 925 sterling silver bracelets from Bali. Woven chains, cuffs and symbolic designs by ZAAV G. Worldwide shipping.",
+    h1: "Handmade Silver Bracelets from Bali",
+    intro:
+      "ZAAV G bracelets are hand-formed in our Bali workshop from solid 925 sterling silver — woven chains, cuffs and symbolic pieces built to be worn daily and remembered. Each one is finished by hand and checked before it ships, anywhere in the world.",
+  },
+  pendants: {
+    title: "Silver Pendants Handmade in Bali — 925 | ZAAV G",
+    description:
+      "Handcrafted 925 sterling silver pendants from Bali. Talisman designs with natural stones and 24k gold accents. By ZAAV G.",
+    h1: "Handmade Silver Pendants from Bali",
+    intro:
+      "Each ZAAV G pendant is a small talisman — an ancient symbol reworked by hand in Bali from 925 sterling silver, natural stones and touches of 24k gold. Wear it close to the story it carries, every day rather than only on special occasions.",
+  },
+  chains: {
+    title: "Sterling Silver Necklaces & Chains — Bali | ZAAV G",
+    description:
+      "Handmade 925 sterling silver necklaces and chains from Bali. Woven links and symbolic pendants by ZAAV G. Worldwide shipping.",
+    h1: "Silver Necklaces & Chains, Handmade in Bali",
+    intro:
+      "ZAAV G necklaces and chains are hand-woven in Bali from 925 sterling silver, link by link. Pair them with a symbolic pendant or wear them alone — each piece is made to sit comfortably and last, shipped worldwide.",
+  },
+  "mens-jewelry": {
+    title: "Men's Silver Jewelry Handmade in Bali | ZAAV G",
+    description:
+      "Handmade 925 sterling silver jewelry for men from Bali. Bold rings, chains and cuffs by ZAAV G. Worldwide shipping.",
+    h1: "Men's Handmade Silver Jewelry from Bali",
+    intro:
+      "Bold, sculptural pieces in solid 925 sterling silver — rings, chains and cuffs handcrafted in Bali for everyday wear. ZAAV G men's jewelry carries the same symbolic design language as the rest of the collection, built to be worn, not kept away.",
+  },
+  "phalanx-rings": {
+    title: "Phalanx Rings — Handmade 925 Silver | ZAAV G",
+    description:
+      "Handmade 925 sterling silver phalanx (midi) rings from Bali. Delicate symbolic bands by ZAAV G. Worldwide shipping.",
+    h1: "Handmade Phalanx Rings from Bali",
+    intro:
+      "Delicate bands designed to sit above the knuckle, handcrafted in Bali from 925 sterling silver. ZAAV G phalanx rings stack easily with the rest of the collection — small, symbolic pieces made for everyday wear.",
+  },
+};
+CATEGORY_SEO["phalange-rings"] = CATEGORY_SEO["phalanx-rings"];
+
 export const Route = createFileRoute("/collections/$slug")({
-  validateSearch: (search: Record<string, unknown>) => ({
+  validateSearch: (search: Record<string, unknown>): { category?: string } => ({
     category: typeof search.category === "string" ? search.category : undefined,
   }),
   loader: async ({ params: { slug } }) => {
     const full = await getItemBySlug(slug);
-    if (!full) throw notFound();
-    
-    const allItems = await listItems();
-    return { full, allItems };
+    if (full) {
+      const [allItems, categories] = await Promise.all([listItems(), listCategories()]);
+      const category =
+        categories.find((c) => c.id === full.item.primary_category_id) ?? null;
+      return { kind: "product" as const, full, allItems, category };
+    }
+    const category = await getCategoryBySlug(slug);
+    if (category) {
+      const items = await listItemsByCategory(category.id);
+      return { kind: "category" as const, category, items };
+    }
+    throw notFound();
   },
 
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { item } = loaderData.full;
 
-    const cleanDescription = item.description
-      ? item.description.replace(/(<([^>]+)>)/gi, "").substring(0, 160)
-      : `Shop the ${item.title} at ZAAV G.`;
+    if (loaderData.kind === "category") {
+      const { category } = loaderData;
+      const seo = CATEGORY_SEO[category.slug];
+      const title = seo?.title ?? `${category.name_en} — Handmade in Bali | ZAAV G`;
+      const description =
+        seo?.description ??
+        `Shop ${category.name_en.toLowerCase()} handcrafted in Bali from 925 sterling silver. By ZAAV G, shipped worldwide.`;
+      const url = `${SITE}/collections/${category.slug}`;
+      return {
+        meta: [
+          { title },
+          { name: "description", content: description },
+          { property: "og:title", content: title },
+          { property: "og:description", content: description },
+          { property: "og:url", content: url },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
+        ],
+        links: [{ rel: "canonical", href: url }],
+      };
+    }
+
+    const { item, images } = loaderData.full;
+    const catName = loaderData.category?.name_en ?? "Jewelry";
+    const url = `${SITE}/collections/${item.slug}`;
+    const material = item.material ?? "925 sterling silver";
+    const gallery = [item.main_image_url, ...(images ?? []).map((i) => i.url)].filter(
+      (u): u is string => !!u,
+    );
+    const sizes = loaderData.full.sizes ?? [];
+    const inStock = sizes.length === 0 ? true : sizes.some((s) => Number(s.stock) > 0);
+
+    const lead = `${item.title} — ${catName.toLowerCase()} in ${material}, handcrafted in Bali by ZAAV G.`;
+    const body = item.description ? plainText(item.description) : "";
+    const fullDesc = `${lead} ${body}`.trim();
+    const description =
+      fullDesc.length > 158 ? fullDesc.slice(0, 155).replace(/\s+\S*$/, "") + "…" : fullDesc;
 
     const jsonLd = {
-      "@context": "https://schema.org/",
+      "@context": "https://schema.org",
       "@type": "Product",
       name: item.title,
-      image: item.main_image_url,
-      description: cleanDescription,
+      image: gallery,
+      description,
+      sku: item.id,
+      brand: { "@type": "Brand", name: "ZAAV G" },
       offers: {
         "@type": "Offer",
-        url: `https://zaavgbali.com/collections/${item.slug}`,
-        priceCurrency: "Iz",
+        url,
+        priceCurrency: "IDR",
         price: item.price,
-        availability: "https://schema.org/InStock",
-        seller: {
-          "@type": "Organization",
-          name: "ZAAV G",
+        availability: inStock
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+        itemCondition: "https://schema.org/NewCondition",
+        seller: { "@type": "Organization", name: "ZAAV G" },
+        hasMerchantReturnPolicy: {
+          "@type": "MerchantReturnPolicy",
+          applicableCountry: "ID",
+          returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+          merchantReturnDays: 14,
+          returnMethod: "https://schema.org/ReturnByMail",
+          returnFees: "https://schema.org/ReturnShippingFees",
         },
       },
     };
 
+    const breadcrumbs = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE },
+        { "@type": "ListItem", position: 2, name: "Collections", item: `${SITE}/collections` },
+        ...(loaderData.category
+          ? [
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: catName,
+                item: `${SITE}/collections/${loaderData.category.slug}`,
+              },
+            ]
+          : []),
+        {
+          "@type": "ListItem",
+          position: loaderData.category ? 4 : 3,
+          name: item.title,
+          item: url,
+        },
+      ],
+    };
+
     return {
       meta: [
-        { title: `${item.title} | ZAAV G` },
-        { name: "description", content: cleanDescription },
-        { property: "og:title", content: item.title },
-        { property: "og:description", content: cleanDescription },
+        { title: `${item.title} — ${catName} | ZAAV G` },
+        { name: "description", content: description },
+        { property: "og:title", content: `${item.title} | ZAAV G` },
+        { property: "og:description", content: description },
         { property: "og:image", content: item.main_image_url },
+        { property: "og:url", content: url },
         { property: "og:type", content: "product" },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
+      links: [{ rel: "canonical", href: url }],
       scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify(jsonLd),
-        },
+        { type: "application/ld+json", children: JSON.stringify(jsonLd) },
+        { type: "application/ld+json", children: JSON.stringify(breadcrumbs) },
       ],
     };
   },
 
-  component: ItemPage,
+  component: RouteComponent,
   notFoundComponent: () => (
     <div className="bg-white text-black">
       <PublicShell variant="light">
@@ -136,8 +293,70 @@ export const Route = createFileRoute("/collections/$slug")({
   ),
 });
 
+function RouteComponent() {
+  const data = Route.useLoaderData();
+  if (data.kind === "category") {
+    return <CategoryPage category={data.category} items={data.items} />;
+  }
+  return <ItemPage />;
+}
+
+function CategoryPage({ category, items }: { category: Category; items: Item[] }) {
+  const seo = CATEGORY_SEO[category.slug];
+  const h1 = seo?.h1 ?? category.name_en;
+  const intro = seo?.intro ?? "";
+  return (
+    <div className="bg-white text-black">
+      <PublicShell variant="light">
+        <section className="pt-36 pb-6 text-center md:pt-32">
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">{h1}</h1>
+          {intro && (
+            <p className="mx-auto mt-4 max-w-2xl px-4 text-sm leading-relaxed text-black/70">
+              {intro}
+            </p>
+          )}
+        </section>
+        {items.length === 0 ? (
+          <div className="py-24 text-center text-black/50">
+            No items found in this category.
+          </div>
+        ) : (
+          <div className="grid mx-6 md:mx-8 pt-4 pb-16 grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 md:gap-x-6 lg:grid-cols-4">
+            {items.map((it) => (
+              <Link
+                to="/collections/$slug"
+                params={{ slug: it.slug }}
+                key={it.id}
+                className="group flex flex-col items-start"
+              >
+                <div className="relative w-full aspect-[3/4] mb-3 overflow-hidden bg-neutral-100">
+                  {it.main_image_url && (
+                    <img
+                      src={it.main_image_url}
+                      alt={`${it.title} — ${it.material ?? "925 sterling silver"}, handmade in Bali`}
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                    />
+                  )}
+                </div>
+                <h2 className="text-sm font-medium text-neutral-900 truncate w-full">
+                  {it.title}
+                </h2>
+                <p className="text-sm text-neutral-500 mt-0.5 tabular-nums">
+                  Rp {Number(it.price).toLocaleString("id-ID")}
+                </p>
+              </Link>
+            ))}
+          </div>
+        )}
+      </PublicShell>
+    </div>
+  );
+}
+
 function ItemPage() {
-  const { full, allItems } = Route.useLoaderData();
+  const data = Route.useLoaderData();
+  if (data.kind !== "product") return null;
+  const { full, allItems } = data;
   const { category } = Route.useSearch();
 
   const { lang } = useI18n();
@@ -159,13 +378,12 @@ function ItemPage() {
     item.main_image_url,
     ...(images || []).map((i) => i.url),
   ].filter((u): u is string => !!u);
-  
+
   const recs = (allItems ?? []).filter((i) =>
     (recommendedIds || []).includes(i.id),
   );
 
-  const prev = () =>
-    setHeroIdx((i) => (i - 1 + gallery.length) % gallery.length);
+  const prev = () => setHeroIdx((i) => (i - 1 + gallery.length) % gallery.length);
   const next = () => setHeroIdx((i) => (i + 1) % gallery.length);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -233,18 +451,13 @@ function ItemPage() {
     <div className="bg-white overflow-x-hidden w-full max-w-full">
       <PublicShell variant="light">
         <div className="relative grid gap-8 pt-[calc(7rem+env(safe-area-inset-top))] px-4 md:px-8 lg:px-12 pb-12 md:grid-cols-[minmax(0,1fr)_340px] lg:grid-cols-[minmax(0,1.2fr)_420px] lg:gap-16 items-start w-full max-w-full">
-          
           <Link
             to="/collections"
             search={{ category }}
             aria-label={dict.back}
             className="absolute left-4 top-[calc(5.65rem+env(safe-area-inset-top))] z-20 flex min-h-11 min-w-11 touch-manipulation items-center justify-center rounded-full border border-black/10 bg-white/65 text-black/75 shadow-sm backdrop-blur-md transition-all duration-200 hover:bg-black/5 hover:text-black active:bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/40 md:left-8 md:top-[calc(6rem+env(safe-area-inset-top))] md:border-transparent md:bg-transparent md:shadow-none md:backdrop-blur-none"
           >
-            <ArrowLeft
-              aria-hidden="true"
-              className="h-6 w-6 shrink-0"
-              strokeWidth={1.5}
-            />
+            <ArrowLeft aria-hidden="true" className="h-6 w-6 shrink-0" strokeWidth={1.5} />
           </Link>
 
           {/* Gallery Area */}
@@ -271,7 +484,7 @@ function ItemPage() {
                       >
                         <img
                           src={u}
-                          alt={item.title}
+                          alt={`${item.title} — ${item.material ?? "925 sterling silver"}, handmade in Bali`}
                           className="h-full w-full object-cover"
                         />
                         {gallery.length > 1 && (
@@ -292,20 +505,14 @@ function ItemPage() {
                     aria-label="prev"
                     className="absolute inset-y-0 left-0 flex w-10 items-center justify-center text-black transition hover:opacity-50 md:w-16 z-10 cursor-pointer"
                   >
-                    <ChevronLeft
-                      strokeWidth={1}
-                      className="h-8 w-8 md:h-12 md:w-12"
-                    />
+                    <ChevronLeft strokeWidth={1} className="h-8 w-8 md:h-12 md:w-12" />
                   </button>
                   <button
                     onClick={next}
                     aria-label="next"
                     className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-black transition hover:opacity-50 md:w-16 z-10 cursor-pointer"
                   >
-                    <ChevronRight
-                      strokeWidth={1}
-                      className="h-8 w-8 md:h-12 md:w-12"
-                    />
+                    <ChevronRight strokeWidth={1} className="h-8 w-8 md:h-12 md:w-12" />
                   </button>
                 </>
               )}
@@ -325,11 +532,7 @@ function ItemPage() {
                           : "border-transparent opacity-50 hover:opacity-80"
                       }`}
                     >
-                      <img
-                        src={u}
-                        alt=""
-                        className="h-full w-full object-cover"
-                      />
+                      <img src={u} alt="" className="h-full w-full object-cover" />
                     </button>
                   ))}
                 </div>
@@ -342,7 +545,7 @@ function ItemPage() {
             <div>
               <h1 className="text-3xl font-bold md:text-4xl">{item.title}</h1>
               <div className="mt-2 text-lg text-black/80 tabular-nums">
-               Rp {Number(item.price).toLocaleString("id-ID")} 
+                Rp {Number(item.price).toLocaleString("id-ID")}
               </div>
             </div>
 
@@ -364,8 +567,7 @@ function ItemPage() {
                       buttonClass +=
                         "border-black/20 text-black/40 cursor-not-allowed bg-[linear-gradient(to_top_right,transparent_calc(50%-1px),rgba(0,0,0,0.2)_50%,transparent_calc(50%+1px))]";
                     } else if (isSelected) {
-                      buttonClass +=
-                        "border-black bg-black text-white cursor-pointer";
+                      buttonClass += "border-black bg-black text-white cursor-pointer";
                     } else {
                       buttonClass +=
                         "border-black/20 bg-white text-black hover:border-black cursor-pointer";
@@ -398,9 +600,7 @@ function ItemPage() {
                   >
                     −
                   </button>
-                  <div className="w-8 text-center text-sm font-medium">
-                    {quantity}
-                  </div>
+                  <div className="w-8 text-center text-sm font-medium">{quantity}</div>
                   <button
                     onClick={increaseQty}
                     className="flex h-8 w-8 items-center justify-center text-lg text-black/60 hover:text-black cursor-pointer"
@@ -428,31 +628,28 @@ function ItemPage() {
                 {hasStock ? dict.buy : dict.buyOutOfStock}
               </button>
             </div>
-<div>
-            {/* Metadata */}
-            <div className="pt-2 text-md font-bold">
-              {item.material && (
-                <div>
-                  <span >{dict.material}:</span>{" "}
-                  {item.material}
-                </div>
+
+            <div>
+              {/* Metadata */}
+              <div className="pt-2 text-md font-bold">
+                {item.material && (
+                  <div>
+                    <span>{dict.material}:</span> {item.material}
+                  </div>
+                )}
+              </div>
+
+              {/* Description */}
+              {item.description && (
+                <div
+                  className="prose prose-sm max-w-none text-black/80 break-words"
+                  dangerouslySetInnerHTML={{ __html: item.description }}
+                />
               )}
             </div>
-
-            {/* Description */}
-            {item.description && (
-              <div
-                className="prose prose-sm max-w-none text-black/80 break-words"
-                dangerouslySetInnerHTML={
-                  { __html: 
-                    item.description 
-                  }
-                }
-              />
-            )}
           </div>
         </div>
-</div>
+
         {/* Recommendations */}
         {recs.length > 0 && (
           <section className="mt-12 px-4 md:px-12 lg:px-24 pb-8 w-full max-w-full">
@@ -469,7 +666,7 @@ function ItemPage() {
                     {r.main_image_url && (
                       <img
                         src={r.main_image_url}
-                        alt=""
+                        alt={`${r.title} — handmade silver jewelry from Bali`}
                         className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                       />
                     )}
@@ -477,7 +674,7 @@ function ItemPage() {
                   <div className="pt-3">
                     <div className="text-sm font-medium truncate">{r.title}</div>
                     <div className="mt-0.5 text-sm text-black/70 tabular-nums">
-                     Rp {Number(r.price).toLocaleString("id-ID")} 
+                      Rp {Number(r.price).toLocaleString("id-ID")}
                     </div>
                   </div>
                 </Link>
@@ -542,14 +739,7 @@ function ItemPage() {
                       fill="#EA4335"
                       stroke="none"
                     />
-                    <path
-                      d="M22 6L12 13L2 6"
-                      stroke="#ffffff"
-                      strokeWidth={1.8}
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
+                    <path d="M22 6L12 13L2 6" stroke="#ffffff" strokeWidth={1.8} fill="none" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M22 18L15 12" stroke="#ffffff" strokeWidth={1.8} fill="none" strokeLinecap="round" />
                     <path d="M2 18L9 12" stroke="#ffffff" strokeWidth={1.8} fill="none" strokeLinecap="round" />
                   </svg>
