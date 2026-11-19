@@ -148,7 +148,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
           >
             Go home
           </a>
@@ -158,8 +158,20 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const ORG_JSONLD = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "ZAAV G",
+  url: "https://www.zaavgbali.com/",
+  logo: "https://www.zaavgbali.com/LinkImage.webp",
+  sameAs: [
+    "https://www.instagram.com/zaav_g_bali/",
+    "https://www.youtube.com/@zaav_g",
+  ],
+});
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-   head: () => ({
+  head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -167,19 +179,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Sculptural 925 sterling silver jewelry with 24k gold accents and natural stones. Designed by Elena Usnich, handcrafted in Bali. Rings, earrings, bracelets, pendants and chains — shipped worldwide." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "ZAAV G" },
-      { property: "og:url", content: "https://www.zaavgbali.com/" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:title", content: "ZAAV G | Handmade Jewelry from Bali" },
-      { name: "twitter:title", content: "ZAAV G | Handmade Jewelry from Bali" },
       { property: "og:description", content: "Sculptural 925 sterling silver jewelry with 24k gold accents and natural stones. Handcrafted in Bali, shipped worldwide." },
-      { name: "twitter:description", content: "Sculptural 925 sterling silver jewelry with 24k gold accents and natural stones. Handcrafted in Bali, shipped worldwide." },
       { property: "og:image", content: "https://www.zaavgbali.com/LinkImage.webp" },
-      { name: "twitter:image", content: "https://www.zaavgbali.com/LinkImage.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
+    scripts: [{ type: "application/ld+json", children: ORG_JSONLD }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -201,12 +210,22 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+/** Keeps <html lang> in sync with the EN/RU/ID switcher (accessibility + SEO). */
+function LangSync() {
+  const { lang } = useI18n();
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
+        <LangSync />
         <Outlet />
         <Toaster richColors position="top-right" />
       </I18nProvider>
